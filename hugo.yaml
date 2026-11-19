@@ -1,0 +1,44 @@
+baseURL: "https://CellMeet.github.io/"
+title: "TomCat's Blog"
+theme: ["PaperMod"]
+languageCode: "zh-CN"
+defaultContentLanguage: "zh-cn"
+
+params:
+  env: production
+  author: "Tian Junkai"
+  description: "Python, Java, Golang, JavaScript... Promise no AI in Blog."
+  ShowReadingTime: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  profileMode:
+    enabled: true
+    title: "Blog"
+    subtitle: "The Hitchhiker's Guide to the Galaxy."
+    imageUrl: "" # 可以填头像路径，例如 images/avatar.jpg
+    imageWidth: 120
+    imageHeight: 120
+    buttons:
+      - name: 文章
+        url: posts/
+      - name: 标签
+        url: tags/
+
+menu:
+  main:
+    - identifier: posts
+      name: essay
+      url: /posts/
+      weight: 10
+    - identifier: posts
+      name: tech
+      url: /posts/
+      weight: 10
+    - identifier: posts
+      name: books/movies
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: 标签
+      url: /tags/
+      weight: 20
