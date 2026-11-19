@@ -1,44 +1,48 @@
 baseURL: "https://CellMeet.github.io/"
-title: "TomCat's Blog"
+title: "Tian Junkai's Blog"
 theme: ["PaperMod"]
 languageCode: "zh-CN"
 defaultContentLanguage: "zh-cn"
 
+# --- 关键配置：首页显示文章列表，而非个人简介 ---
+# 确保没有启用 profileMode，这里不写 profileMode 相关配置即可。
+# 显式指定首页列表展示的内容区域。
 params:
-  env: production
-  author: "Tian Junkai"
-  description: "Python, Java, Golang, JavaScript... Promise no AI in Blog."
-  ShowReadingTime: true
-  ShowCodeCopyButtons: true
-  ShowWordCount: true
-  profileMode:
-    enabled: true
-    title: "Blog"
-    subtitle: "The Hitchhiker's Guide to the Galaxy."
-    imageUrl: "" # 可以填头像路径，例如 images/avatar.jpg
-    imageWidth: 120
-    imageHeight: 120
-    buttons:
-      - name: 文章
-        url: posts/
-      - name: 标签
-        url: tags/
+  mainSections: ["posts"] # 告诉首页从 posts 目录抓取文章[reference:5]
 
-menu:
-  main:
-    - identifier: posts
-      name: essay
-      url: /posts/
-      weight: 10
-    - identifier: posts
-      name: tech
-      url: /posts/
-      weight: 10
-    - identifier: posts
-      name: books/movies
-      url: /posts/
-      weight: 10
-    - identifier: tags
-      name: 标签
-      url: /tags/
-      weight: 20
+  # --- 主页信息模式（可选）---
+  # 如果你希望在文章列表上方显示一个简短的问候语，可以取消下面的注释
+  # homeInfoParams:
+  #   Title: "你好，欢迎来到我的博客"
+  #   Content: "这里记录了我的随笔、技术和分享。"
+
+  # --- 主题美化参数 ---
+  env: production
+  author: "Tian JunKai"
+  description: "Java, Golang, JavaScript... LLover!"
+  ShowReadingTime: true
+  ShowWordCount: true
+  ShowCodeCopyButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowToc: true
+  TocOpen: false
+  DateFormat: "2006-01-02"
+  defaultTheme: "auto"
+
+# --- 菜单配置（我们选择清空或注释它）---
+# 注释掉 menu 部分，首页顶部就不会显示“随笔/标签”等导航链接[reference:7]
+# menu:
+#   main:
+#     - identifier: essay
+#       name: 随笔
+#       url: /posts/essay/
+#       weight: 10
+#     - identifier: tech
+#       name: 技术
+#       url: /posts/tech/
+#       weight: 20
+#     - identifier: share
+#       name: 分享
+#       url: /posts/share/
+#       weight: 30
