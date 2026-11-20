@@ -2492,3 +2492,82 @@ body.two-col .post-grid .post-card:not(.post-card-more) {
         flex-direction: column !important;
     }
 }
+
+/* 齿轮折叠面板：默认只显示齿轮和回到顶部 */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 118px;
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: max-height 0.28s ease, opacity 0.2s ease, transform 0.28s ease;
+}
+.side-tools.open .side-panel {
+    max-height: 120px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.side-panel-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.42);
+    color: var(--secondary);
+    font-size: 12.5px;
+    line-height: 1.2;
+    text-align: left;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px -12px rgba(31, 38, 135, 0.35);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+html[data-theme="dark"] .side-panel-item {
+    background: rgba(20, 22, 32, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.side-panel-item:hover {
+    color: var(--accent);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+}
+.side-panel-icon {
+    display: flex;
+    align-items: center;
+}
+.side-panel-icon svg {
+    width: 16px;
+    height: 16px;
+}
+.side-panel-label {
+    white-space: nowrap;
+}
+.side-panel-item .icon-sun {
+    display: none;
+}
+html[data-theme="dark"] .side-panel-item .icon-sun {
+    display: block;
+}
+html[data-theme="dark"] .side-panel-item .icon-moon {
+    display: none;
+}
+#side-settings svg {
+    transition: transform 0.25s ease;
+}
+.side-tools.open #side-settings svg {
+    transform: rotate(90deg);
+}
+
+.side-tools {
+    align-items: flex-end;
+}
