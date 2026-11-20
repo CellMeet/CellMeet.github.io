@@ -2693,3 +2693,30 @@ html[data-theme="dark"] .taxonomy-page {
         font-size: 15px;
     }
 }
+
+/* 齿轮面板只显示图标 */
+.side-panel {
+    width: 38px;
+}
+.side-panel-item {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+}
+
+/* 齿轮和回到顶部下移，比作者稍微靠上 */
+.side-tools {
+    top: calc(100vh - 240px);
+    bottom: auto;
+    transform: translateY(10px);
+    z-index: 96;
+}
+.side-tools.visible {
+    transform: translateY(0);
+}
+@media (max-width: 768px) {
+    .side-tools {
+        top: calc(100vh - 200px);
+    }
+}

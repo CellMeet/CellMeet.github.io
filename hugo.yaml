@@ -85,7 +85,7 @@ params:
   ShowReadingTime: true
   ShowWordCount: true
   ShowCodeCopyButtons: true
-  ShowPostNavLinks: true
+  ShowPostNavLinks: false
   ShowBreadCrumbs: true
   ShowToc: true
   TocOpen: false
