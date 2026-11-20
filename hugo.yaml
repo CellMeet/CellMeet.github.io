@@ -1,5 +1,5 @@
 baseURL: "https://CellMeet.github.io/"
-title: "Tian Junkai’s Blog Space"
+title: "Tian Junkai's Blog Space"
 theme: ["PaperMod"]
 locale: "zh-CN"
 defaultContentLanguage: "zh-cn"
