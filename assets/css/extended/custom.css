@@ -2619,3 +2619,77 @@ html[data-theme="dark"] .side-panel-item .icon-moon {
     color: #ff6b6b;
     font-size: 1.05em;
 }
+
+/* 标签 / 分类页：作者风格彩色块 */
+.taxonomy-page {
+    margin: 28px auto 44px;
+    padding: 34px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 16px -4px rgba(138, 138, 138, 0.15);
+}
+html[data-theme="dark"] .taxonomy-page {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+}
+.taxonomy-page .page-header {
+    margin-bottom: 26px;
+    text-align: center;
+}
+.taxonomy-page .page-header h1 {
+    margin: 0;
+    font-size: clamp(28px, 3.4vw, 38px);
+}
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff !important;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: 0 4px 10px -6px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+.tag-chip:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.45);
+}
+
+/* 右侧工具：默认隐藏，向下滚动后出现 */
+.side-tools {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(-50% + 10px));
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.side-tools.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%);
+}
+
+/* 导航字体再大一点 */
+.menu a {
+    font-size: 17px;
+}
+@media (max-width: 768px) {
+    .menu a {
+        font-size: 15px;
+    }
+}

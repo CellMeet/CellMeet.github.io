@@ -1,22 +1,23 @@
 {{- define "main" }}
 
-{{- if .Title }}
-<header class="page-header">
+{{- /* 标签 / 分类总览：作者风格彩色块，不显示数量小字 */}}
+<div class="taxonomy-page">
+  <header class="page-header">
     <h1>{{ .Title }}</h1>
-    {{- if .Description }}
-    <div class="post-description">
-        {{ .Description }}
-    </div>
+  </header>
+
+  {{- $colors := slice "#2ecc71" "#1c1c1c" "#1abc9c" "#8e44ad" "#d35400" "#9b59b6" "#3498db" "#27ae60" "#c0392b" "#2980b9" "#16a085" "#e67e22" "#7f8c8d" "#a55eea" "#10ac84" }}
+  {{- $i := 0 }}
+  <div class="tag-cloud">
+    {{- range $key, $value := .Data.Terms.Alphabetical }}
+      {{- $name := .Name }}
+      {{- $color := index $colors (mod $i (len $colors)) }}
+      {{- $i = add $i 1 }}
+      {{- with site.GetPage (printf "/%s/%s" $.Type $name) }}
+      <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ $color }};">{{ .LinkTitle }}</a>
+      {{- end }}
     {{- end }}
-</header>
+  </div>
+</div>
+
 {{- end }}
-
-<ul class="terms-tags">
-    {{- range .Data.Terms.Alphabetical }}
-    <li>
-        <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}<span class="cat-count">{{ .Count }}</span></a>
-    </li>
-    {{- end }}
-</ul>
-
-{{- end }}{{/* end main */ -}}

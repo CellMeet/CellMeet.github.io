@@ -165,6 +165,25 @@
         localStorage.setItem("home-layout", isTwo ? "two" : "one");
       });
     }
+    if (tray) {
+      var ticking = false;
+      function updateTools() {
+        var show = window.scrollY > 220;
+        tray.classList.toggle("visible", show);
+        if (!show) {
+          tray.classList.remove("open");
+          if (gear) gear.setAttribute("aria-expanded", "false");
+        }
+        ticking = false;
+      }
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateTools);
+        }
+      }, { passive: true });
+      updateTools();
+    }
   })();
 </script>
 
@@ -187,7 +206,7 @@
       new Typed("#home-subtitle", {
         strings: [text],
         startDelay: 500,
-        typeSpeed: 220,
+        typeSpeed: 160,
         backSpeed: 100,
         backDelay: 2400,
         loop: true
