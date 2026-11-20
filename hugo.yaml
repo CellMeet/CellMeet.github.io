@@ -1,5 +1,5 @@
 baseURL: "https://CellMeet.github.io/"
-title: "Tian Junkai's Blog"
+title: "Tian Junkai’s Blog Space"
 theme: ["PaperMod"]
 locale: "zh-CN"
 defaultContentLanguage: "zh-cn"
@@ -56,6 +56,8 @@ params:
   # ---------- 首页 / 侧栏（复刻 luotian 布局） ----------
   # 首页大标题下的一句话（留空则不显示，自己写好后填在这里）
   homeSubtitle: ""
+  # 首页打字机效果文字（循环打字/删除）
+  homeTypingText: "为 美 好 的 世 界 献 上 祝 福"
   # 右侧个人介绍：留空即不显示，自己写好后填在这里
   homeBio: ""
   # 右侧公告卡片

@@ -2571,3 +2571,23 @@ html[data-theme="dark"] .side-panel-item .icon-moon {
 .side-tools {
     align-items: flex-end;
 }
+
+/* 首页打字机副标题 */
+.home-hero-sub--typing {
+    min-height: 1.9em;
+    margin-top: 10px;
+    letter-spacing: 0.12em;
+}
+#home-subtitle {
+    color: var(--primary);
+    font-weight: 500;
+}
+.typed-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    color: var(--accent);
+    animation: typed-blink 0.9s step-end infinite;
+}
+@keyframes typed-blink {
+    50% { opacity: 0; }
+}

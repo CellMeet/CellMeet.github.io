@@ -167,3 +167,39 @@
     }
   })();
 </script>
+
+{{- /* 首页副标题打字机效果（Typed.js，和作者一致） */}}
+<script>
+  (function () {
+    var el = document.getElementById("home-subtitle");
+    if (!el) return;
+    var text = el.getAttribute("data-text") || el.textContent || "";
+    if (!text) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = text;
+      return;
+    }
+    function start() {
+      if (typeof Typed !== "function") {
+        el.textContent = text;
+        return;
+      }
+      new Typed("#home-subtitle", {
+        strings: [text],
+        startDelay: 300,
+        typeSpeed: 150,
+        backSpeed: 50,
+        loop: true
+      });
+    }
+    if (typeof Typed === "function") {
+      start();
+      return;
+    }
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/typed.js@3.0.0/dist/typed.umd.min.js";
+    s.onload = start;
+    s.onerror = function () { el.textContent = text; };
+    document.head.appendChild(s);
+  })();
+</script>
