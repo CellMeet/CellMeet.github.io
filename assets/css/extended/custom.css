@@ -2720,3 +2720,14 @@ html[data-theme="dark"] .taxonomy-page {
         top: calc(100vh - 200px);
     }
 }
+
+/* 侧栏不再做内部滚动，避免出现上下“截断”边界 */
+.home-sidebar,
+.post-sidebar {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+    scrollbar-width: auto;
+}
