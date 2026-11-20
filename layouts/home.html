@@ -1,0 +1,164 @@
+{{- define "main" }}
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- $paginator := .Paginate $pages }}
+
+{{- if eq $paginator.PageNumber 1 }}
+<section class="home-hero">
+  <h1 class="home-hero-title">{{ site.Title }}</h1>
+  {{- with site.Params.homeSubtitle }}
+  <p class="home-hero-sub">{{ . }}</p>
+  {{- end }}
+  <a class="home-hero-scroll" href="#home-content" aria-label="向下滚动">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  </a>
+</section>
+{{- end }}
+
+<div class="home-layout" id="home-content">
+  <div class="home-main">
+    <div class="post-grid">
+      {{- range $paginator.Pages }}
+      {{- $p := . }}
+      {{- $cover := "" }}
+      {{- with .Params.cover }}{{ with .image }}{{ $cover = . }}{{ end }}{{ end }}
+      {{- if not $cover }}{{ $cover = site.Params.defaultCover }}{{ end }}
+      <article class="post-card">
+        <a class="post-card-link" href="{{ .RelPermalink }}" aria-label="{{ .Title | plainify }}"></a>
+        {{- with $cover }}
+        <div class="post-card-cover">
+          <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"
+               alt="{{ $p.Title | plainify }}" loading="lazy" decoding="async"
+               onerror="this.parentNode.style.display='none'">
+        </div>
+        {{- end }}
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006-01-02" }}</time>
+            <span class="sep">·</span>
+            <span>{{ .ReadingTime }} 分钟</span>
+            {{- with .GetTerms "categories" }}
+            <span class="post-card-cat">{{ (index . 0).LinkTitle }}</span>
+            {{- end }}
+          </div>
+          <h3 class="post-card-title">{{ .Title }}</h3>
+          {{- with .Summary }}
+          <p class="post-card-summary">{{ . | plainify | htmlUnescape | truncate 110 }}</p>
+          {{- end }}
+          <div class="post-card-foot">
+            <span class="post-card-read">阅读全文</span>
+            <span class="post-card-arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </article>
+      {{- end }}
+
+      <a class="post-card post-card-more" href="{{ "archives/" | relLangURL }}">
+        <span class="post-card-more-title">更多文章</span>
+        <span class="post-card-more-desc">查看全部归档与历史文章</span>
+        <span class="post-card-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="home-pagination" aria-label="分页">
+      {{- if $paginator.HasPrev }}
+      <a class="page-btn" href="{{ $paginator.Prev.URL }}">← 上一页</a>
+      {{- else }}
+      <span class="page-btn disabled">← 上一页</span>
+      {{- end }}
+      <span class="page-info">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+      {{- if $paginator.HasNext }}
+      <a class="page-btn" href="{{ $paginator.Next.URL }}">下一页 →</a>
+      {{- else }}
+      <span class="page-btn disabled">下一页 →</span>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </div>
+
+  <aside class="home-sidebar">
+    {{- /* ---------- 个人资料 ---------- */}}
+    {{ partial "widget_profile.html" . }}
+
+    {{- /* ---------- 公告 ---------- */}}
+    {{ partial "widget_announcement.html" . }}
+
+    {{- /* ---------- 最新文章 ---------- */}}
+    <div class="sidebar-card">
+      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>最新文章</h3>
+      <ul class="sidebar-recent">
+        {{- range first 5 $pages }}
+        {{- $p := . }}
+        {{- $rc := "" }}
+        {{- with .Params.cover }}{{ with .image }}{{ $rc = . }}{{ end }}{{ end }}
+        {{- if not $rc }}{{ $rc = site.Params.defaultCover }}{{ end }}
+        <li>
+          {{- with $rc }}
+          <a class="sidebar-recent-thumb" href="{{ $p.RelPermalink }}" tabindex="-1" aria-hidden="true">
+            <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"
+                 alt="" loading="lazy" decoding="async">
+          </a>
+          {{- end }}
+          <div class="sidebar-recent-body">
+            <a class="sidebar-recent-title" href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+            <span class="sidebar-recent-date">{{ $p.Date | time.Format "2006-01-02" }}</span>
+          </div>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+
+    {{- /* ---------- 分类 ---------- */}}
+    {{- with site.Taxonomies.categories }}
+    <div class="sidebar-card">
+      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>分类</h3>
+      <ul class="sidebar-terms">
+        {{- range . }}
+        <li>
+          <a href="{{ .Page.RelPermalink }}">
+            <span>{{ .Page.LinkTitle }}</span>
+            <span class="term-count">{{ .Count }}</span>
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+
+    {{- /* ---------- 标签 ---------- */}}
+    {{- with site.Taxonomies.tags }}
+    <div class="sidebar-card">
+      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>标签</h3>
+      <div class="sidebar-tagcloud">
+        {{- range . }}
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+        {{- end }}
+      </div>
+    </div>
+    {{- end }}
+
+    {{- /* ---------- 网站信息 ---------- */}}
+    {{- $totalWords := 0 }}
+    {{- range $pages }}{{ $totalWords = add $totalWords .WordCount }}{{ end }}
+    {{- $wordStr := printf "%d" $totalWords }}
+    {{- if gt $totalWords 1000 }}{{ $wordStr = printf "%.1fk" (div (float $totalWords) 1000) }}{{ end }}
+    {{- $last := time.AsTime "2000-01-01" }}
+    {{- range $pages }}{{ if .Lastmod.After $last }}{{ $last = .Lastmod }}{{ end }}{{ end }}
+    <div class="sidebar-card">
+      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>网站信息</h3>
+      <ul class="sidebar-info">
+        <li><span>文章数目</span><strong>{{ len $pages }}</strong></li>
+        <li><span>总字数</span><strong>{{ $wordStr }}</strong></li>
+        <li><span>运行时间</span><strong id="site-runtime" data-since="{{ site.Params.startDate | default "2025-01-01" }}">--</strong></li>
+        <li><span>最后更新</span><strong>{{ $last | time.Format "2006-01-02" }}</strong></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+{{- end }}

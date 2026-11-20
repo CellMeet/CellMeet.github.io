@@ -1,0 +1,89 @@
+{{- if and (eq .Kind "page") (ne .Layout "search") (ne .Layout "archives") }}
+<div id="reading-progress" aria-hidden="true"></div>
+<script>
+    (function () {
+        var bar = document.getElementById("reading-progress");
+        var article = document.querySelector(".post-content") || document.querySelector("article");
+        if (!bar || !article) return;
+        function update() {
+            var rect = article.getBoundingClientRect();
+            var total = rect.height - window.innerHeight;
+            var progress = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
+            bar.style.width = (progress * 100) + "%";
+        }
+        document.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+    })();
+</script>
+{{- end }}
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+<script>
+  (function () {
+    function run() {
+      if (window.pangu) {
+        try {
+          if (window.pangu.spacingElementByClassName) {
+            window.pangu.spacingElementByClassName('main');
+          } else {
+            window.pangu.spacingPage();
+          }
+        } catch (e) {}
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 80); });
+    } else {
+      setTimeout(run, 80);
+    }
+  })();
+</script>
+
+{{- /* 网站运行时间（首页网站信息卡片） */}}
+<script>
+  (function () {
+    var el = document.getElementById("site-runtime");
+    if (!el) return;
+    var since = new Date(el.getAttribute("data-since") || "2025-01-01");
+    if (isNaN(since.getTime())) return;
+    var days = Math.max(0, Math.floor((Date.now() - since.getTime()) / 86400000));
+    el.textContent = days + " 天";
+  })();
+</script>
+
+{{- /* Live2D 看板娘（参考 luotian 右下角 2D 纸片人） */}}
+<script>
+  (function () {
+    if (window.innerWidth <= 900) return;
+    var base = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+    function load(src, type) {
+      return new Promise(function (resolve) {
+        var el;
+        if (type === "css") {
+          el = document.createElement("link");
+          el.rel = "stylesheet";
+          el.href = src;
+        } else {
+          el = document.createElement("script");
+          el.src = src;
+          el.defer = true;
+        }
+        el.onload = el.onerror = resolve;
+        document.head.appendChild(el);
+      });
+    }
+    Promise.all([
+      load(base + "waifu.css", "css"),
+      load(base + "live2d.min.js", "js"),
+      load(base + "waifu-tips.js", "js")
+    ]).then(function () {
+      if (typeof window.initWidget !== "function") return;
+      window.initWidget({
+        waifuPath: base + "waifu-tips.json",
+        cdnPath: "https://cdn.jsdelivr.net/gh/fghrsh/live2d_api/",
+        tools: ["hitokoto", "switch-model", "switch-texture", "photo", "info", "quit"]
+      });
+    });
+  })();
+</script>

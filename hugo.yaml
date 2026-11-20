@@ -1,25 +1,85 @@
 baseURL: "https://CellMeet.github.io/"
 title: "Tian Junkai's Blog"
 theme: ["PaperMod"]
-languageCode: "zh-CN"
+locale: "zh-CN"
 defaultContentLanguage: "zh-cn"
+hasCJKLanguage: true
+enableEmoji: true
+enableRobotsTXT: true
 
-# --- 关键配置：首页显示文章列表，而非个人简介 ---
-# 确保没有启用 profileMode，这里不写 profileMode 相关配置即可。
-# 显式指定首页列表展示的内容区域。
+# 每页文章数
+pagination:
+  pagerSize: 8
+summaryLength: 80
+
+taxonomies:
+  category: categories
+  tag: tags
+
+# 代码高亮：使用 class 模式，才能配合自定义配色（参考 luotian 的 highlight 配置）
+markup:
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    tabWidth: 4
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+
+# 首页需要 JSON 输出，供搜索页使用
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
 params:
-  mainSections: ["posts"] # 告诉首页从 posts 目录抓取文章[reference:5]
-
-  # --- 主页信息模式（可选）---
-  # 如果你希望在文章列表上方显示一个简短的问候语，可以取消下面的注释
-  # homeInfoParams:
-  #   Title: "你好，欢迎来到我的博客"
-  #   Content: "这里记录了我的随笔、技术和分享。"
-
-  # --- 主题美化参数 ---
   env: production
-  author: "Tian JunKai"
-  description: "Java, Golang, JavaScript... LLover!"
+  description: "记录音乐、书影、随笔与代码。Java · Golang · AI · Security。"
+  keywords:
+    - Tian Junkai
+    - 博客
+    - Golang
+    - Java
+    - 大模型
+    - 深度学习
+    - 网络攻防
+    - 力扣
+  author: "Tian Junkai"
+  mainSections: ["posts"]
+  # 头像：推荐把图片放到 assets/ 下再填文件名（会自动加缓存指纹）；
+  # 留空则自动查找 static/avatar.jpg|png|webp|svg
+  avatar: ""
+
+  # ---------- 首页 / 侧栏（复刻 luotian 布局） ----------
+  # 首页大标题下的一句话（留空则不显示，自己写好后填在这里）
+  homeSubtitle: ""
+  # 右侧个人介绍：留空即不显示，自己写好后填在这里
+  homeBio: ""
+  # 右侧公告卡片
+  announcement: "努力成为最强的马猴帝！（笑）这里会持续更新读书、观影、音乐与技术笔记。"
+  # 文章没有 cover 时的默认封面图（先留空；以后想统一用某张图再填，如 "/bzh.jpeg"）
+  defaultCover: ""
+  # 网站信息卡片里的建站时间（运行时间从此日期开始计算）
+  startDate: "2025-01-01"
+
+  # 首页分类标签的展示顺序（其余分类会自动追加）
+  categoryOrder:
+    - 随笔
+    - 音乐
+    - Books
+    - 电影
+    - 大模型
+    - 深度学习
+    - 网络攻防
+    - 力扣
+    - Golang
+    - Java
+
+  # 外观
+  defaultTheme: "auto"
   ShowReadingTime: true
   ShowWordCount: true
   ShowCodeCopyButtons: true
@@ -27,22 +87,59 @@ params:
   ShowBreadCrumbs: true
   ShowToc: true
   TocOpen: false
+  ShowShareButtons: false
+  ShowAllPagesInArchive: true
+  disableSpecial1stPost: true
   DateFormat: "2006-01-02"
-  defaultTheme: "auto"
 
-# --- 菜单配置（我们选择清空或注释它）---
-# 注释掉 menu 部分，首页顶部就不会显示“随笔/标签”等导航链接[reference:7]
-# menu:
-#   main:
-#     - identifier: essay
-#       name: 随笔
-#       url: /posts/essay/
-#       weight: 10
-#     - identifier: tech
-#       name: 技术
-#       url: /posts/tech/
-#       weight: 20
-#     - identifier: share
-#       name: 分享
-#       url: /posts/share/
-#       weight: 30
+  # 站点图标（统一使用一个 SVG，避免 404）
+  assets:
+    favicon: "/favicon.svg"
+    favicon16x16: "/favicon.svg"
+    favicon32x32: "/favicon.svg"
+    apple_touch_icon: "/favicon.svg"
+    safari_pinned_tab: "/favicon.svg"
+    theme_color: "#fbfbfd"
+    msapplication_TileColor: "#fbfbfd"
+
+  label:
+    text: "Tian Junkai"
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/CellMeet"
+    - name: rss
+      url: "/index.xml"
+
+menu:
+  main:
+    - identifier: home
+      name: 首页
+      url: /
+      weight: 1
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
+    - identifier: categories
+      name: 分类
+      url: /categories/
+      weight: 2
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+    - identifier: tags
+      name: 标签
+      url: /tags/
+      weight: 3
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>'
+    - identifier: archives
+      name: 归档
+      url: /archives/
+      weight: 4
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>'
+    - identifier: search
+      name: 搜索
+      url: /search/
+      weight: 5
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
+    - identifier: links
+      name: 友链
+      url: /links/
+      weight: 6
+      pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
