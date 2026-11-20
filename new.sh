@@ -18,16 +18,16 @@ dir="content/posts/$type/$folder"
 file="$dir/$folder.md"
 
 case "$type" in
-  ai)       category="大模型" ;;
-  books)    category="Books" ;;
-  essay)    category="随笔" ;;
-  golang)   category="Golang" ;;
-  java)     category="Java" ;;
-  leetcode) category="力扣" ;;
-  movies)   category="电影" ;;
-  music)    category="音乐" ;;
-  security) category="网络攻防" ;;
-  *)        category="$type" ;;
+ai) category="大模型" ;;
+books) category="Books" ;;
+essay) category="随笔" ;;
+golang) category="Golang" ;;
+java) category="Java" ;;
+leetcode) category="力扣" ;;
+movies) category="电影" ;;
+music) category="音乐" ;;
+security) category="网络攻防" ;;
+*) category="$type" ;;
 esac
 
 if [ -f "$file" ]; then
@@ -35,7 +35,7 @@ if [ -f "$file" ]; then
 else
   mkdir -p "$dir"
   now="$(date '+%Y-%m-%dT%H:%M:%S%:z')"
-  cat > "$file" <<EOF
+  cat >"$file" <<EOF
 ---
 title: "$name"
 date: "$now"
@@ -49,7 +49,6 @@ cover:
   alt: ""
 ---
 
-在这里开始写正文。
 EOF
   echo "已创建：$file"
   echo "图片直接放进 $dir/，Markdown 里用 ![](图片.png) 引用。"
@@ -57,4 +56,4 @@ fi
 
 echo "写完后运行 ./publish.sh 发布。"
 
-echo "继续写：在 $(pwd) 目录输入 typora（会自动打开最近修改的文章）"
+echo "继续写：在 $(pwd) 输入 Typora"
