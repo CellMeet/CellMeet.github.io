@@ -87,3 +87,57 @@
     });
   })();
 </script>
+
+{{- /* 关闭浏览器原生 hover 提示（title 属性） */}}
+<script>
+  (function () {
+    function stripTitles() {
+      document.querySelectorAll("[title]").forEach(function (el) {
+        el.removeAttribute("title");
+      });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", stripTitles);
+    } else {
+      stripTitles();
+    }
+    window.addEventListener("load", stripTitles);
+  })();
+</script>
+
+{{- /* 右侧浮动工具：主题 / 单双列 / 回到顶部 */}}
+<div class="side-tools" aria-label="页面工具">
+  <button id="side-theme" class="side-tool" type="button" aria-label="切换日间/夜间模式">
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  </button>
+  <button id="side-layout" class="side-tool" type="button" aria-label="切换单列/双列">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect></svg>
+  </button>
+  <a href="#top" class="side-tool" aria-label="回到顶部">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </a>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var themeBtn = document.getElementById("side-theme");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", function () {
+        var next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem("pref-theme", next);
+      });
+    }
+    var layoutBtn = document.getElementById("side-layout");
+    if (localStorage.getItem("home-layout") === "two") {
+      document.body.classList.add("two-col");
+    }
+    if (layoutBtn) {
+      layoutBtn.addEventListener("click", function () {
+        var isTwo = document.body.classList.toggle("two-col");
+        localStorage.setItem("home-layout", isTwo ? "two" : "one");
+      });
+    }
+  })();
+</script>

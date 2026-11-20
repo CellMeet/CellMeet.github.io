@@ -26,6 +26,7 @@
       {{- $p := . }}
       {{- $cover := "" }}
       {{- with .Params.cover }}{{ with .image }}{{ $cover = . }}{{ end }}{{ end }}
+      {{- $cover = partial "resolve_cover.html" (dict "page" $p "cover" $cover) }}
       {{- if not $cover }}{{ $cover = site.Params.defaultCover }}{{ end }}
       <article class="post-card">
         <a class="post-card-link" href="{{ .RelPermalink }}" aria-label="{{ .Title | plainify }}"></a>
@@ -96,6 +97,7 @@
         {{- $p := . }}
         {{- $rc := "" }}
         {{- with .Params.cover }}{{ with .image }}{{ $rc = . }}{{ end }}{{ end }}
+        {{- $rc = partial "resolve_cover.html" (dict "page" $p "cover" $rc) }}
         {{- if not $rc }}{{ $rc = site.Params.defaultCover }}{{ end }}
         <li>
           {{- with $rc }}

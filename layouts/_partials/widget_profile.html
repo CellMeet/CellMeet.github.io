@@ -16,7 +16,7 @@
 {{- end }}
 {{- $avatarSrc = printf "%s?v=%d" $avatarSrc now.Unix }}
 <div class="sidebar-card profile-card">
-  <a class="profile-avatar-link" href="{{ "/" | relURL }}" title="点它可以回到首页啦！">
+  <a class="profile-avatar-link" href="{{ "/" | relURL }}">
     <img class="home-avatar" src="{{ $avatarSrc }}" alt="{{ site.Params.author }}"
          onerror="this.onerror=null;this.src='{{ "avatar.svg" | relURL }}'">
   </a>

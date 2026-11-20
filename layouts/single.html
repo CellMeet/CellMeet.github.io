@@ -68,8 +68,10 @@
         <h2 class="related-title">推荐阅读</h2>
         <div class="related-grid">
           {{- range . }}
+          {{- $rp := . }}
           {{- $rc := "" }}
           {{- with .Params.cover }}{{ with .image }}{{ $rc = . }}{{ end }}{{ end }}
+          {{- $rc = partial "resolve_cover.html" (dict "page" $rp "cover" $rc) }}
           {{- if not $rc }}{{ $rc = site.Params.defaultCover }}{{ end }}
           <a class="related-card" href="{{ .RelPermalink }}">
             {{- with $rc }}

@@ -1,0 +1,15 @@
+{{- /* 解析封面：页面 bundle 资源 -> 同目录图片 -> 原始路径 */ -}}
+{{- $page := .page -}}
+{{- $cover := .cover -}}
+{{- $out := "" -}}
+{{- with $cover -}}
+  {{- $out = . -}}
+  {{- with $page.Resources.GetMatch . -}}
+    {{- $out = .RelPermalink -}}
+  {{- else -}}
+    {{- if and $page.File (fileExists (printf "content/%s%s" $page.File.Dir .)) -}}
+      {{- $out = printf "%s%s" $page.RelPermalink . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

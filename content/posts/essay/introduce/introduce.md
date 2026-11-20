@@ -1,11 +1,13 @@
 ---
 title: "Introduction"
 date: 2026-11-19T22:46:58+08:00
+url: "/posts/essay/introduce/"
 draft: false
 categories: ["随笔"]
 summary: "为什么开始写博客：从输入型学习转向输出型学习，把零散的思考沉淀下来。"
+aliases: ["/posts/essay/introduction/"]
 cover:
-  image: "/bzh.jpeg"
+  image: "bzh.jpeg"
   alt: "Introduction"
 ---
 
