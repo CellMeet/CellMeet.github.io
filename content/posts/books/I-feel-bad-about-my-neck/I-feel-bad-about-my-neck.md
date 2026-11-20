@@ -15,13 +15,13 @@ cover:
 
 
 
- 		今天读了Nora Ephron的I feel bad about my neck 的 第二篇， 读这篇文章（可以称为老掉牙）的时候， 今天也是Anthropic 上市的一天，她的朋友花了 2700 美元在 flea market 购买了一个“过时的”包。我只能苦笑，原来我如此贫穷:grinning:, 同样地，作为一个AI 时代中的读者，读这样一篇文章，其实感觉是AI 也只是这个庞大的世界的一个小的“corner”。AI 应该不可能写出“I hate my purse”，算了，它实在太聪明了，是不会让自己有一个purse的！:joy:
+​	今天读了Nora Ephron的I feel bad about my neck 的 第二篇， 读这篇文章（可以称为老掉牙）的时候， 今天也是Anthropic 上市的一天，她的朋友花了 2700 美元在 flea market 购买了一个“过时的”包。我只能苦笑，原来我如此贫穷:grinning:, 同样地，作为一个AI 时代中的读者，读这样一篇文章，其实感觉是AI 也只是这个庞大的世界的一个小的“corner”。AI 应该不可能写出“I hate my purse”，算了，它实在太聪明了，是不会让自己有一个purse的！:joy:
 
-​			文章很简单，交代了自己为什么不喜欢purse, 里面东西太过杂乱，你可以用purse里面的东西逃过Cossacks 人，但是你却在里面什么都找不到！ 
+​			文章很简单，交代了自己为什么不喜欢purse, 里面东西太过杂乱，你可以用purse里面的东西逃过Cossacks 人，但是你却在里面什么都找不到！ 里面有各种各样的幽默，读的很开心。
 
 
 
- 		I solved this problem by purchasing an overcoat with large pockets.  This, I realize, turned my coat into a purse, but it was still better than carrying a purse. Anything is better than carry a purse. 
+​	I solved this problem by purchasing an overcoat with large pockets.  This, I realize, turned my coat into a purse, but it was still better than carrying a purse. Anything is better than carry a purse. 
 
 ​		“Perhaps the solution is not one purse but two. So I tried having tow purses, one for personal things and one for work things. (Yes, I know: The second purse is usually called a briefcase.)
 
