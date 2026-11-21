@@ -3,8 +3,8 @@ title: "Chapter 2 | I feel bad about my neck"
 date: "2026-11-20T19:36:44+08:00"
 draft: false
 url: "/posts/books/I-feel-bad-about-my-neck/"
-categories: ["Books"]
-tags: ["Nora Ephron"]
+categories: ["books"]
+tags: ["Nora Ephron", "我的脖子让我很不爽"]
 summary: "I feel bad abount my neck(我的脖子让我很不爽)， 是Nora Ephron写的一篇幽默散文集，里面讨论了她作为女性想的一些问题。每一章我单独写（水）一篇comment"
 cover:
   image: "cover.jpg"
