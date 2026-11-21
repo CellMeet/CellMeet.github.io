@@ -27,6 +27,14 @@ markup:
   tableOfContents:
     startLevel: 2
     endLevel: 4
+  goldmark:
+    extensions:
+      typographer:
+        apostrophe: "'"
+        leftSingleQuote: "'"
+        rightSingleQuote: "'"
+        leftDoubleQuote: '"'
+        rightDoubleQuote: '"'
 
 # 首页需要 JSON 输出，供搜索页使用
 outputs:
