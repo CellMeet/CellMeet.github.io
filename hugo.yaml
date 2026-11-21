@@ -22,7 +22,7 @@ markup:
     noClasses: false
     codeFences: true
     guessSyntax: true
-    lineNos: false
+    lineNos: true
     tabWidth: 4
   tableOfContents:
     startLevel: 2

@@ -221,3 +221,84 @@
     document.head.appendChild(s);
   })();
 </script>
+
+{{- /* 代码块窗口标题栏：三个圆点 + 语言 + 复制 */}}
+<script>
+  (function () {
+    var langMap = {
+      cpp: "C++", c: "C", cs: "C#", go: "Go", golang: "Go",
+      js: "JavaScript", javascript: "JavaScript", ts: "TypeScript", typescript: "TypeScript",
+      py: "Python", python: "Python", java: "Java", kt: "Kotlin", kotlin: "Kotlin",
+      rs: "Rust", rust: "Rust", sh: "Shell", bash: "Bash", zsh: "Zsh",
+      powershell: "PowerShell", html: "HTML", xml: "XML", css: "CSS", scss: "SCSS",
+      json: "JSON", yaml: "YAML", yml: "YAML", md: "Markdown", markdown: "Markdown",
+      sql: "SQL", php: "PHP", rb: "Ruby", ruby: "Ruby", swift: "Swift"
+    };
+
+    function prettyLang(lang) {
+      var key = (lang || "").toLowerCase();
+      return langMap[key] || (lang ? lang.toUpperCase() : "Code");
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+
+    function initCodeWindows() {
+      document.querySelectorAll(".post-content .highlight").forEach(function (block) {
+        if (block.querySelector(".code-window-bar")) return;
+
+        var code = block.querySelector(".lntd:last-child code") ||
+                   block.querySelector("code[data-lang]") ||
+                   block.querySelector("code");
+        var lang = code ? (code.getAttribute("data-lang") || "") : "";
+
+        var bar = document.createElement("div");
+        bar.className = "code-window-bar";
+        bar.innerHTML =
+          '<span class="code-dots"><i></i><i></i><i></i></span>' +
+          '<span class="code-lang">' + prettyLang(lang) + '</span>' +
+          '<button type="button" class="code-copy" aria-label="复制代码">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+          '</button>' +
+          '<span class="code-chevron" aria-hidden="true">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+          '</span>';
+
+        block.insertBefore(bar, block.firstChild);
+
+        var btn = bar.querySelector(".code-copy");
+        btn.addEventListener("click", function () {
+          copyText(code ? code.innerText : block.innerText).then(function () {
+            btn.classList.add("copied");
+            setTimeout(function () { btn.classList.remove("copied"); }, 1500);
+          }).catch(function () {});
+        });
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCodeWindows);
+    } else {
+      initCodeWindows();
+    }
+    window.addEventListener("load", initCodeWindows);
+  })();
+</script>
