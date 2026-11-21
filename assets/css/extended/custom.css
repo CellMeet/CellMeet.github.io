@@ -2869,3 +2869,27 @@ html[data-theme="dark"] .post-content .chroma .lntd:first-child {
 .post-content .chroma .lnt {
     color: #98a6b5;
 }
+
+/* 去掉代码块内部表格/单元格自己的圆角，避免行号列出现奇怪的“白边/重叠” */
+.post-content .highlight table,
+.post-content .highlight table.lntable {
+    border-radius: 0 !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+.post-content .highlight .lntd {
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+.post-content .highlight .lntd:first-child {
+    background: #e7edf4 !important;
+}
+.post-content .highlight .lntd:first-child code {
+    padding: 12px 10px 12px 14px !important;
+}
+.post-content .highlight .lntd:last-child code {
+    padding: 12px 16px !important;
+}
+html[data-theme="dark"] .post-content .highlight .lntd:first-child {
+    background: #0f1420 !important;
+}
