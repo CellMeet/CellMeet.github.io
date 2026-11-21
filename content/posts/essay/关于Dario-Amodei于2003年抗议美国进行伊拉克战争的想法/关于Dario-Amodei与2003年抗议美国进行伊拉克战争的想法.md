@@ -2,8 +2,8 @@
 title: "关于Dario Amodei与2003年抗议美国进行伊拉克战争的想法"
 date: "2026-11-21T07:33:46+08:00"
 draft: false
-url: "/posts/essay/关于Dario-Amodei与2003年抗议美国进行伊拉克战争的想法/"
-aliases: ["/posts/essay/关于Dario-Amodei于2003年抗议美国进行伊拉克战争的想法/"]
+url: "/posts/essay/关于Dario-Amodei于2003年抗议美国进行伊拉克战争的想法/"
+aliases: ["/posts/essay/关于Dario-Amodei与2003年抗议美国进行伊拉克战争的想法/"]
 categories: ["essay"]
 tags: ["Dario Amodei", "Anthropic"]
 summary: "Ahthropic 创始人Dario Amodei的人物志"
