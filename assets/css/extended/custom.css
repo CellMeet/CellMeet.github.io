@@ -2893,3 +2893,25 @@ html[data-theme="dark"] .post-content .chroma .lntd:first-child {
 html[data-theme="dark"] .post-content .highlight .lntd:first-child {
     background: #0f1420 !important;
 }
+
+/* 文章内容加宽，接近作者的大气布局 */
+:root {
+    --main-width: 1280px;
+}
+body.list .main {
+    max-width: calc(1280px + var(--gap) * 2);
+}
+.post-single {
+    max-width: calc(1280px + var(--gap) * 2);
+}
+.post-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+}
+
+/* 行号列不再单独成块：和代码同背景、无分隔线 */
+.post-content .highlight .lntd:first-child,
+html[data-theme="dark"] .post-content .highlight .lntd:first-child {
+    background: transparent !important;
+    border-right: 0 !important;
+    padding-right: 0 !important;
+}
