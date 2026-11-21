@@ -31,7 +31,7 @@ cover:
 
 ​		这个介绍很形象。:joy: 下面是这本书的封面图片，看着真的很有气势，我都想买一本了！
 
-![The Gourmet Cookbook 的封面](The Gourmet Cookbook-pic.jpg)
+![The Gourmet Cookbook 的封面](The-Gourmet-Cookbook-pic.jpg)
 
 
 
