@@ -17,18 +17,7 @@ folder="$(printf '%s' "$name" | tr ' ' '-')"
 dir="content/posts/$type/$folder"
 file="$dir/$folder.md"
 
-case "$type" in
-ai) category="大模型" ;;
-books) category="Books" ;;
-essay) category="随笔" ;;
-golang) category="Golang" ;;
-java) category="Java" ;;
-leetcode) category="力扣" ;;
-movies) category="电影" ;;
-music) category="音乐" ;;
-security) category="网络攻防" ;;
-*) category="$type" ;;
-esac
+category="$type"
 
 if [ -f "$file" ]; then
   echo "文章已存在：$file"
