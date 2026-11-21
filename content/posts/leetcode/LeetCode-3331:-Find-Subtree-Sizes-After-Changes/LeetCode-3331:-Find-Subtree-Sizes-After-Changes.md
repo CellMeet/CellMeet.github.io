@@ -7,7 +7,7 @@ categories: ["leetcode"]
 tags: ["dfs"]
 summary: "leetcode 3331 题题解"
 cover:
-  image: "leetcode.webp"
+  image: "leetcode.jpg"
   alt: "力扣封面"
 ---
 
