@@ -1,5 +1,5 @@
 ---
-title: "Hot100 322 : Coin Change(零钱兑换)"
+title: "LeetCode Hot100 322 : Coin Change(零钱兑换)"
 date: "2026-11-22T09:14:46+08:00"
 draft: false
 url: "/posts/leetcode/Hot100-322-:-Coin-Change(零钱兑换)/"
