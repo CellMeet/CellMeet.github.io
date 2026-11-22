@@ -1,4 +1,5 @@
 ---
+
 title: "Chapter 3 | I feel bad about my neck"
 date: "2026-11-21T21:45:03+08:00"
 draft: false
@@ -37,9 +38,66 @@ cover:
 
 ​		这本书改变了她母亲的生活。她家里的厨师也开始做别的食物。不久之后，原本不做饭的母亲， 开始在厨房做中国春卷，（这个食谱出现在书本中的第36页），最后
 
-> "but it doesn't begin to convey how stressful  and time-consuming an endeavor it is to make egg rolls, nor does it begin to suggest how much tension a person can create in household by serving egg rolls that take hours to make and make and are not nearly as good as Chinese takeout."
-
-
+> ​		"but it doesn't begin to convey how stressful  and time-consuming an endeavor it is to make egg rolls, nor does it begin to suggest how much tension a person can create in household by serving egg rolls that take hours to make and make and are not nearly as good as Chinese takeout."
 
 ​		哈哈，看来母亲的尝试并不成功啊。好的， first paragraph end！
 
+
+
+​		第二段:
+
+> ​		"Owing _The Gourmet Cookbook_ made me feel tremendously sophisticated. For years I gave it to my friends as a wedding present. It was a emblem of adulthood, a way of being smart and chic and college-educated where food was concerned, but I never really used it in the way you're supposed to use a cookbook --- by propping it open on the kitchen counter, cooking from it, staining its pages with spattered butter and  chocolate splotches, conducting a unilateral dialogue with the book itself --- in short, by having a relationship with it." 
+
+​		Nora Ephron 认为这本书是一种成年人, 变得聪明, 时尚, 接受过大学教育, 但是作者从来没用像一本正常的食谱那样使用过它, 和它没有什么联系.
+
+
+
+​		第三段, 作者在纽约生活的时候, 使用过的最多的书是 _The Flavor of France_ . 是一个叫做 Jane 的女孩给她的, 作者当时每周收入 55 美元, 但是一份omelet(煎鸡蛋)需要3 美元, 作者直接faint(吓晕了). Jane 介绍了 One Way (如果你和一个女性同一个男人睡了觉, 那你们就是 One Way)...
+
+​		
+
+​		肯尼迪总统"脑洞大开"的时候, Jane 正在举办一个晚宴, 尽管出现了悲剧, 晚宴依旧正常进行. 过了几个月, 她和Jane 成为了 "One Way", 然后友谊就结束了.
+
+
+
+​		简单介绍了 _The Flavour of France_ 的作者的家庭情况, 
+
+​		在我到纽约之前, 两个历史事件发生了: 避孕药 和 第一版 Julia Child cookbook, 结果就是everyone was having sec, 并且 after sex, 做一点东西吃饭.
+
+​		
+
+​		在 60 世纪中, 作者作为新闻记者在 _New York Post_ , living  in village. 作者晚上给自己做四个人的饭, 有点幽默.
+
+​		
+
+​		介绍了 Craig Claiborne.
+
+​		
+
+​		想象 Craig Claiborne 来了自己应该准备些什么, 但是没有自己的recipes! 
+
+​		
+
+​		作者结婚, 做了一系列东西, 甚至做了 Lee Lum's lemon chicken. Lee Lum 是Pearl(一家中餐厅)的名字, 然后介绍了 你必须要有地位, 才能在Pearl 餐厅里点一条鱼(This was what it comes down to in New York: You had to have pull to order a fish.)
+
+
+
+​		作者去Lee 家里吃饭, 吃的非常好, 导致感觉这顿饭是对过去的rebuke(指责), 
+
+>   "Would Lee Bailey ever in a million years consider cooking the Brazilian national dish? Or Lee Lum's lemon chicken? Certainly not. It was horribly clear that my entire life up to that point had been a mistake."
+
+
+
+​		然后作者就... 离婚了. 烹饪风格变得和Lee 一样, 和之前发生了一些转变 ...
+
+
+
+​		作者介绍了 Lee 的秘诀, 他 serve 四道菜(不同于其他人的三道), 第四道菜通常是 各式花样的食物, 和其他三样 有着非常好的 匹配.
+
+​		
+
+​		这里作者又讽刺了一句, 她和Lee 一样, 不 serve 鱼, Fish is not fun. Order it at a restaurant  --- 这里讽刺前面提到的 Lemon Fish.
+
+​			
+
+​		over, 太累了, 读作者的书, My English is so ... so ... poor . haha. 
