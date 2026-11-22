@@ -11,7 +11,7 @@ cover:
   alt: ""
 ---
 
-#  Hot 100  287 : Find the Duplicate Number
+#  Hot 100  287 : Find the Duplicate Number (寻找重复数)
 
 题目链接 : [LeetCode  287 : Find the Duplicate Number](https://leetcode.cn/problems/find-the-duplicate-number/description/?envType=problem-list-v2&envId=2cktkvj)
 
