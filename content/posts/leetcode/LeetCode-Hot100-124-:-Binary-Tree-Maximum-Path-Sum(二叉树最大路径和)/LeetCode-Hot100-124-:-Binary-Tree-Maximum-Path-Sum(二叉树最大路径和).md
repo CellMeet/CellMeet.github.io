@@ -13,6 +13,8 @@ cover:
 
 # Hot 100 : 124 : Binary Tree Maximum Path Sum
 
+链接 : [Hot 100 : 124 : Binary Tree Maximum Path Sum](https://leetcode.cn/problems/binary-tree-maximum-path-sum/description/)
+
 ​		二叉树最大路径和, 首先二叉树肯定想到 dfs, dfs 可以考虑一个 "小区域" , 以 Example 2 为例:
 
 ![exx2.jpg](exx2.jpg)
@@ -40,5 +42,37 @@ class Solution:
             return node.val + max(left, right) # 向上返回的值
         dfs(root)
         return ans
+```
+
+
+
+相似题目:
+
+#  543 : Diameter of Binary Tree
+
+链接 :  [LeetCode 543 : Diameter of Binary Tree]()(https://leetcode.cn/problems/diameter-of-binary-tree/)
+
+同样是终止条件, left / right, 更新ans, 然后 return  1 + max(left, right)
+
+代码如下:
+
+```python
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        ans = 0
+        if not root:
+            return 0
+
+        def dfs(node):
+            nonlocal ans
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            ans = max(ans, left + right + 1)
+            return 1 + max(left, right)
+        
+        dfs(root)
+        return ans - 1
 ```
 
