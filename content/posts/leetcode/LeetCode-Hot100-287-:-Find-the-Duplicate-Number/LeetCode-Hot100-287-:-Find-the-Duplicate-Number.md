@@ -105,6 +105,8 @@ class Solution:
 
 
 
+Python:
+
 ```python
 def lower_bound(nums: List[int], target: int):
     left, right = -1, len(nums)
@@ -124,4 +126,71 @@ class Solution:
        	end = lower_bound(nums, target + 1) -1
         return [start, end]
 ```
+
+
+
+Golang 版本的:
+
+```go
+func lowerBound(nums []int, target int) int {
+    left, right := -1, len(nums)
+    for left + 1 < right{
+        mid := left + (right - left) / 2
+        if nums[mid] >= target{
+            right = mid
+        } else {
+            left = mid
+        }
+    }
+    return right
+}
+
+func searchRange(nums []int, target int) []int {
+    start := lowerBound(nums, target)
+    if start == len(nums) || nums[start] != target{
+        return []int{-1, -1}
+    }
+    end := lowerBound(nums, target + 1) - 1
+    return []int{start, end}
+}
+```
+
+
+
+再来一道二分查找:
+
+# LeetCode 240 : Search a 2D Matrix II
+
+题目链接 : [LeetCode 240 : Search a 2D Matrix II
+
+](https://leetcode.cn/problems/search-a-2d-matrix-ii/description/?envType=problem-list-v2&envId=2cktkvj)
+
+每一行进行二分查找, 代码如下:
+
+```python
+def lower_bound(nums: List[int], target):
+    left, right = -1, len(nums)
+    while left + 1 < right:
+        mid = (left + right) // 2
+        if nums[mid] < target:
+            left = mid
+        else:
+            right = mid
+    return right
+
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        for row in matrix:
+            if row[0] > target:
+                break
+            tmp = lower_bound(row, target)
+            if tmp == len(row) or row[tmp] != target: 
+                continue
+            return True
+
+        return False
+```
+
+​		我爱二分查找, 好耶!
 

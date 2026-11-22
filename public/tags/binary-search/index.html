@@ -7,7 +7,7 @@
 方法一: 暴力搜索 ​ python 中使用 Counter 计数器 统一大于 1 的数字, 然后遍历, if counter[num] > 1, return num
 1 2 3 4 5 6 class Solution: def findDuplicate(self, nums: List[int]) -> int: count = Counter(nums) for num in nums: if count[num] >= 2: return num ​ 简单粗暴,就是有点蠢
 方法二: 二分查找 ​ 如果在[1, n] 中存在一个重复数字 x , (一共有 n+1 个数字), 那么从 1 -> x , 的数字会多出来1, 从 x+1 -> n 的数字数目不变, 还是 n - (x+1) +1 个, 所以可以 二分搜索, 查找区间中数字的数目, 如果多了 一, 那么 x 就在这个区间里, 继续搜索, 直到找出来 x .
-...</p></div><footer class=entry-footer><span title=2026-11-22T11:10:02+08:00>2026-11-22</span>&nbsp;·&nbsp;<span>2 分钟</span>&nbsp;·&nbsp;<span>797 字</span>&nbsp;·&nbsp;<span>Tian Junkai</span></footer><a class=entry-link aria-label="post link to LeetCode Hot100 287 : Find the Duplicate Number" href=https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-287-:-Find-the-Duplicate-Number/></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://CellMeet.github.io/>Tian Junkai's Blog Space</a></span> ·
+...</p></div><footer class=entry-footer><span title=2026-11-22T11:10:02+08:00>2026-11-22</span>&nbsp;·&nbsp;<span>3 分钟</span>&nbsp;·&nbsp;<span>1054 字</span>&nbsp;·&nbsp;<span>Tian Junkai</span></footer><a class=entry-link aria-label="post link to LeetCode Hot100 287 : Find the Duplicate Number" href=https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-287-:-Find-the-Duplicate-Number/></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://CellMeet.github.io/>Tian Junkai's Blog Space</a></span> ·
 <span>Powered by
 <a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
 <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
