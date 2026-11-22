@@ -4,7 +4,7 @@ date: "2026-11-22T10:09:59+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot100-124-:-Binary-Tree-Maximum-Path-Sum(二叉树最大路径和)/"
 categories: ["leetcode"]
-tags: ["binary"]
+tags: ["binary tree"]
 summary: ""
 cover:
   image: "cover.png"
