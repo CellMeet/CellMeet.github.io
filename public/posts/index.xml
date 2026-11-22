@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>文章 on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/posts/</link><description>Recent content in 文章 on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 22 Nov 2026 08:35:55 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>LeetCode 2124 : Check if All A's Appears Before All B's</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-2124-:-Check-if-All-A's-Appears-Before-All-B's/</link><pubDate>Sun, 22 Nov 2026 08:35:55 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-2124-:-Check-if-All-A's-Appears-Before-All-B's/</guid><description>&lt;p&gt;力扣2124, 难度为easy, 思路很简单： 判断是否出现了&amp;quot;ba&amp;quot; 的情况， 如果没有，那就返回True, 否则返回False&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>文章 on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/posts/</link><description>Recent content in 文章 on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 22 Nov 2026 09:14:46 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hot100 322 : Coin Change(零钱兑换)</title><link>https://CellMeet.github.io/posts/leetcode/Hot100-322-:-Coin-Change%28%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%29/</link><pubDate>Sun, 22 Nov 2026 09:14:46 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/Hot100-322-:-Coin-Change%28%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%29/</guid><description>&lt;h1 id="hot-100--322-coin-change"&gt;Hot 100 : 322. Coin Change&lt;/h1&gt;
+&lt;p&gt;典型的背包问题， 用Example 1来解释：&lt;/p&gt;
+&lt;p&gt;Input：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;coins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;amount&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Output：3&lt;/p&gt;
+&lt;p&gt;Explanation：11 = 5 + 5 + 1&lt;/p&gt;
+&lt;h2 id="方法一--完全背包"&gt;方法一 ： 完全背包&lt;/h2&gt;
+&lt;p&gt;完全背包问题的思路是：&lt;/p&gt;
+&lt;p&gt;​ 我们从小到大扩充背包，定义&lt;code&gt;dp[i]&lt;/code&gt; 来表示 达到数目 &lt;code&gt;i&lt;/code&gt; 需要的最小货币&lt;/p&gt;</description></item><item><title>LeetCode 2124 : Check if All A's Appears Before All B's</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-2124-:-Check-if-All-A's-Appears-Before-All-B's/</link><pubDate>Sun, 22 Nov 2026 08:35:55 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-2124-:-Check-if-All-A's-Appears-Before-All-B's/</guid><description>&lt;p&gt;力扣2124, 难度为easy, 思路很简单： 判断是否出现了&amp;quot;ba&amp;quot; 的情况， 如果没有，那就返回True, 否则返回False&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
