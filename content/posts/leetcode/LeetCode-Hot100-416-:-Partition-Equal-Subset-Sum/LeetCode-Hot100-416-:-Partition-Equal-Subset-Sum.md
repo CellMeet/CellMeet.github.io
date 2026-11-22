@@ -1,5 +1,5 @@
 ---
-title: "LeetCode Hot100 416 : Partition Equal Subset Sum"
+title: "LeetCode Hot100 416 : Partition Equal Subset Sum (分割等和子集)"
 date: "2026-11-22T14:14:43+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot100-416-:-Partition-Equal-Subset-Sum/"

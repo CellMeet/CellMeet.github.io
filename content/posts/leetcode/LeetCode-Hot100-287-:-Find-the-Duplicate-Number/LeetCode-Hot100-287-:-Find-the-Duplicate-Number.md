@@ -1,5 +1,5 @@
 ---
-title: "LeetCode Hot100 287 : Find the Duplicate Number"
+title: "LeetCode Hot100 287 : Find the Duplicate Number (寻找重复数)"
 date: "2026-11-22T11:10:02+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot100-287-:-Find-the-Duplicate-Number/"
