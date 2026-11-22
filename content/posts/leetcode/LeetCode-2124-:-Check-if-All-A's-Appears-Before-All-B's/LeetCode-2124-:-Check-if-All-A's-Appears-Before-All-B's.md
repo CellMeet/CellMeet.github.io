@@ -7,7 +7,7 @@ categories: ["leetcode"]
 tags: []
 summary: ""
 cover:
-  image: ""
+  image: "leetcode.jpg"
   alt: ""
 ---
 
