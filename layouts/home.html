@@ -62,12 +62,37 @@
       </article>
       {{- end }}
 
-      <a class="post-card post-card-more" href="{{ "archives/" | relLangURL }}">
-        <span class="post-card-more-title">更多文章</span>
-        <span class="post-card-more-desc">查看全部归档与历史文章</span>
-        <span class="post-card-arrow" aria-hidden="true">→</span>
-      </a>
     </div>
+
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="home-pagination" aria-label="分页">
+      {{- if $paginator.HasPrev }}
+      <a class="page-btn page-arrow" href="{{ $paginator.Prev.URL }}" aria-label="上一页">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </a>
+      {{- else }}
+      <span class="page-btn page-arrow disabled" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </span>
+      {{- end }}
+      {{- range $paginator.Pagers }}
+        {{- if eq .PageNumber $paginator.PageNumber }}
+        <span class="page-btn current" aria-current="page">{{ .PageNumber }}</span>
+        {{- else }}
+        <a class="page-btn" href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{- end }}
+      {{- end }}
+      {{- if $paginator.HasNext }}
+      <a class="page-btn page-arrow" href="{{ $paginator.Next.URL }}" aria-label="下一页">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      {{- else }}
+      <span class="page-btn page-arrow disabled" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </span>
+      {{- end }}
+    </nav>
+    {{- end }}
 
   </div>
 

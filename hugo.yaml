@@ -9,7 +9,7 @@ enableRobotsTXT: true
 
 # 每页文章数
 pagination:
-  pagerSize: 8
+  pagerSize: 9
 summaryLength: 80
 
 taxonomies:
