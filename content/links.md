@@ -6,4 +6,8 @@ links:
     url: "https://www.luotian.cyou/"
     avatar: "/img/links/luotian.webp"
     description: ""
+  - name: "Colah's Blog"
+    url: "https://colah.github.io/"
+    avatar: ""
+    description: ""
 ---
