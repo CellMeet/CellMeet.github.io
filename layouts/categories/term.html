@@ -1,0 +1,60 @@
+{{- define "main" }}
+
+{{- if eq .Data.Term "books" }}
+<div class="books-page">
+  <header class="page-header books-header">
+    <h1>Books</h1>
+    <div class="post-description">按书归档，点击封面查看章节。</div>
+  </header>
+
+  <div class="books-panel">
+  {{- with site.GetPage "/posts/books" }}
+  <div class="book-grid">
+    {{- range .Sections.ByTitle }}
+    {{- $book := . }}
+    {{- $cover := partial "book_cover.html" $book }}
+    <a class="book-card" href="{{ $book.RelPermalink }}">
+      {{- with $cover }}
+      <img class="book-card-cover" src="{{ . }}" alt="{{ $book.Title }}" loading="lazy">
+      {{- else }}
+      <span class="book-card-placeholder">{{ substr $book.Title 0 1 }}</span>
+      {{- end }}
+      <h2 class="book-card-title">{{ $book.Title }}</h2>
+      {{- with $book.Params.summary }}
+      <p class="book-card-summary">{{ . | plainify | truncate 90 }}</p>
+      {{- end }}
+    </a>
+    {{- end }}
+  </div>
+  {{- end }}
+  </div>
+</div>
+{{- else }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+
+{{- range .Pages }}
+<article class="post-entry">
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" false) }}
+  <header class="entry-header">
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  </header>
+  {{- if ne (.Param "hideSummary") true }}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+  </div>
+  {{- end }}
+  <footer class="entry-footer">
+    {{- partial "post_meta.html" . }}
+  </footer>
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
+</article>
+{{- end }}
+
+{{- end }}
+{{- end }}

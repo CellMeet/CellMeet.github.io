@@ -1,0 +1,12 @@
+{{- $page := . -}}
+{{- $out := "" -}}
+{{- with $page.Params.cover -}}
+  {{- with .image -}}
+    {{- with $page.Resources.GetMatch . -}}
+      {{- $out = .RelPermalink -}}
+    {{- else -}}
+      {{- if hasPrefix . "http" -}}{{ $out = . }}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

@@ -1,4 +1,4 @@
-{{- /* 解析封面：页面 bundle 资源 -> 同目录图片 -> 原始路径 */ -}}
+{{- /* 解析封面：页面 bundle 资源 -> 同目录图片 -> 父级书籍封面 */ -}}
 {{- $page := .page -}}
 {{- $cover := .cover -}}
 {{- $out := "" -}}
@@ -10,6 +10,11 @@
     {{- if and $page.File (fileExists (printf "content/%s%s" $page.File.Dir .)) -}}
       {{- $out = printf "%s%s" $page.RelPermalink . -}}
     {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $out -}}
+  {{- with $page.Parent -}}
+    {{- $out = partial "book_cover.html" . -}}
   {{- end -}}
 {{- end -}}
 {{- return $out -}}

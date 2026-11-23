@@ -2343,7 +2343,7 @@ html[data-theme="dark"] .friend-intro {
 
 /* 文章页顶部只用站点背景图，不再使用文章封面；标题卡片直接压在背景上 */
 .post-hero {
-    background-image: none !important;
+    background-image: none;
     background-color: transparent !important;
     min-height: clamp(340px, 48vh, 480px);
 }
@@ -2981,4 +2981,331 @@ html[data-theme="dark"] .home-pagination .page-btn.current {
         height: 36px;
         font-size: 13px;
     }
+}
+
+/* =========================================================
+   Books：书籍总览 / 书籍详情 / 章节列表
+   ========================================================= */
+.books-page {
+    padding-bottom: 30px;
+}
+.books-header {
+    margin: 24px 0 30px;
+    text-align: center;
+}
+.books-header h1 {
+    margin-bottom: 8px;
+}
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+.book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px -22px rgba(15, 23, 42, 0.45);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.book-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow);
+}
+.book-card-cover {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px -20px rgba(0, 0, 0, 0.55);
+}
+.book-card-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 3 / 4;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 52px;
+    font-weight: 700;
+}
+.book-card-title {
+    margin: 16px 0 6px;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+.book-card-summary {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--secondary);
+}
+
+/* 书籍详情页 */
+.book-page {
+    padding-bottom: 34px;
+}
+.book-back {
+    display: inline-block;
+    margin: 22px 0 14px;
+    font-size: 13px;
+    color: var(--secondary);
+}
+.book-back:hover {
+    color: var(--accent);
+}
+.book-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 14px 40px -28px rgba(15, 23, 42, 0.5);
+}
+.book-cover-wrap {
+    flex: 0 0 200px;
+}
+.book-cover {
+    display: block;
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.6);
+}
+.book-info {
+    flex: 1;
+    min-width: 0;
+}
+.book-title {
+    margin: 0 0 12px;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+}
+.book-summary {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--secondary);
+}
+.book-intro {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--content);
+}
+.book-intro p {
+    margin: 0.6em 0;
+}
+.book-chapters {
+    margin-top: 30px;
+}
+.book-chapters-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+.book-chapters-head h2 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+}
+.book-chapters-head span {
+    font-size: 13px;
+    color: var(--secondary);
+}
+.chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+.chapter-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    color: inherit;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 22px -20px rgba(15, 23, 42, 0.4);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.chapter-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-line);
+    background: rgba(255, 255, 255, 0.94);
+}
+.chapter-cover {
+    display: block;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 86px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.chapter-body {
+    min-width: 0;
+}
+.chapter-date {
+    font-size: 11.5px;
+    color: var(--secondary);
+}
+.chapter-title {
+    margin: 4px 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+.chapter-summary {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--secondary);
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+html[data-theme="dark"] .book-card,
+html[data-theme="dark"] .book-header,
+html[data-theme="dark"] .chapter-card {
+    background: rgba(20, 22, 32, 0.58);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+html[data-theme="dark"] .chapter-card:hover {
+    background: rgba(28, 31, 44, 0.72);
+}
+@media (max-width: 768px) {
+    .book-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    .book-cover-wrap {
+        flex: none;
+    }
+    .book-cover {
+        width: 160px;
+    }
+    .book-card-cover,
+    .book-card-placeholder {
+        width: 140px;
+        height: 195px;
+    }
+    .chapter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Books 总览：整体玻璃面板 + 封面完整显示 */
+.books-panel {
+    padding: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 46px -32px rgba(15, 23, 42, 0.5);
+}
+.book-card-cover {
+    object-fit: contain;
+    background: rgba(15, 23, 42, 0.05);
+    padding: 6px;
+}
+.books-header .post-description {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.62);
+    color: var(--secondary);
+    font-size: 13px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+html[data-theme="dark"] .books-header .post-description {
+    background: rgba(18, 20, 30, 0.6);
+}
+.chapter-cover {
+    object-fit: contain;
+    background: rgba(15, 23, 42, 0.06);
+    padding: 3px;
+}
+.chapter-card {
+    background: rgba(255, 255, 255, 0.9);
+}
+html[data-theme="dark"] .books-panel {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(18, 20, 30, 0.72);
+}
+html[data-theme="dark"] .chapter-card {
+    background: rgba(24, 27, 38, 0.9);
+}
+html[data-theme="dark"] .book-card-cover,
+html[data-theme="dark"] .chapter-cover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* 章节卡片：封面作为顶部横幅 */
+.chapter-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    align-items: stretch;
+}
+.chapter-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.chapter-cover-wrap {
+    aspect-ratio: 16 / 10;
+    background: rgba(15, 23, 42, 0.05);
+}
+.chapter-cover {
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+    object-fit: contain;
+    border-radius: 0;
+    background: transparent;
+}
+.chapter-body {
+    padding: 12px 14px 14px;
+}
+.chapter-title {
+    margin: 4px 0 6px;
+    font-size: 15.5px;
+    line-height: 1.45;
+}
+.chapter-summary {
+    -webkit-line-clamp: 2;
+}
+html[data-theme="dark"] .chapter-cover-wrap {
+    background: rgba(255, 255, 255, 0.05);
 }

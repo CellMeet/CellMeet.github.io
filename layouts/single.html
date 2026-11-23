@@ -1,5 +1,7 @@
 {{- define "main" }}
 {{- $hasToc := and (.Param "ShowToc") (findRE "<h[1-6]" .Content 1) }}
+{{- $bookCover := "" }}
+{{- with .Parent }}{{ $bookCover = partial "book_cover.html" . }}{{ end }}
 
 {{- /* ---------- 推荐阅读 ---------- */}}
 {{- $others := where site.RegularPages "Type" "in" site.Params.mainSections }}
@@ -15,7 +17,7 @@
 {{- if eq (len $related) 0 }}{{ $related = first 3 $others }}{{ end }}
 
 <article class="post-single">
-  <div class="post-hero">
+  <div class="post-hero{{ if $bookCover }} post-hero--book{{ end }}"{{ with $bookCover }} style="background-image:url('{{ . }}')"{{ end }}>
     <div class="post-hero-inner">
       {{ partial "breadcrumbs.html" . }}
       <h1 class="post-title entry-hint-parent">
