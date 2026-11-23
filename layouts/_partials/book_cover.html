@@ -1,12 +1,8 @@
-{{- $page := . -}}
+{{- /* 书籍封面：从 _Info.md 读取，页面资源优先 */ -}}
+{{- $book := . -}}
 {{- $out := "" -}}
-{{- with $page.Params.cover -}}
-  {{- with .image -}}
-    {{- with $page.Resources.GetMatch . -}}
-      {{- $out = .RelPermalink -}}
-    {{- else -}}
-      {{- if hasPrefix . "http" -}}{{ $out = . }}{{- end -}}
-    {{- end -}}
-  {{- end -}}
+{{- with $book -}}
+  {{- $info := partial "book_info.html" . -}}
+  {{- with $info.cover -}}{{ $out = . }}{{- end -}}
 {{- end -}}
 {{- return $out -}}

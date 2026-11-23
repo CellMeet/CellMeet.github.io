@@ -1,12 +1,14 @@
 ---
 title: "Chapter 4 | On Maintenance"
 date: "2026-11-23T21:20:16+08:00"
+url: "/posts/books/i-feel-bad-about-my-neck/chapter-4/"
 aliases: ["/posts/books/Chapter-4-|-On-Maintenance/"]
 draft: false
 categories: ["books"]
 tags: ["Nora Ephron"]
 summary: ""
 ---
+
 
 
 # Chapter 4 | On Maintenance

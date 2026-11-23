@@ -1,6 +1,7 @@
 {{- define "main" }}
-{{- $cover := partial "book_cover.html" . }}
-{{- $chapters := .RegularPagesRecursive.ByDate }}
+{{- $info := partial "book_info.html" . }}
+{{- $cover := $info.cover }}
+{{- $chapters := where .RegularPagesRecursive "File.BaseFileName" "!=" "_Info" }}
 
 <div class="book-page">
   <a class="book-back" href="{{ "categories/books/" | relLangURL }}">← Books</a>
@@ -8,15 +9,15 @@
   <header class="book-header">
     {{- with $cover }}
     <div class="book-cover-wrap">
-      <img class="book-cover" src="{{ . }}" alt="{{ $.Title }}" loading="eager">
+      <img class="book-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="eager">
     </div>
     {{- end }}
     <div class="book-info">
-      <h1 class="book-title">{{ .Title }}</h1>
-      {{- with .Params.summary }}
+      <h1 class="book-title">{{ $info.title }}</h1>
+      {{- with $info.summary }}
       <p class="book-summary">{{ . }}</p>
       {{- end }}
-      {{- with .Content }}
+      {{- with $info.content }}
       <div class="book-intro">{{ . }}</div>
       {{- end }}
     </div>
@@ -28,11 +29,11 @@
       <span>{{ len $chapters }} 篇</span>
     </div>
     <div class="chapter-grid">
-      {{- range $chapters }}
+      {{- range $chapters.ByDate }}
       <a class="chapter-card" href="{{ .RelPermalink }}">
         {{- with $cover }}
         <div class="chapter-cover-wrap">
-          <img class="chapter-cover" src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          <img class="chapter-cover" src="{{ . }}" alt="{{ $info.title }}" loading="lazy">
         </div>
         {{- end }}
         <div class="chapter-body">

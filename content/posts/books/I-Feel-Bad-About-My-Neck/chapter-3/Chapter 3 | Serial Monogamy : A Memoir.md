@@ -1,12 +1,14 @@
 ---
 title: "Chapter 3 | Serial Monogamy : A Memoir"
 date: "2026-11-21T21:45:03+08:00"
+url: "/posts/books/i-feel-bad-about-my-neck/chapter-3/"
 aliases: ["/posts/books/Chapter-3-|-I-feel-bad-about-my-neck/"]
 draft: false
 categories: ["books"]
 tags: ["Nora Ephron", "我的脖子让我很不爽"]
 summary: "第三章, 有点长..."
 ---
+
 
 
 ​		晚上能有自己的一个小时是多么令人感觉愉快, 打字机的声音, 和一口泡的柠檬水, 我真的爱了~

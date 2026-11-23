@@ -1,0 +1,49 @@
+{{- /* 读取书目录下的 _Info.md（普通 Markdown 文件），返回书籍信息 dict。 */ -}}
+{{- $page := . -}}
+{{- $out := dict "title" $page.Title "summary" "" "cover" "" "coverAlt" "" "content" "" -}}
+{{- $raw := "" -}}
+{{- with $page.File -}}
+  {{- $p := path.Join "content" (path.Join .Dir "_Info.md") -}}
+  {{- if fileExists $p -}}
+    {{- $raw = os.ReadFile $p -}}
+  {{- end -}}
+{{- end -}}
+{{- if $raw -}}
+  {{- $text := strings.TrimSpace $raw -}}
+  {{- $fm := dict -}}
+  {{- $body := $text -}}
+  {{- if hasPrefix $text "---" -}}
+    {{- $rest := strings.TrimPrefix "---" $text -}}
+    {{- $parts := split $rest "---" -}}
+    {{- with (index $parts 0) -}}
+      {{- with try (transform.Unmarshal (dict "format" "yaml") .) -}}
+        {{- with .Value -}}{{ $fm = . }}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $body = delimit (after 1 $parts) "---" -}}
+  {{- end -}}
+  {{- with $fm.title -}}{{ $out = merge $out (dict "title" .) }}{{- end -}}
+  {{- with $fm.summary -}}{{ $out = merge $out (dict "summary" .) }}{{- end -}}
+  {{- with $fm.tags -}}{{ $out = merge $out (dict "tags" .) }}{{- end -}}
+  {{- $img := "" -}}
+  {{- $alt := "" -}}
+  {{- with $fm.cover -}}
+    {{- with .image -}}{{ $img = . }}{{- end -}}
+    {{- with .alt -}}{{ $alt = . }}{{- end -}}
+  {{- end -}}
+  {{- with $img -}}
+    {{- $src := . -}}
+    {{- with $page.Resources.GetMatch $src -}}
+      {{- $src = .RelPermalink -}}
+    {{- else -}}
+      {{- if not (hasPrefix $src "http") -}}
+        {{- $src = printf "%s%s" $page.RelPermalink $src -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $out = merge $out (dict "cover" $src) -}}
+  {{- end -}}
+  {{- with $alt -}}{{ $out = merge $out (dict "coverAlt" .) }}{{- end -}}
+  {{- $rendered := $body | markdownify -}}
+  {{- $out = merge $out (dict "content" $rendered) -}}
+{{- end -}}
+{{- return $out -}}

@@ -12,15 +12,16 @@
   <div class="book-grid">
     {{- range .Sections.ByTitle }}
     {{- $book := . }}
-    {{- $cover := partial "book_cover.html" $book }}
+    {{- $info := partial "book_info.html" $book }}
+    {{- $cover := $info.cover }}
     <a class="book-card" href="{{ $book.RelPermalink }}">
       {{- with $cover }}
-      <img class="book-card-cover" src="{{ . }}" alt="{{ $book.Title }}" loading="lazy">
+      <img class="book-card-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="lazy">
       {{- else }}
-      <span class="book-card-placeholder">{{ substr $book.Title 0 1 }}</span>
+      <span class="book-card-placeholder">{{ substr $info.title 0 1 }}</span>
       {{- end }}
-      <h2 class="book-card-title">{{ $book.Title }}</h2>
-      {{- with $book.Params.summary }}
+      <h2 class="book-card-title">{{ $info.title }}</h2>
+      {{- with $info.summary }}
       <p class="book-card-summary">{{ . | plainify | truncate 90 }}</p>
       {{- end }}
     </a>
