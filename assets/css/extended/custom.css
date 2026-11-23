@@ -3059,6 +3059,7 @@ html[data-theme="dark"] .home-pagination .page-btn.current {
 
 /* 书籍详情页 */
 .book-page {
+    padding-top: 10px;
     padding-bottom: 34px;
 }
 .book-back {
