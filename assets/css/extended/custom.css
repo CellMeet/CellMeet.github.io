@@ -3408,3 +3408,11 @@ html[data-theme="dark"] .chapter-toc-item + .chapter-toc-item {
     flex: 0 0 auto;
     transform: translateY(0.5px);
 }
+
+/* 搜索结果：去掉每行右侧的双箭头 */
+.searchResults li {
+    justify-content: flex-start;
+}
+.searchResults li svg {
+    display: none !important;
+}
