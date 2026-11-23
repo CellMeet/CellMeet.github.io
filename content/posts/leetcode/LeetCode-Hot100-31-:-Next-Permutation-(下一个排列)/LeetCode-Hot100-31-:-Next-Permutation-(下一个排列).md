@@ -41,7 +41,7 @@ cover:
 
   
 
-- 交换 arr[i], arr[j]
+- 交换 nums[i], nums[j]
 
   ```python
   nums[i], nums[j] = nums[j], nums[i]
