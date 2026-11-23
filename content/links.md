@@ -10,4 +10,8 @@ links:
     url: "https://colah.github.io/"
     avatar: ""
     description: ""
+  - name: "苏剑林科学空间"
+    url: "https://spaces.ac.cn/content.html"
+    avatar: ""
+    description: ""
 ---
