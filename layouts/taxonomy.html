@@ -8,15 +8,17 @@
 
   {{- $colors := slice "#2ecc71" "#1c1c1c" "#1abc9c" "#8e44ad" "#d35400" "#9b59b6" "#3498db" "#27ae60" "#c0392b" "#2980b9" "#16a085" "#e67e22" "#7f8c8d" "#a55eea" "#10ac84" }}
   {{- $i := 0 }}
-  <div class="tag-cloud">
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-      {{- $name := .Name }}
-      {{- $color := index $colors (mod $i (len $colors)) }}
-      {{- $i = add $i 1 }}
-      {{- with site.GetPage (printf "/%s/%s" $.Type $name) }}
-      <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ $color }};">{{ .LinkTitle }}</a>
+  <div class="taxonomy-panel">
+    <div class="tag-cloud">
+      {{- range $key, $value := .Data.Terms.Alphabetical }}
+        {{- $name := .Name }}
+        {{- $color := index $colors (mod $i (len $colors)) }}
+        {{- $i = add $i 1 }}
+        {{- with site.GetPage (printf "/%s/%s" $.Type $name) }}
+        <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ $color }};">{{ .LinkTitle }}</a>
+        {{- end }}
       {{- end }}
-    {{- end }}
+    </div>
   </div>
 </div>
 

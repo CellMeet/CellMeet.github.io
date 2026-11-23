@@ -2621,24 +2621,26 @@ html[data-theme="dark"] .side-panel-item .icon-moon {
     font-size: 1.05em;
 }
 
-/* 标签 / 分类页：作者风格彩色块 */
+/* 标签 / 分类页：标题在毛玻璃外，彩色块在毛玻璃里 */
 .taxonomy-page {
     margin: 28px auto 44px;
-    padding: 34px 30px;
+}
+.taxonomy-panel {
+    padding: 34px 38px 44px;
     border: 1px solid rgba(255, 255, 255, 0.85);
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 16px -4px rgba(138, 138, 138, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 12px 34px -24px rgba(15, 23, 42, 0.5);
 }
-html[data-theme="dark"] .taxonomy-page {
+html[data-theme="dark"] .taxonomy-panel {
     background: rgba(30, 30, 30, 0.6);
     border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 34px -24px rgba(0, 0, 0, 0.5);
 }
 .taxonomy-page .page-header {
-    margin-bottom: 26px;
+    margin-bottom: 24px;
     text-align: center;
 }
 .taxonomy-page .page-header h1 {
@@ -3415,34 +3417,4 @@ html[data-theme="dark"] .chapter-toc-item + .chapter-toc-item {
     display: block;
     flex: 0 0 auto;
     transform: translateY(0.5px);
-}
-
-/* 侧栏小标题放在毛玻璃外面，内容单独待在玻璃里 */
-.sidebar-group {
-    display: flex;
-    flex-direction: column;
-}
-.sidebar-group-title,
-.post-toc-heading {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin: 0 0 8px 2px;
-    font-size: 13.5px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--primary);
-}
-.sidebar-group .sidebar-card {
-    margin-top: 0;
-    padding-top: 13px;
-    padding-bottom: 20px;
-}
-.post-toc-widget {
-    display: flex;
-    flex-direction: column;
-}
-.post-toc-widget .post-toc-card {
-    padding-top: 12px;
-    padding-bottom: 18px;
 }
