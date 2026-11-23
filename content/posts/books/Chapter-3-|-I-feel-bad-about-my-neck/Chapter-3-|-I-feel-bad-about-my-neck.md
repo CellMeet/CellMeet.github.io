@@ -68,7 +68,7 @@ cover:
 
 ​		作者去Lee 家里吃饭, 吃的非常好, 导致感觉这顿饭是对过去的rebuke(指责), 
 
->   "Would Lee Bailey ever in a million years consider cooking the Brazilian national dish? Or Lee Lum's lemon chicken? Certainly not. It was horribly clear that my entire life up to that point had been a mistake."
+>   ​		"Would Lee Bailey ever in a million years consider cooking the Brazilian national dish? Or Lee Lum's lemon chicken? Certainly not. It was horribly clear that my entire life up to that point had been a mistake."
 
 ​		
 
@@ -79,3 +79,43 @@ cover:
 ​		这里作者又讽刺了一句, 她和Lee 一样, 不 serve 鱼, Fish is not fun. Order it at a restaurant  --- 这里讽刺前面提到的 Lemon Fish.
 
 ​		over, 太累了, 读作者的书, My English is so ... so ... poor . haha. 
+
+11.26 晚, 继续,
+
+​		作者的意思: 你可能认为有Lee这种朋友就不需要再幻想他作为一个"幻想中的朋友"了, 但是这样你就错了, 他过于随和, 像一个禅宗僧侣一样, 以至于他认为任何作者喜欢的 菜都可以作为"第四道菜", last sentence :
+
+> ​		"and all of us who fell under his influence began with his style and eventually ended up with our own."
+
+​		
+
+​		"我经常想要Lee会把我的一份食谱放进他的烹饪书中, 他经常来吃晚饭, 但是从来不要任何一张我的食谱,  他用餐巾纸和餐盘在后院拍了张照片放在食谱里, 可是餐巾纸和餐盘也是从他的商店买的, 所以它不算术."
+
+​		author 又结婚, 然后离婚了. 作者开始意识到没有人会把她的食谱放到cookbook里, 所以她自己做了! 
+
+​		后面作者开始提供 5 个菜, 而不是4个, 有时候是 6 个...  
+
+​		作者又结婚了, 这是第三次结婚,  last sentence, 评论了 Nigella 的食谱, 作者喜欢她的 roast beef dinner, 很像她母亲的, 除了 Yorkshire pudding, 她母亲serve 的是potato pancakes. 作者呢?
+
+> ​		"I serve Yorkshire pudding and potato pancakes. "  
+
+​		理由呢?
+
+> ​		"Why not? You only live once."		
+
+​		
+
+​		Ok, over! 第四章会短一点, go on ! 
+
+​		slavish : 奴隶的, 盲从的
+
+​		adulation : 谄媚, 奉承
+
+​		lackadaisical : 无精打采的
+
+​	
+
+ 
+
+
+
+​		
