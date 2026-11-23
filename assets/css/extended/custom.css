@@ -1930,7 +1930,7 @@ html {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: calc(var(--gap) * -1);
-    min-height: clamp(300px, 42vh, 420px);
+    min-height: clamp(260px, 35vh, 380px);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2345,7 +2345,7 @@ html[data-theme="dark"] .friend-intro {
 .post-hero {
     background-image: none;
     background-color: transparent !important;
-    min-height: clamp(340px, 48vh, 480px);
+    min-height: clamp(290px, 41vh, 420px);
 }
 .post-hero::after {
     display: none !important;
@@ -3059,7 +3059,7 @@ html[data-theme="dark"] .home-pagination .page-btn.current {
 
 /* 书籍详情页 */
 .book-page {
-    padding-top: 30px;
+    padding-top: 52px;
     padding-bottom: 34px;
 }
 .book-back {
