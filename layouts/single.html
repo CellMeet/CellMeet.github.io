@@ -99,9 +99,11 @@
       {{ partial "widget_profile.html" . }}
       {{ partial "widget_announcement.html" . }}
       {{- if $hasToc }}
-      <div class="post-toc-card">
-        <div class="post-toc-title">目录</div>
-        <div class="post-toc-body">{{ .TableOfContents }}</div>
+      <div class="post-toc-widget">
+        <div class="post-toc-heading">目录</div>
+        <div class="post-toc-card">
+          <div class="post-toc-body">{{ .TableOfContents }}</div>
+        </div>
       </div>
       {{- end }}
     </aside>

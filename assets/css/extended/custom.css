@@ -3416,3 +3416,33 @@ html[data-theme="dark"] .chapter-toc-item + .chapter-toc-item {
     flex: 0 0 auto;
     transform: translateY(0.5px);
 }
+
+/* 侧栏小标题放在毛玻璃外面，内容单独待在玻璃里 */
+.sidebar-group {
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-group-title,
+.post-toc-heading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px 2px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+}
+.sidebar-group .sidebar-card {
+    margin-top: 0;
+    padding-top: 13px;
+    padding-bottom: 20px;
+}
+.post-toc-widget {
+    display: flex;
+    flex-direction: column;
+}
+.post-toc-widget .post-toc-card {
+    padding-top: 12px;
+    padding-bottom: 18px;
+}
