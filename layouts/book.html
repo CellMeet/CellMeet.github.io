@@ -28,24 +28,17 @@
       <h2>章节</h2>
       <span>{{ len $chapters }} 篇</span>
     </div>
-    <div class="chapter-grid">
-      {{- range $chapters.ByDate }}
-      <a class="chapter-card" href="{{ .RelPermalink }}">
-        {{- with $cover }}
-        <div class="chapter-cover-wrap">
-          <img class="chapter-cover" src="{{ . }}" alt="{{ $info.title }}" loading="lazy">
-        </div>
-        {{- end }}
-        <div class="chapter-body">
-          <span class="chapter-date">{{ .Date | time.Format "2006-01-02" }}</span>
-          <h3 class="chapter-title">{{ .Title }}</h3>
-          {{- with .Summary }}
-          <p class="chapter-summary">{{ . | plainify | truncate 70 }}</p>
-          {{- end }}
-        </div>
-      </a>
+    <ol class="chapter-toc">
+      {{- range $i, $p := $chapters.ByDate }}
+      <li class="chapter-toc-item">
+        <a class="chapter-toc-link" href="{{ $p.RelPermalink }}">
+          <span class="chapter-toc-index">{{ printf "%02d" (add $i 1) }}</span>
+          <span class="chapter-toc-title">{{ $p.Title }}</span>
+          <span class="chapter-toc-date">{{ $p.Date | time.Format "2006-01-02" }}</span>
+        </a>
+      </li>
       {{- end }}
-    </div>
+    </ol>
   </section>
 </div>
 {{- end }}
