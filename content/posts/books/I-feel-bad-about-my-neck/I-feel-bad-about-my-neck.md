@@ -1,5 +1,5 @@
 ---
-title: "Chapter 2 | I feel bad about my neck"
+title: "Chapter 2 | I Hate My Purse"
 date: "2026-11-20T19:36:44+08:00"
 draft: false
 url: "/posts/books/I-feel-bad-about-my-neck/"

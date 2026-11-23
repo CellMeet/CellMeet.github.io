@@ -1,6 +1,6 @@
 ---
 
-title: "Chapter 3 | I feel bad about my neck"
+title: "Chapter 3 | Serial Monogamy : A Memoir"
 date: "2026-11-21T21:45:03+08:00"
 draft: false
 url: "/posts/books/Chapter-3-|-I-feel-bad-about-my-neck/"
@@ -16,7 +16,7 @@ cover:
 
 ​		当初决定一本书不读完不读下一本书, 我pick 了 I feel bad about my neck, 现在第二章, 好长, 读完要累晕了, 废话不多说, 先写一点. 
 
- # Serial Monogamy: A Memori
+ # Chapter 3 | Serial Monogamy: A Memoir
 
 ​		题目就很有意思: "连续一夫一妻制, 一段回忆", 但是作者是从食谱开始讨论的.
 
