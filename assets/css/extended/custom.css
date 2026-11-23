@@ -3396,3 +3396,22 @@ html[data-theme="dark"] .chapter-toc-item + .chapter-toc-item {
         display: none;
     }
 }
+
+/* 返回链接：更靠上、箭头与文字垂直居中 */
+.book-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 0 12px;
+    padding: 2px 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--primary);
+}
+.book-back svg {
+    display: block;
+    flex: 0 0 auto;
+    transform: translateY(0.5px);
+}

@@ -357,14 +357,6 @@ interactive() {
   esac
 }
 
-normalize_collection() {
-  case "$1" in
-    books) echo "book" ;;
-    movies) echo "movie" ;;
-    *) echo "$1" ;;
-  esac
-}
-
 if [ $# -eq 0 ]; then
   interactive
   exit 0
@@ -380,7 +372,7 @@ case "$1" in
     exit 0
     ;;
   chapter|entry)
-    create_entry "$(normalize_collection "${2:-book}")" "$(slugify "${3:-}")" "${4:-}"
+    create_entry "${2:-book}" "$(slugify "${3:-}")" "${4:-}"
     exit 0
     ;;
 esac
@@ -389,7 +381,6 @@ arg1="$1"
 arg2="${2:-}"
 arg3="${3:-}"
 
-arg2="$(normalize_collection "$arg2")"
 if is_collection "$arg2"; then
   add_to_collection "$arg2" "$arg1" "$arg3"
   exit 0
