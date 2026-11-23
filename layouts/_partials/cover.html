@@ -1,0 +1,15 @@
+{{- with .cxt }}
+{{- $page := . }}
+{{- $isHidden := $.isHidden | default false }}
+{{- $cover := "" }}
+{{- with .Params.cover }}{{ with .image }}{{ $cover = . }}{{ end }}{{ end }}
+{{- $cover = partial "resolve_cover.html" (dict "page" $page "cover" $cover) }}
+{{- if and $cover (not $isHidden) }}
+<figure class="entry-cover">
+    <img loading="{{ cond $.IsSingle "eager" "lazy" }}"
+         src="{{ if hasPrefix $cover "http" }}{{ $cover }}{{ else }}{{ $cover | relURL }}{{ end }}"
+         alt=""
+         decoding="async">
+</figure>
+{{- end }}
+{{- end }}
