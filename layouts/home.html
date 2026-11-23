@@ -166,7 +166,7 @@
     {{- $last := time.AsTime "2000-01-01" }}
     {{- range $pages }}{{ if .Lastmod.After $last }}{{ $last = .Lastmod }}{{ end }}{{ end }}
     <div class="sidebar-card">
-      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="0.6"/><rect x="13" y="8" width="3" height="10" rx="0.6"/></svg>网站信息</h3>
+      <h3 class="sidebar-card-title"><svg class="sidebar-card-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="4" height="8" rx="1"/><rect x="10" y="4" width="4" height="17" rx="1"/><rect x="16" y="9" width="4" height="12" rx="1"/></svg>网站信息</h3>
       <ul class="sidebar-info">
         <li><span>文章数目</span><strong>{{ len $pages }}</strong></li>
         <li><span>总字数</span><strong>{{ $wordStr }}</strong></li>
