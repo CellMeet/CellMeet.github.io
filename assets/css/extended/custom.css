@@ -1187,16 +1187,6 @@ html[data-theme="dark"] .home-hero-title {
 html[data-theme="dark"] .home-hero-sub {
     text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7);
 }
-.home-hero-scroll {
-    margin-top: 26px;
-    color: var(--secondary);
-    opacity: 0.85;
-    animation: hero-bounce 2.4s ease-in-out infinite;
-}
-@keyframes hero-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-}
 
 /* ---------- 主布局 ---------- */
 .home-layout {
