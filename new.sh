@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 # 新建内容
 #
-#   ./new.sh "标题" books "书名"      给指定书籍加一章
-#   ./new.sh "标题" books             选书（或输入新书名）再加一章
-#   ./new.sh "书名" books             新建一本书
+#   ./new.sh "标题" book "书名"      给指定书籍加一章
+#   ./new.sh "标题" book             选书（或输入新书名）再加一章
+#   ./new.sh "书名" book             新建一本书
 #
-#   ./new.sh "标题" movies "电影名"   给指定电影加一篇
-#   ./new.sh "标题" movies            选电影（或输入新电影名）再加一篇
-#   ./new.sh "电影名" movies          新建一部电影
+#   ./new.sh "标题" movie "电影名"   给指定电影加一篇
+#   ./new.sh "标题" movie            选电影（或输入新电影名）再加一篇
+#   ./new.sh "电影名" movie          新建一部电影
 #
 #   ./new.sh "文章标题" essay         新建普通文章
 #   ./new.sh                          交互式菜单
 #
-# 集合目录：content/posts/<books|movies>/<名称>/
+# 集合目录：content/posts/<book|movie>/<名称>/
 #   Info.md    信息（标题、简介、封面），自己写
 #   _index.md  Hugo 用，自动生成，不用管
 set -euo pipefail
 cd "$(dirname "$0")"
 
-COLLECTIONS="books movies"
+COLLECTIONS="book movie"
 
 slugify() {
   printf '%s' "$1" \
@@ -40,8 +40,8 @@ collection_root() {
 
 collection_name() {
   case "$1" in
-    books) echo "书" ;;
-    movies) echo "电影" ;;
+    book) echo "书" ;;
+    movie) echo "电影" ;;
     *) echo "内容" ;;
   esac
 }
@@ -329,21 +329,21 @@ interactive() {
   case "$choice" in
     1)
       read -r -p "书名: " title
-      create_item books "$title" >/dev/null
+      create_item book "$title" >/dev/null
       ;;
     2)
       local item
-      item="$(choose_or_create_item books "")" || return
-      create_entry books "$item" ""
+      item="$(choose_or_create_item book "")" || return
+      create_entry book "$item" ""
       ;;
     3)
       read -r -p "电影名: " title
-      create_item movies "$title" >/dev/null
+      create_item movie "$title" >/dev/null
       ;;
     4)
       local item
-      item="$(choose_or_create_item movies "")" || return
-      create_entry movies "$item" ""
+      item="$(choose_or_create_item movie "")" || return
+      create_entry movie "$item" ""
       ;;
     5)
       local title type
@@ -357,6 +357,14 @@ interactive() {
   esac
 }
 
+normalize_collection() {
+  case "$1" in
+    books) echo "book" ;;
+    movies) echo "movie" ;;
+    *) echo "$1" ;;
+  esac
+}
+
 if [ $# -eq 0 ]; then
   interactive
   exit 0
@@ -364,15 +372,15 @@ fi
 
 case "$1" in
   book)
-    create_item books "${2:-}" >/dev/null
+    create_item book "${2:-}" >/dev/null
     exit 0
     ;;
   movie)
-    create_item movies "${2:-}" >/dev/null
+    create_item movie "${2:-}" >/dev/null
     exit 0
     ;;
   chapter|entry)
-    create_entry "${2:-books}" "$(slugify "${3:-}")" "${4:-}"
+    create_entry "$(normalize_collection "${2:-book}")" "$(slugify "${3:-}")" "${4:-}"
     exit 0
     ;;
 esac
@@ -381,6 +389,7 @@ arg1="$1"
 arg2="${2:-}"
 arg3="${3:-}"
 
+arg2="$(normalize_collection "$arg2")"
 if is_collection "$arg2"; then
   add_to_collection "$arg2" "$arg1" "$arg3"
   exit 0

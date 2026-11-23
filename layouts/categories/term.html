@@ -1,6 +1,6 @@
 {{- define "main" }}
 
-{{- $isCollection := and (eq .Data.Plural "categories") (in (slice "books" "movies") .Data.Term) }}
+{{- $isCollection := and (eq .Data.Plural "categories") (in (slice "book" "movie") .Data.Term) }}
 {{- if $isCollection }}
 <div class="books-page">
   <header class="page-header books-header">
