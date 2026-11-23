@@ -4,7 +4,7 @@ date: "2026-11-23T08:48:41+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-1352-:-Product-of-the-Last-K-Numbers-(最后K个数的乘积/"
 categories: ["leetcode"]
-tags: []
+tags: ["前缀积"]
 summary: ""
 cover:
   image: "cover.jpg"
