@@ -41,7 +41,6 @@
 
 {{- range .Pages }}
 <article class="post-entry">
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" false) }}
   <header class="entry-header">
     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
   </header>
