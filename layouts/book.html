@@ -1,10 +1,12 @@
 {{- define "main" }}
 {{- $info := partial "book_info.html" . }}
 {{- $cover := $info.cover }}
-{{- $chapters := where .RegularPagesRecursive "File.BaseFileName" "!=" "_Info" }}
+{{- $chapters := where .RegularPagesRecursive "File.BaseFileName" "!=" "Info" }}
+{{- $collection := index (split .File.Dir "/") 1 }}
+{{- $label := cond (eq $collection "books") "章节" "内容" }}
 
 <div class="book-page">
-  <a class="book-back" href="{{ "categories/books/" | relLangURL }}">← Books</a>
+  <a class="book-back" href="{{ printf "categories/%s/" $collection | relLangURL }}">← {{ humanize $collection }}</a>
 
   <header class="book-header">
     {{- with $cover }}
@@ -25,7 +27,7 @@
 
   <section class="book-chapters">
     <div class="book-chapters-head">
-      <h2>章节</h2>
+      <h2>{{ $label }}</h2>
       <span>{{ len $chapters }} 篇</span>
     </div>
     <ol class="chapter-toc">

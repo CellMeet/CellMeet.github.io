@@ -1,9 +1,9 @@
-{{- /* 读取书目录下的 _Info.md（普通 Markdown 文件），返回书籍信息 dict。 */ -}}
+{{- /* 读取书目录下的 Info.md（普通 Markdown 文件），返回书籍信息 dict。 */ -}}
 {{- $page := . -}}
 {{- $out := dict "title" $page.Title "summary" "" "cover" "" "coverAlt" "" "content" "" -}}
 {{- $raw := "" -}}
 {{- with $page.File -}}
-  {{- $p := path.Join "content" (path.Join .Dir "_Info.md") -}}
+  {{- $p := path.Join "content" (path.Join .Dir "Info.md") -}}
   {{- if fileExists $p -}}
     {{- $raw = os.ReadFile $p -}}
   {{- end -}}

@@ -1,13 +1,14 @@
 {{- define "main" }}
 
-{{- if eq .Data.Term "books" }}
+{{- $isCollection := and (eq .Data.Plural "categories") (in (slice "books" "movies") .Data.Term) }}
+{{- if $isCollection }}
 <div class="books-page">
   <header class="page-header books-header">
-    <h1>Books</h1>
+    <h1>{{ .Title }}</h1>
   </header>
 
   <div class="books-panel">
-  {{- with site.GetPage "/posts/books" }}
+  {{- with site.GetPage (printf "/posts/%s" $.Data.Term) }}
   <div class="book-grid">
     {{- range .Sections.ByTitle }}
     {{- $book := . }}
