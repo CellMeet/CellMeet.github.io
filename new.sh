@@ -95,17 +95,18 @@ choose_or_create_item() {
   local label="新建$(collection_name "$coll")"
 
   # 终端里：模糊选择（↑↓ / 输入筛选 / Enter）
-  if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && { [ -t 0 ] || [ -t 1 ] || { true </dev/tty; } 2>/dev/null; }; then
+  if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
     local choice rc=0
     local -a pick_args=(--prompt "Select $(collection_name "$coll")" --new-label "+ $label")
     if [ -n "$initial_query" ]; then
       pick_args+=(--query "$initial_query")
     fi
     choice="$(list_items "$coll" | python3 "$PICKER" "${pick_args[@]}")" || rc=$?
-    if [ "${rc:-0}" -ne 0 ]; then
+    if [ "${rc:-0}" -eq 1 ]; then
       echo "已取消" >&2
       return 1
     fi
+    if [ "${rc:-0}" -ne 2 ]; then
 
     case "$choice" in
       NEW:*)
@@ -131,6 +132,8 @@ choose_or_create_item() {
         ;;
     esac
     return 0
+    fi
+    # rc=2：选择器不可用，继续走下面的简单输入
   fi
 
   # 非终端回退：编号选择，或直接输入名字
@@ -451,11 +454,19 @@ fi
 
 case "$1" in
 book)
-  create_item book "${2:-}" >/dev/null
+  if [ -n "${2:-}" ]; then
+    create_item book "$2" >/dev/null
+  else
+    choose_or_create_item book "" "" >/dev/null
+  fi
   exit 0
   ;;
 movie)
-  create_item movie "${2:-}" >/dev/null
+  if [ -n "${2:-}" ]; then
+    create_item movie "$2" >/dev/null
+  else
+    choose_or_create_item movie "" "" >/dev/null
+  fi
   exit 0
   ;;
 chapter | entry)

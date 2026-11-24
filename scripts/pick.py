@@ -160,7 +160,11 @@ def main():
     if tty_fd > 2:
         os.close(tty_fd)
 
-    result = curses.wrapper(pick, items, prompt, new_label, allow_new, initial_query)
+    try:
+        result = curses.wrapper(pick, items, prompt, new_label, allow_new, initial_query)
+    except Exception:
+        os.close(out_fd)
+        return 2
     if result is None:
         os.close(out_fd)
         return 1
