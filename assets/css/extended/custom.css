@@ -3487,7 +3487,7 @@ a.book-header {
 
 /* 标签球：减少上方空隙 */
 .sidebar-card .tag-sphere {
-    margin-top: -6px;
+    margin-top: 4px;
 }
 
 .tag-card {
@@ -3495,4 +3495,8 @@ a.book-header {
 }
 .tag-card .tag-sphere {
     height: 250px;
+}
+
+.tag-card .sidebar-card-title {
+    margin-bottom: 16px;
 }
