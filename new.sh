@@ -97,7 +97,7 @@ choose_or_create_item() {
   # 终端里：模糊选择（↑↓ / 输入筛选 / Enter）
   if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && { [ -t 0 ] || [ -t 1 ] || { true </dev/tty; } 2>/dev/null; }; then
     local choice rc=0
-    local -a pick_args=(--prompt "选择$(collection_name "$coll")" --new-label "＋ $label")
+    local -a pick_args=(--prompt "Select $(collection_name "$coll")" --new-label "+ $label")
     if [ -n "$initial_query" ]; then
       pick_args+=(--query "$initial_query")
     fi

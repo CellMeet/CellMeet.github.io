@@ -7,6 +7,15 @@
 import os
 import sys
 import curses
+import locale
+
+# 尽量使用 UTF-8，避免中文在部分终端里显示成空白
+for _loc in ("C.UTF-8", "en_US.UTF-8", "zh_CN.UTF-8", ""):
+    try:
+        locale.setlocale(locale.LC_ALL, _loc)
+        break
+    except locale.Error:
+        continue
 
 
 def norm(s):
@@ -50,7 +59,7 @@ def pick(stdscr, items, prompt, new_label, allow_new, initial_query=""):
         # ---- 计算布局并绘制 ----
         stdscr.erase()
         h, w = stdscr.getmaxyx()
-        title = f"{prompt}   ↑↓ 选择 · Enter 确认 · Esc 取消"
+        title = f"{prompt}   Up/Down select · Enter confirm · Esc cancel"
         stdscr.addnstr(0, 0, title, max(1, w - 1), curses.A_BOLD)
         stdscr.addnstr(1, 0, "› " + query, max(1, w - 1))
 
@@ -113,8 +122,8 @@ def pick(stdscr, items, prompt, new_label, allow_new, initial_query=""):
 
 
 def main():
-    prompt = "选择"
-    new_label = "＋ 新建"
+    prompt = "Select"
+    new_label = "+ New"
     allow_new = True
     initial_query = ""
 
