@@ -76,4 +76,72 @@ class Solution:
 
 ​		分治的思想和合并有序链表的思路一致, 先合并两个链表, 然后合并三个链表, 四个链表, 以此类推.
 
-​		
+- 合并两个有序链表
+
+  ```python
+  def mergeTwoLists(self, list1: Optional[ListNode], lsit2: Optional[ListNode]) -> Optional[ListNode]:
+  ```
+
+- 合并K 个有序链表
+
+  1. 使用递归的思想进行合并, 首先找到递归边界(base case)
+
+     ```python
+     m = len(Lists)  
+     # 递归边界
+     if m == 0:
+         return None
+     if m == 1:
+         return Lists[0]
+     ```
+
+  2. 递归合并K 个列表的左右两边的链表
+
+     ```python
+     left = self.mergeKLists(lists[:m // 2])
+     right = self.mergeKLists(lists[m // 2:])
+     ```
+
+     
+
+  3. 合并左右left, right
+
+     ```python
+     return self.mergeTwoLists(left, right)
+     ```
+
+完整代码如下:
+
+```python
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        tail = dummy
+        while list1 and list2:
+            v1 = list1.val
+            v2 = list2.val
+            if v1 < v2:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+            tail = tail.next
+        tail.next = list1 if list1 else list2
+        return dummy.next
+
+    def mergeKLists(self, lists: list[ListNode | None]) -> ListNode | None:
+        m = len(lists)
+        if m == 0:
+            return None
+        if m == 1:
+            return lists[0]
+        left = self.mergeKLists(lists[:m // 2])
+        right = self.mergeKLists(lists[m // 2:])
+        return self.mergeTwoLists(left, right)
+        
+```
+
+
+
+​				
