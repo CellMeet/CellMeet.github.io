@@ -3484,3 +3484,24 @@ a.book-header {
 .tag-sphere.sphere-ready.is-dragging {
     cursor: grabbing;
 }
+
+/* 标签球：更像太空中的地球仪 */
+.tag-sphere::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(86%, 228px);
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.55), rgba(26, 188, 156, 0.10) 52%, rgba(26, 188, 156, 0.03) 68%, transparent 74%);
+    box-shadow: inset 0 0 46px rgba(26, 188, 156, 0.10), 0 0 34px rgba(26, 188, 156, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+}
+html[data-theme="dark"] .tag-sphere::before {
+    background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.12), rgba(26, 188, 156, 0.10) 52%, rgba(26, 188, 156, 0.03) 68%, transparent 74%);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 46px rgba(26, 188, 156, 0.12), 0 0 34px rgba(26, 188, 156, 0.12);
+}

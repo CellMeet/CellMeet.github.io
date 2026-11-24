@@ -321,8 +321,8 @@
       return { el: a, x: Math.cos(theta) * r, y: y, z: Math.sin(theta) * r };
     });
 
-    var rotX = -0.15;
-    var rotY = 0;
+    var rotX = -0.22;
+    var rotY = 0.4;
     var paused = false;
     var dragging = false;
     var lastX = 0, lastY = 0, moved = 0;
@@ -349,9 +349,12 @@
         var p = 1.9 / (2.6 - z2);
         var px = x1 * R * p;
         var py = y1 * R * p;
-        var scale = p * 0.78;
+        var scale = p * 0.82;
+        var front = z2 > -0.02;
+        var opacity = front ? (0.5 + ((z2 + 0.02) / 1.02) * 0.5) : 0;
         it.el.style.transform = "translate(-50%, -50%) translate(" + px.toFixed(1) + "px, " + py.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
-        it.el.style.opacity = (0.32 + ((z2 + 1) / 2) * 0.68).toFixed(3);
+        it.el.style.opacity = opacity.toFixed(3);
+        it.el.style.pointerEvents = front ? "auto" : "none";
         it.el.style.zIndex = String(Math.round((z2 + 1) * 100));
       }
     }
@@ -389,7 +392,6 @@
       moved += Math.abs(dx) + Math.abs(dy);
       rotY += dx * 0.009;
       rotX += dy * 0.006;
-      rotX = Math.max(-1.15, Math.min(1.15, rotX));
     });
 
     function endDrag(e) {
@@ -416,7 +418,6 @@
       rotY += e.deltaY * 0.0015;
       if (e.shiftKey) {
         rotX += e.deltaY * 0.001;
-        rotX = Math.max(-1.15, Math.min(1.15, rotX));
       }
     }, { passive: false });
 
