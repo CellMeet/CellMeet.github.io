@@ -1,4 +1,51 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Hot100 on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/tags/hot100/</link><description>Recent content in Hot100 on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 24 Nov 2026 10:06:59 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/tags/hot100/index.xml" rel="self" type="application/rss+xml"/><item><title>LeetCode Hot100 23 : Merge k Sorted Lists (合并k个升序链表)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-23-Merge-k-Sorted-Lists-%28%E5%90%88%E5%B9%B6k%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8%29/</link><pubDate>Tue, 24 Nov 2026 10:06:59 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-23-Merge-k-Sorted-Lists-%28%E5%90%88%E5%B9%B6k%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8%29/</guid><description>&lt;h1 id="leetcode-hot100-23--merge-k-sorted-lists-合并k个升序链表"&gt;LeetCode Hot100 23 : Merge k Sorted Lists (合并k个升序链表)&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Hot100 on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/tags/hot100/</link><description>Recent content in Hot100 on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 24 Nov 2026 11:52:09 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/tags/hot100/index.xml" rel="self" type="application/rss+xml"/><item><title>LeetCode Hot100 337 : House Robber III (打家劫舍 III)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-337-House-Robber-III-%28%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-III%29/</link><pubDate>Tue, 24 Nov 2026 11:52:09 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-337-House-Robber-III-%28%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-III%29/</guid><description>&lt;h1 id="leetcode-hot100-337--house-robber-iii-打家劫舍-iii"&gt;LeetCode Hot100 337 : House Robber III (打家劫舍 III)&lt;/h1&gt;
+&lt;h2 id="题目理解-"&gt;题目理解 :&lt;/h2&gt;
+&lt;p&gt;很明显的二叉树递归, 采用二叉树进行思考, 考虑最简单的二叉树&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;先找递归边界(base case)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="c1"&gt;# 前后分别是一个节点rob or not_rob &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果抢劫这个节点, 那么它的左右节点就不能抢劫&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 左右node的返回值&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;left_rob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;left_not&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dfs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;right_rob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right_not&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dfs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;rob&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;left_not&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;right_not&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;not_rob&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;max&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;left_rob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;left_not&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;max&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;right_rob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right_not&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;向上返回两个值, 让父节点判断使用rob 还是not_rob&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;rob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;not_rob&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>LeetCode Hot100 23 : Merge k Sorted Lists (合并k个升序链表)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-23-Merge-k-Sorted-Lists-%28%E5%90%88%E5%B9%B6k%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8%29/</link><pubDate>Tue, 24 Nov 2026 10:06:59 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-Hot100-23-Merge-k-Sorted-Lists-%28%E5%90%88%E5%B9%B6k%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8%29/</guid><description>&lt;h1 id="leetcode-hot100-23--merge-k-sorted-lists-合并k个升序链表"&gt;LeetCode Hot100 23 : Merge k Sorted Lists (合并k个升序链表)&lt;/h1&gt;
 &lt;p&gt;题目链接 : &lt;a href="https://leetcode.cn/problems/merge-k-sorted-lists/?envType=problem-list-v2&amp;amp;envId=2cktkvj"&gt;LeetCode Hot100 23 : Merge k Sorted Lists &lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="方法一--最小堆"&gt;方法一 : 最小堆&lt;/h2&gt;
 &lt;p&gt;将所有头节点入堆, 最小的将会排在上面, 取出来, 然后将该节点的第二个节点入堆, 接着, 取出一个, 就将新的入堆,&lt;/p&gt;</description></item><item><title>LeetCode Hot100 62 : Unique Paths (不同路径)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-62-Unique-Paths-%28%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%29/</link><pubDate>Tue, 24 Nov 2026 09:58:55 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-62-Unique-Paths-%28%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%29/</guid><description>&lt;h1 id="leetcode-62--unique-paths-不同路径"&gt;LeetCode 62 : Unique Paths (不同路径)&lt;/h1&gt;
