@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """交互式新建内容向导。
 
-流程：title -> category ->（book/movie 时）book name / movie name
-- 行内输入，候选显示在输入行下面，不占整屏
-- 候选默认不显示，开始输入后才出现
-- title 和 book/movie 名必须用双引号包裹
-- category 或 name 步骤按 Esc 可返回上一步修改
+一个步骤里同时出现 title 和 category：
+- title 必须用双引号包裹
+- 标题确认后光标直接移到下面的 category，候选在输入后才出现
+- book/movie 时再输入书名/电影名，书名不需要引号也能匹配
+- Esc 可返回上一步修改，Ctrl-C 取消
+
 结果以 TITLE\\x1f..., CATEGORY\\x1f..., NAME\\x1f... 输出到标准输出。
 """
 import locale
@@ -36,7 +37,7 @@ def dw(s):
 
 def term_width():
     try:
-        return shutil.get_terminal_size((80, 24)).columns
+        return max(20, shutil.get_terminal_size((80, 24)).columns)
     except OSError:
         return 80
 
@@ -55,11 +56,11 @@ def fit(s, width):
     return "".join(out) + "…"
 
 
-def layout_line(prompt, text, cursor, width):
-    full = prompt + text
+def field_view(label, text, cursor, width):
+    full = label + text
     if dw(full) <= width - 1:
-        return full, dw(prompt + text[:cursor])
-    avail = width - 2 - dw(prompt + "…")
+        return full, dw(label + text[:cursor])
+    avail = width - 2 - dw(label + "…")
     if avail < 4:
         avail = 4
     tail = []
@@ -72,11 +73,11 @@ def layout_line(prompt, text, cursor, width):
         w += cw
     tail = "".join(reversed(tail))
     start = len(text) - len(tail)
-    shown = prompt + "…" + tail
+    shown = label + "…" + tail
     if cursor >= start:
-        col = dw(prompt + "…" + text[start:cursor])
+        col = dw(label + "…" + text[start:cursor])
     else:
-        col = dw(prompt + "…")
+        col = dw(label + "…")
     return shown, min(col, width - 2)
 
 
@@ -116,42 +117,9 @@ def unquote(s):
     return None
 
 
-class Ui:
-    def __init__(self):
-        self.drawn = 0
-
-    def write(self, s):
-        sys.stdout.write(s)
-        sys.stdout.flush()
-
-    def render(self, prompt, text, cursor, cands, sel, error):
-        width = term_width()
-        out = ["\r\x1b[J"]
-        shown, col = layout_line(prompt, text, cursor, width)
-        out.append(shown)
-        lines = []
-        if error:
-            lines.append(fit(error, width - 1))
-        for i, item in enumerate(cands):
-            label = fit(item, width - 2)
-            if i == sel:
-                lines.append("\x1b[7m" + label + "\x1b[0m")
-            else:
-                lines.append("  " + label)
-        for line in lines:
-            out.append("\n" + line)
-        if lines:
-            out.append(f"\x1b[{len(lines)}A")
-        out.append("\r")
-        if col:
-            out.append(f"\x1b[{col}C")
-        self.write("".join(out))
-        self.drawn = len(lines)
-
-    def finish(self, prompt, text):
-        out = ["\r\x1b[J", prompt + text + "\n"]
-        self.write("".join(out))
-        self.drawn = 0
+def loose_value(s):
+    """书名/电影名：引号可有可无，匹配时去掉首尾引号。"""
+    return s.strip().strip('"')
 
 
 def read_key():
@@ -196,103 +164,195 @@ def read_key():
     return data.decode("utf-8", "replace")
 
 
-def edit_step(ui, prompt, initial, items, mode, back_allowed):
-    """mode: title / category / name"""
+class Screen:
+    def __init__(self):
+        self.up = 0
+
+    def write(self, s):
+        sys.stdout.write(s)
+        sys.stdout.flush()
+
+    def draw(self, lines, active_idx, cursor_col):
+        out = []
+        if self.up:
+            out.append(f"\x1b[{self.up}A")
+        out.append("\r\x1b[J")
+        out.append("\n".join(lines))
+        below = len(lines) - 1 - active_idx
+        if below > 0:
+            out.append(f"\x1b[{below}A")
+        out.append("\r")
+        if cursor_col:
+            out.append(f"\x1b[{cursor_col}C")
+        self.write("".join(out))
+        self.up = active_idx
+
+    def finish(self, lines):
+        out = []
+        if self.up:
+            out.append(f"\x1b[{self.up}A")
+        out.append("\r\x1b[J")
+        out.append("\n".join(lines) + "\n")
+        self.write("".join(out))
+        self.up = 0
+
+
+def handle_edit(key, text, cursor):
+    if key == "LEFT":
+        return text, max(0, cursor - 1), True
+    if key == "RIGHT":
+        return text, min(len(text), cursor + 1), True
+    if key == "HOME":
+        return text, 0, True
+    if key == "END":
+        return text, len(text), True
+    if key == "BS":
+        if cursor > 0:
+            return text[: cursor - 1] + text[cursor:], cursor - 1, True
+        return text, cursor, True
+    if key == "DEL":
+        if cursor < len(text):
+            return text[:cursor] + text[cursor + 1:], cursor, True
+        return text, cursor, True
+    if key == "CTRL_U":
+        return "", 0, True
+    if len(key) >= 1 and key.isprintable():
+        return text[:cursor] + key + text[cursor:], cursor + len(key), True
+    return text, cursor, False
+
+
+def edit_title_category(screen, categories):
+    title = ""
+    tcur = 0
+    cat = ""
+    ccur = 0
+    active = "title"
+    sel = 0
+    error = ""
+
+    while True:
+        width = term_width()
+
+        if active == "category":
+            q = cat.strip()
+            cands = fuzzy(categories, q)[:8] if q else []
+        else:
+            cands = []
+        if cands:
+            sel = max(0, min(sel, len(cands) - 1))
+        else:
+            sel = 0
+
+        if active == "title":
+            tline, col = field_view("title: ", title, tcur, width)
+        else:
+            tline = fit("title: " + title, width - 1)
+            col = 0
+        if active == "category":
+            cline, col = field_view("category: ", cat, ccur, width)
+        else:
+            cline = fit("category: " + cat, width - 1)
+
+        lines = [tline, cline]
+        if error:
+            lines.append(fit(error, width - 1))
+        for i, item in enumerate(cands):
+            label = fit(item, width - 2)
+            if i == sel:
+                lines.append("\x1b[7m" + label + "\x1b[0m")
+            else:
+                lines.append("  " + label)
+
+        active_idx = 0 if active == "title" else 1
+        screen.draw(lines, active_idx, col)
+
+        key = read_key()
+        if key is None:
+            continue
+        if key == "CTRL_C":
+            return None
+        if key == "ESC":
+            if active == "category":
+                active = "title"
+                error = ""
+                continue
+            return None
+
+        if key == "ENTER":
+            if active == "title":
+                if unquote(title) is None:
+                    error = 'error: title 请用双引号包裹，例如 "My Title"'
+                    continue
+                error = ""
+                active = "category"
+                continue
+            if cands:
+                screen.finish(["title: " + title, "category: " + cands[sel]])
+                return ("ok", (unquote(title), cands[sel]))
+            error = "error: 输入内容以筛选 category"
+            continue
+
+        if active == "category" and cands and key in ("UP", "DOWN"):
+            sel += -1 if key == "UP" else 1
+            continue
+
+        if active == "title":
+            title, tcur, handled = handle_edit(key, title, tcur)
+        else:
+            cat, ccur, handled = handle_edit(key, cat, ccur)
+        if handled:
+            error = ""
+
+
+def edit_name(screen, prompt, items, initial):
     text = initial
     cursor = len(text)
     sel = 0
     error = ""
 
     while True:
-        if mode == "category":
-            q = text.strip()
-            cands = fuzzy(items, q)[:8] if q else []
-        elif mode == "name":
-            inner = unquote(text)
-            q = (inner or "").strip()
-            cands = fuzzy(items, q)[:8] if q else []
-        else:
-            cands = []
-
+        width = term_width()
+        value = loose_value(text)
+        cands = fuzzy(items, value)[:8] if value else []
         if cands:
             sel = max(0, min(sel, len(cands) - 1))
         else:
             sel = 0
 
-        ui.render(prompt, text, cursor, cands, sel, error)
+        line, col = field_view(prompt, text, cursor, width)
+        lines = [line]
+        if error:
+            lines.append(fit(error, width - 1))
+        for i, item in enumerate(cands):
+            label = fit(item, width - 2)
+            if i == sel:
+                lines.append("\x1b[7m" + label + "\x1b[0m")
+            else:
+                lines.append("  " + label)
+        screen.draw(lines, 0, col)
 
         key = read_key()
         if key is None:
             continue
-
         if key == "CTRL_C":
             return None
         if key == "ESC":
-            if back_allowed:
-                return BACK
-            return None
-
+            return BACK
         if key == "ENTER":
-            if mode == "title":
-                val = unquote(text)
-                if val is None:
-                    error = 'error: 请用双引号包裹，例如 "My Title"'
-                    continue
-                ui.finish(prompt, text)
-                return ("ok", val)
-            if mode == "category":
-                if cands:
-                    ui.finish(prompt, cands[sel])
-                    return ("ok", cands[sel])
-                error = "error: 输入内容以筛选现有类型"
-                continue
-            if mode == "name":
-                val = unquote(text)
-                if val is None:
-                    error = 'error: 请用双引号包裹，例如 "I Feel Bad About My Neck"'
-                    continue
-                if cands:
-                    ui.finish(prompt, '"' + cands[sel] + '"')
-                    return ("ok", cands[sel])
-                ui.finish(prompt, text)
-                return ("ok", "NEW:" + val)
-
-        if key == "UP":
-            sel -= 1
+            if cands:
+                screen.finish([prompt + cands[sel]])
+                return ("ok", cands[sel])
+            if value:
+                screen.finish([prompt + text])
+                return ("ok", "NEW:" + value)
+            error = "error: 请输入书名/电影名"
             continue
-        if key == "DOWN":
-            sel += 1
-            continue
-        if key == "LEFT":
-            cursor = max(0, cursor - 1)
-            continue
-        if key == "RIGHT":
-            cursor = min(len(text), cursor + 1)
-            continue
-        if key == "HOME":
-            cursor = 0
-            continue
-        if key == "END":
-            cursor = len(text)
-            continue
-        if key == "CTRL_U":
-            text = ""
-            cursor = 0
-            error = ""
-            continue
-        if key == "BS":
-            if cursor > 0:
-                text = text[: cursor - 1] + text[cursor:]
-                cursor -= 1
-            continue
-        if key == "DEL":
-            if cursor < len(text):
-                text = text[:cursor] + text[cursor + 1:]
+        if cands and key in ("UP", "DOWN"):
+            sel += -1 if key == "UP" else 1
             continue
 
-        if len(key) >= 1 and key.isprintable():
-            text = text[:cursor] + key + text[cursor:]
-            cursor += len(key)
+        text, cursor, handled = handle_edit(key, text, cursor)
+        if handled:
             error = ""
 
 
@@ -307,40 +367,29 @@ def list_dirs(path):
 
 
 def run():
-    ui = Ui()
+    screen = Screen()
     categories = list_dirs("content/posts")
 
-    # 标题
-    res = edit_step(ui, "title: ", "", [], "title", False)
+    res = edit_title_category(screen, categories)
     if res is None:
         return None
-    title = res[1]
+    title, category = res[1]
 
-    while True:
-        # 类型
-        res = edit_step(ui, "category: ", "", categories, "category", True)
-        if res is BACK:
-            res = edit_step(ui, "title: ", f'"{title}"', [], "title", False)
-            if res is None:
-                return None
-            title = res[1]
-            continue
-        if res is None:
-            return None
-        category = res[1]
-
-        if category not in ("book", "movie"):
-            return title, category, ""
-
-        # 书名 / 电影名
+    while category in ("book", "movie"):
         label = "book name: " if category == "book" else "movie name: "
         names = list_dirs(os.path.join("content/posts", category))
-        res = edit_step(ui, label, "", names, "name", True)
+        res = edit_name(screen, label, names, "")
         if res is BACK:
+            again = edit_title_category(screen, categories)
+            if again is None:
+                return None
+            title, category = again[1]
             continue
         if res is None:
             return None
         return title, category, res[1]
+
+    return title, category, ""
 
 
 def main():
