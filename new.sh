@@ -21,13 +21,13 @@ cd "$(dirname "$0")"
 COLLECTIONS="book movie"
 
 slugify() {
-  printf '%s' "$1" \
-    | tr '/' '-' \
-    | tr '|' '-' \
-    | tr ':' '-' \
-    | tr '？?' '-' \
-    | tr -s ' ' '-' \
-    | sed 's/-\+/-/g; s/^-//; s/-$//'
+  printf '%s' "$1" |
+    tr '/' '-' |
+    tr '|' '-' |
+    tr ':' '-' |
+    tr '？?' '-' |
+    tr -s ' ' '-' |
+    sed 's/-\+/-/g; s/^-//; s/-$//'
 }
 
 now() {
@@ -40,9 +40,9 @@ collection_root() {
 
 collection_name() {
   case "$1" in
-    book) echo "书" ;;
-    movie) echo "电影" ;;
-    *) echo "内容" ;;
+  book) echo "书" ;;
+  movie) echo "电影" ;;
+  *) echo "内容" ;;
   esac
 }
 
@@ -148,7 +148,7 @@ create_item() {
 
   mkdir -p "$dir"
 
-  cat > "$dir/Info.md" <<EOF
+  cat >"$dir/Info.md" <<EOF
 ---
 title: "$title"
 build:
@@ -159,11 +159,9 @@ cover:
   image: "cover.jpg"
   alt: "《$title》封面"
 ---
-
-在这里写简介。
 EOF
 
-  cat > "$dir/_index.md" <<EOF
+  cat >"$dir/_index.md" <<EOF
 ---
 title: "$title"
 layout: "book"
@@ -225,7 +223,7 @@ create_entry() {
   fi
 
   mkdir -p "$folder"
-  cat > "$file" <<EOF
+  cat >"$file" <<EOF
 ---
 title: "$title"
 date: "$d"
@@ -236,7 +234,6 @@ tags: []
 summary: ""
 ---
 
-在这里开始写。
 EOF
 
   echo "已创建: $file" >&2
@@ -265,7 +262,7 @@ create_post() {
 
   mkdir -p "$dir"
   d="$(now)"
-  cat > "$file" <<EOF
+  cat >"$file" <<EOF
 ---
 title: "$title"
 date: "$d"
@@ -279,7 +276,6 @@ cover:
   alt: ""
 ---
 
-在这里开始写正文。
 EOF
 
   echo "已创建: $file" >&2
@@ -290,8 +286,8 @@ EOF
 
 is_collection() {
   case " $COLLECTIONS " in
-    *" $1 "*) return 0 ;;
-    *) return 1 ;;
+  *" $1 "*) return 0 ;;
+  *) return 1 ;;
   esac
 }
 
@@ -327,33 +323,33 @@ interactive() {
   read -r -p "选择 [1-5]: " choice
 
   case "$choice" in
-    1)
-      read -r -p "书名: " title
-      create_item book "$title" >/dev/null
-      ;;
-    2)
-      local item
-      item="$(choose_or_create_item book "")" || return
-      create_entry book "$item" ""
-      ;;
-    3)
-      read -r -p "电影名: " title
-      create_item movie "$title" >/dev/null
-      ;;
-    4)
-      local item
-      item="$(choose_or_create_item movie "")" || return
-      create_entry movie "$item" ""
-      ;;
-    5)
-      local title type
-      read -r -p "文章标题: " title
-      read -r -p "类型（essay/leetcode/music/...）: " type
-      create_post "$title" "$type" >/dev/null
-      ;;
-    *)
-      echo "无效选择"
-      ;;
+  1)
+    read -r -p "书名: " title
+    create_item book "$title" >/dev/null
+    ;;
+  2)
+    local item
+    item="$(choose_or_create_item book "")" || return
+    create_entry book "$item" ""
+    ;;
+  3)
+    read -r -p "电影名: " title
+    create_item movie "$title" >/dev/null
+    ;;
+  4)
+    local item
+    item="$(choose_or_create_item movie "")" || return
+    create_entry movie "$item" ""
+    ;;
+  5)
+    local title type
+    read -r -p "文章标题: " title
+    read -r -p "类型（essay/leetcode/music/...）: " type
+    create_post "$title" "$type" >/dev/null
+    ;;
+  *)
+    echo "无效选择"
+    ;;
   esac
 }
 
@@ -363,18 +359,18 @@ if [ $# -eq 0 ]; then
 fi
 
 case "$1" in
-  book)
-    create_item book "${2:-}" >/dev/null
-    exit 0
-    ;;
-  movie)
-    create_item movie "${2:-}" >/dev/null
-    exit 0
-    ;;
-  chapter|entry)
-    create_entry "${2:-book}" "$(slugify "${3:-}")" "${4:-}"
-    exit 0
-    ;;
+book)
+  create_item book "${2:-}" >/dev/null
+  exit 0
+  ;;
+movie)
+  create_item movie "${2:-}" >/dev/null
+  exit 0
+  ;;
+chapter | entry)
+  create_entry "${2:-book}" "$(slugify "${3:-}")" "${4:-}"
+  exit 0
+  ;;
 esac
 
 arg1="$1"
