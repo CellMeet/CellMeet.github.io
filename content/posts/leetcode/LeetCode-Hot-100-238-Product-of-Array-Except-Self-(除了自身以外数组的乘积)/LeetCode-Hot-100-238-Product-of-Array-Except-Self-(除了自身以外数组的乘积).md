@@ -4,10 +4,10 @@ date: "2026-11-24T20:00:54+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot-100-238-Product-of-Array-Except-Self-(除了自身以外数组的乘积)/"
 categories: ["leetcode"]
-tags: []
+tags: ["hot100"]
 summary: ""
 cover:
-  image: ""
+  image: "cover.png"
   alt: ""
 ---
 
