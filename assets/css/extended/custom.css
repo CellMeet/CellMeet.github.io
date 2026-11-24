@@ -3431,3 +3431,15 @@ a.book-header {
     border-color: var(--accent-line);
     box-shadow: 0 20px 46px -30px rgba(15, 23, 42, 0.55);
 }
+/* 文章末尾：标签（沿用标签页的彩色胶囊风格） */
+.post-tags-section {
+    margin-top: 34px;
+}
+.post-tags-title {
+    margin: 0 0 14px;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+}
+.post-tags-section .tag-cloud {
+    gap: 10px;
+}

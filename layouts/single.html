@@ -63,6 +63,17 @@
         {{- end }}
       </footer>
 
+      {{- with .GetTerms "tags" }}
+      <section class="post-tags-section">
+        <h2 class="post-tags-title">标签</h2>
+        <div class="tag-cloud">
+          {{- range . }}
+          <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>
+          {{- end }}
+        </div>
+      </section>
+      {{- end }}
+
       {{- with $related }}
       <section class="related-section">
         <h2 class="related-title">推荐阅读</h2>
