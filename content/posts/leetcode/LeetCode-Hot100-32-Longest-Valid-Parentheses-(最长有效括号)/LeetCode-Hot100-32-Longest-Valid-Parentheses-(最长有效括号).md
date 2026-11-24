@@ -4,10 +4,10 @@ date: "2026-11-24T20:29:35+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot100-32-Longest-Valid-Parentheses-(最长有效括号)/"
 categories: ["leetcode"]
-tags: []
+tags: ["hot100"]
 summary: ""
 cover:
-  image: ""
+  image: "cover.png"
   alt: ""
 ---
 
