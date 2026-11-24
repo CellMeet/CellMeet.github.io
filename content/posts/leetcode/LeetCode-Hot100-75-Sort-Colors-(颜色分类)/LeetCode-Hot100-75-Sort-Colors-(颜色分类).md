@@ -40,3 +40,19 @@ class Solution(object):
 ```
 
 ​		解决, over! 
+
+顺手做了一道位运算:
+
+# LeetCode Hot100 136 : Single Number (只出现一次的数字)
+
+题目链接: [LeetCode 136 : Single Number](https://leetcode.cn/problems/single-number/description/?envType=problem-list-v2&envId=2cktkvj)
+
+```python
+class Solution(object):
+    def singleNumber(self, nums):
+        ans = 0
+        for x in nums:
+            ans ^= x
+        return ans
+```
+
