@@ -7,7 +7,7 @@ categories: ["leetcode"]
 tags: ["hot100", "dp"]
 summary: ""
 cover:
-  image: ""
+  image: "cover.png"
   alt: ""
 ---
 
