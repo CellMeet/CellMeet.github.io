@@ -18,6 +18,9 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+SELF_DIR="$(pwd)"
+PICKER="$SELF_DIR/scripts/pick.py"
+
 COLLECTIONS="book movie"
 
 slugify() {
@@ -84,6 +87,86 @@ print_items() {
 }
 
 choose_or_create_item() {
+  local coll="$1"
+  local hint="${2:-}"
+  local label="新建$(collection_name "$coll")"
+
+  # 终端里：模糊选择（↑↓ / 输入筛选 / Enter）
+  if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && { [ -t 0 ] || [ -t 1 ] || { true </dev/tty; } 2>/dev/null; }; then
+    local choice rc=0
+    choice="$(list_items "$coll" | python3 "$PICKER" --prompt "选择$(collection_name "$coll")" --new-label "＋ $label")" || rc=$?
+    if [ "${rc:-0}" -ne 0 ]; then
+      echo "已取消" >&2
+      return 1
+    fi
+
+    case "$choice" in
+      NEW:*)
+        local name="${choice#NEW:}"
+        if [ -z "$name" ]; then
+          read -r -p "$label名字: " name
+        fi
+        if [ -z "$name" ]; then
+          echo "没有输入名字" >&2
+          return 1
+        fi
+        local existing dir
+        if existing="$(find_item_dir "$coll" "$name")"; then
+          printf '%s\n' "$existing"
+          return 0
+        fi
+        dir="$(create_item "$coll" "$name")" || return 1
+        printf '%s\n' "$(basename "$dir")"
+        ;;
+      *)
+        [ -n "$choice" ] || return 1
+        printf '%s\n' "$choice"
+        ;;
+    esac
+    return 0
+  fi
+
+  # 非终端回退：编号选择，或直接输入名字
+  local -a items=()
+  local b
+  while IFS= read -r b; do items+=("$b"); done < <(list_items "$coll")
+
+  print_items "$coll"
+
+  local prompt ans
+  if [ -n "$hint" ]; then
+    prompt="选编号 = 把「$hint」作为内容加入；输入新名字 = $label；回车 = $label「$hint」: "
+  else
+    prompt="选编号，或输入新名字: "
+  fi
+  read -r -p "$prompt" ans
+
+  if [[ "$ans" =~ ^[0-9]+$ ]] && [ "$ans" -ge 1 ] && [ "$ans" -le ${#items[@]} ]; then
+    printf '%s\n' "${items[ans - 1]}"
+    return 0
+  fi
+
+  local name="$ans"
+  if [ -z "$name" ]; then
+    if [ -z "$hint" ]; then
+      echo "没有输入名字" >&2
+      return 1
+    fi
+    name="$hint"
+  fi
+
+  local existing
+  if existing="$(find_item_dir "$coll" "$name")"; then
+    printf '%s\n' "$existing"
+    return 0
+  fi
+
+  local dir
+  dir="$(create_item "$coll" "$name")" || return 1
+  printf '%s\n' "$(basename "$dir")"
+}
+
+create_item() {
   local coll="$1"
   local hint="${2:-}"
   local -a items=()
@@ -315,41 +398,38 @@ add_to_collection() {
 }
 
 interactive() {
-  echo "1) 新建书籍"
-  echo "2) 在书籍中添加一章"
-  echo "3) 新建电影"
-  echo "4) 在电影中添加一篇"
-  echo "5) 新建普通文章"
-  read -r -p "选择 [1-5]: " choice
+  echo "新建什么？"
+  echo "  book    书（选择已有 / 新建）"
+  echo "  movie   电影（选择已有 / 新建）"
+  echo "  post    普通文章"
+  read -r -p "> " kind
 
-  case "$choice" in
-  1)
-    read -r -p "书名: " title
-    create_item book "$title" >/dev/null
-    ;;
-  2)
-    local item
-    item="$(choose_or_create_item book "")" || return
-    create_entry book "$item" ""
-    ;;
-  3)
-    read -r -p "电影名: " title
-    create_item movie "$title" >/dev/null
-    ;;
-  4)
-    local item
-    item="$(choose_or_create_item movie "")" || return
-    create_entry movie "$item" ""
-    ;;
-  5)
-    local title type
-    read -r -p "文章标题: " title
-    read -r -p "类型（essay/leetcode/music/...）: " type
-    create_post "$title" "$type" >/dev/null
-    ;;
-  *)
-    echo "无效选择"
-    ;;
+  case "$kind" in
+    book|books|书)
+      local item title
+      item="$(choose_or_create_item book "")" || return
+      read -r -p "章节标题（可留空）: " title
+      if [ -n "$title" ]; then
+        create_entry book "$item" "$title"
+      fi
+      ;;
+    movie|movies|电影)
+      local item title
+      item="$(choose_or_create_item movie "")" || return
+      read -r -p "标题（可留空）: " title
+      if [ -n "$title" ]; then
+        create_entry movie "$item" "$title"
+      fi
+      ;;
+    post|article|essay|文章)
+      local title type
+      read -r -p "文章标题: " title
+      read -r -p "类型（essay/leetcode/music/...）: " type
+      create_post "$title" "$type" >/dev/null
+      ;;
+    *)
+      echo "无效选择（请输入 book / movie / post）"
+      ;;
   esac
 }
 
