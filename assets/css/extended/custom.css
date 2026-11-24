@@ -3448,7 +3448,7 @@ a.book-header {
 .tag-sphere {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 300px;
     overflow: hidden;
     border-radius: 14px;
     touch-action: none;
@@ -3488,4 +3488,11 @@ a.book-header {
 /* 标签球：减少上方空隙 */
 .sidebar-card .tag-sphere {
     margin-top: -6px;
+}
+
+.tag-card {
+    padding-bottom: 10px;
+}
+.tag-card .tag-sphere {
+    height: 300px;
 }
