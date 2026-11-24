@@ -349,7 +349,7 @@
         var z2 = it.y * sx + z1 * cxx;
         var p = 1.9 / (2.6 - z2);
         var px = x1 * R * p;
-        var py = y1 * R * p;
+        var py = y1 * R * p - 10;
         var scale = p * 0.78;
         it.el.style.transform = "translate(-50%, -50%) translate(" + px.toFixed(1) + "px, " + py.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
         it.el.style.opacity = (0.32 + ((z2 + 1) / 2) * 0.68).toFixed(3);
@@ -442,10 +442,10 @@
     for (var i = 0; i < list.length; i++) initSphere(list[i]);
   }
 
+  start();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", start);
-  } else {
-    start();
   }
+  window.addEventListener("load", start);
 })();
 </script>

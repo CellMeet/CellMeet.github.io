@@ -3484,3 +3484,8 @@ a.book-header {
 .tag-sphere.sphere-ready.is-dragging {
     cursor: grabbing;
 }
+
+/* 标签球：减少上方空隙 */
+.sidebar-card .tag-sphere {
+    margin-top: -6px;
+}
