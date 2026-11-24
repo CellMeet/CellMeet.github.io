@@ -22,6 +22,7 @@ cd "$(dirname "$0")"
 
 SELF_DIR="$(pwd)"
 PICKER_INLINE="$SELF_DIR/scripts/pick_inline.py"
+WIZARD="$SELF_DIR/scripts/new_wizard.py"
 
 COLLECTIONS="book movie"
 
@@ -327,6 +328,7 @@ tags: []
 summary: ""
 ---
 
+# $title
 EOF
 
   echo "已创建: $file" >&2
@@ -369,6 +371,7 @@ cover:
   alt: ""
 ---
 
+# $title
 EOF
 
   echo "已创建: $file" >&2
@@ -491,29 +494,58 @@ add_entry_flow() {
 }
 
 interactive() {
-  local title type
+  local title="" category="" name="" out key val raw
 
-  read -r -p "标题: " title
+  if [ -f "$WIZARD" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
+    out="$(python3 "$WIZARD")" || {
+      echo "已取消" >&2
+      return 1
+    }
+    while IFS=$'\x1f' read -r key val; do
+      case "$key" in
+        TITLE) title="$val" ;;
+        CATEGORY) category="$val" ;;
+        NAME) name="$val" ;;
+      esac
+    done <<< "$out"
+  else
+    # 非交互终端回退
+    read -r -p 'title: ' raw
+    title="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
+    printf '%s\n' "$(list_types)" >&2
+    read -r -p 'category: ' category
+    if [ "$category" = "book" ] || [ "$category" = "movie" ]; then
+      read -r -p "$category name: " raw
+      name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
+    fi
+  fi
+
   if [ -z "$title" ]; then
     echo "标题不能为空" >&2
     return 1
   fi
-
-  type="$(pick_type)" || {
-    echo "未选择类型" >&2
+  if [ -z "$category" ]; then
+    echo "类型不能为空" >&2
     return 1
-  }
-  [ -n "$type" ] || return 1
+  fi
 
-  case "$type" in
-    book)
-      add_entry_flow book "输入书名" "$title"
-      ;;
-    movie)
-      add_entry_flow movie "输入电影名" "$title"
+  case "$category" in
+    book | movie)
+      if [ -z "$name" ]; then
+        echo "书名/电影名不能为空" >&2
+        return 1
+      fi
+      if [ "${name#NEW:}" != "$name" ]; then
+        name="${name#NEW:}"
+        local dir
+        dir="$(create_item "$category" "$name")" || return 1
+        create_entry "$category" "$(basename "$dir")" "$title"
+      else
+        create_entry "$category" "$name" "$title"
+      fi
       ;;
     *)
-      create_post "$title" "$type" >/dev/null
+      create_post "$title" "$category" >/dev/null
       ;;
   esac
 }
