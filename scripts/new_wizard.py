@@ -11,6 +11,7 @@
 import locale
 import os
 import select
+import shutil
 import sys
 import termios
 import tty
@@ -31,6 +32,52 @@ def dw(s):
     for ch in s:
         width += 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
     return width
+
+
+def term_width():
+    try:
+        return shutil.get_terminal_size((80, 24)).columns
+    except OSError:
+        return 80
+
+
+def fit(s, width):
+    if width <= 1 or dw(s) <= width:
+        return s
+    out = []
+    w = 0
+    for ch in s:
+        cw = 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
+        if w + cw > width - 1:
+            break
+        out.append(ch)
+        w += cw
+    return "".join(out) + "…"
+
+
+def layout_line(prompt, text, cursor, width):
+    full = prompt + text
+    if dw(full) <= width - 1:
+        return full, dw(prompt + text[:cursor])
+    avail = width - 2 - dw(prompt + "…")
+    if avail < 4:
+        avail = 4
+    tail = []
+    w = 0
+    for ch in reversed(text):
+        cw = 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
+        if w + cw > avail:
+            break
+        tail.append(ch)
+        w += cw
+    tail = "".join(reversed(tail))
+    start = len(text) - len(tail)
+    shown = prompt + "…" + tail
+    if cursor >= start:
+        col = dw(prompt + "…" + text[start:cursor])
+    else:
+        col = dw(prompt + "…")
+    return shown, min(col, width - 2)
 
 
 def norm(s):
@@ -78,16 +125,15 @@ class Ui:
         sys.stdout.flush()
 
     def render(self, prompt, text, cursor, cands, sel, error):
-        out = []
-        if self.drawn:
-            out.append(f"\x1b[{self.drawn}A")
-        out.append("\r\x1b[J")
-        out.append(prompt + text)
+        width = term_width()
+        out = ["\r\x1b[J"]
+        shown, col = layout_line(prompt, text, cursor, width)
+        out.append(shown)
         lines = []
         if error:
-            lines.append(error)
+            lines.append(fit(error, width - 1))
         for i, item in enumerate(cands):
-            label = item
+            label = fit(item, width - 2)
             if i == sel:
                 lines.append("\x1b[7m" + label + "\x1b[0m")
             else:
@@ -97,18 +143,13 @@ class Ui:
         if lines:
             out.append(f"\x1b[{len(lines)}A")
         out.append("\r")
-        col = dw(prompt + text[:cursor])
         if col:
             out.append(f"\x1b[{col}C")
         self.write("".join(out))
         self.drawn = len(lines)
 
     def finish(self, prompt, text):
-        out = []
-        if self.drawn:
-            out.append(f"\x1b[{self.drawn}A")
-        out.append("\r\x1b[J")
-        out.append(prompt + text + "\n")
+        out = ["\r\x1b[J", prompt + text + "\n"]
         self.write("".join(out))
         self.drawn = 0
 

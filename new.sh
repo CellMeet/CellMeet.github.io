@@ -555,28 +555,12 @@ if [ $# -eq 0 ]; then
   exit 0
 fi
 
-case "$1" in
-book)
-  if [ -n "${2:-}" ]; then
-    create_item book "$2" >/dev/null
-  else
-    choose_or_create_item book "" "" >/dev/null
-  fi
+# 只输入 book / movie 时，直接打开对应选择器
+if [ $# -eq 1 ] && { [ "$1" = "book" ] || [ "$1" = "movie" ]; }; then
+  choose_or_create_item "$1" "" "" >/dev/null
   exit 0
-  ;;
-movie)
-  if [ -n "${2:-}" ]; then
-    create_item movie "$2" >/dev/null
-  else
-    choose_or_create_item movie "" "" >/dev/null
-  fi
-  exit 0
-  ;;
-chapter | entry)
-  create_entry "${2:-book}" "$(slugify "${3:-}")" "${4:-}"
-  exit 0
-  ;;
-esac
+fi
+
 
 arg1="$1"
 arg2="${2:-}"
