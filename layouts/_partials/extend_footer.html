@@ -332,12 +332,12 @@
     el.classList.add("sphere-ready");
 
     function size() {
-      return { w: el.clientWidth || 280, h: el.clientHeight || 320 };
+      return { w: el.clientWidth || 280, h: el.clientHeight || 250 };
     }
 
     function render() {
       var s = size();
-      var R = Math.min(s.w, s.h) * 0.46;
+      var R = Math.min(s.w * 0.46, s.h * 0.55);
       var sy = Math.sin(rotY), cyy = Math.cos(rotY);
       var sx = Math.sin(rotX), cxx = Math.cos(rotX);
 
