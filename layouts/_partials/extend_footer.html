@@ -324,6 +324,7 @@
     var rotX = -0.22;
     var rotY = 0.4;
     var paused = false;
+    var hovering = false;
     var dragging = false;
     var lastX = 0, lastY = 0, moved = 0;
     var lastT = performance.now();
@@ -349,12 +350,9 @@
         var p = 1.9 / (2.6 - z2);
         var px = x1 * R * p;
         var py = y1 * R * p;
-        var scale = p * 0.82;
-        var front = z2 > -0.02;
-        var opacity = front ? (0.5 + ((z2 + 0.02) / 1.02) * 0.5) : 0;
+        var scale = p * 0.78;
         it.el.style.transform = "translate(-50%, -50%) translate(" + px.toFixed(1) + "px, " + py.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
-        it.el.style.opacity = opacity.toFixed(3);
-        it.el.style.pointerEvents = front ? "auto" : "none";
+        it.el.style.opacity = (0.32 + ((z2 + 1) / 2) * 0.68).toFixed(3);
         it.el.style.zIndex = String(Math.round((z2 + 1) * 100));
       }
     }
@@ -369,8 +367,16 @@
       requestAnimationFrame(frame);
     }
 
-    el.addEventListener("pointerenter", function () { paused = true; });
-    el.addEventListener("pointerleave", function () { paused = false; });
+    el.addEventListener("pointerenter", function (e) {
+      hovering = true;
+      paused = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+    el.addEventListener("pointerleave", function () {
+      hovering = false;
+      paused = false;
+    });
 
     el.addEventListener("pointerdown", function (e) {
       dragging = true;
@@ -384,14 +390,16 @@
     });
 
     el.addEventListener("pointermove", function (e) {
-      if (!dragging) return;
+      if (!hovering && !dragging) return;
       var dx = e.clientX - lastX;
       var dy = e.clientY - lastY;
       lastX = e.clientX;
       lastY = e.clientY;
       moved += Math.abs(dx) + Math.abs(dy);
-      rotY += dx * 0.009;
-      rotX += dy * 0.006;
+      if (e.pointerType === "mouse" || dragging) {
+        rotY += dx * 0.009;
+        rotX += dy * 0.006;
+      }
     });
 
     function endDrag(e) {

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>微服务 on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link><description>Recent content in 微服务 on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 24 Nov 2026 15:02:22 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>滑动窗口算法</title><link>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%AE%97%E6%B3%95/</link><pubDate>Tue, 24 Nov 2026 15:02:22 +0800</pubDate><guid>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%AE%97%E6%B3%95/</guid><description>&lt;h1 id="滑动窗口算法"&gt;滑动窗口算法&lt;/h1&gt;
 &lt;h2 id="1-固定窗口计数器算法"&gt;1. 固定窗口计数器算法&lt;/h2&gt;
-&lt;p&gt;​ 统计1s内到达的请求的数量, 每个窗口单独设定阈值, 超出阈值的请求将会被放弃.&lt;/p&gt;</description></item><item><title>线程隔离方案对比</title><link>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E7%BA%BF%E7%A8%8B%E9%9A%94%E7%A6%BB%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94/</link><pubDate>Tue, 24 Nov 2026 14:41:42 +0800</pubDate><guid>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E7%BA%BF%E7%A8%8B%E9%9A%94%E7%A6%BB%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94/</guid><description>&lt;h1 id="线程隔离方案对比"&gt;线程隔离方案对比&lt;/h1&gt;
+&lt;p&gt;​ 统计1s内到达的请求的数量, 每个窗口单独设定阈值, 超出阈值的请求将会被放弃.&lt;/p&gt;
+&lt;h2 id="2-滑动窗口算法"&gt;2. 滑动窗口算法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;滑动窗口算法会将一个窗口划分成n个更小的区间&lt;/li&gt;
+&lt;li&gt;根据当前请求所在时间(currentTime)移动, 窗口范围是从(currentTime - Interval)之后的第一个时区开始, 到currentTime所在时区结束&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>线程隔离方案对比</title><link>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E7%BA%BF%E7%A8%8B%E9%9A%94%E7%A6%BB%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94/</link><pubDate>Tue, 24 Nov 2026 14:41:42 +0800</pubDate><guid>https://CellMeet.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E7%BA%BF%E7%A8%8B%E9%9A%94%E7%A6%BB%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94/</guid><description>&lt;h1 id="线程隔离方案对比"&gt;线程隔离方案对比&lt;/h1&gt;
 &lt;h2 id="线程隔离的不同方案"&gt;线程隔离的不同方案&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;线程池隔离 (Hystix 默认采用) 线程池每个业务独立的线程池, 但是隔离性更强&lt;/li&gt;
