@@ -249,9 +249,9 @@ def edit_title_category(screen, categories):
             tline = fit("title: " + title, width - 1)
             col = 0
         if active == "category":
-            cline, col = field_view("category: ", cat, ccur, width)
+            cline, col = field_view("belong: ", cat, ccur, width)
         else:
-            cline = fit("category: " + cat, width - 1)
+            cline = fit("belong: " + cat, width - 1)
 
         lines = [tline, cline]
         if error:
@@ -287,9 +287,9 @@ def edit_title_category(screen, categories):
                 active = "category"
                 continue
             if cands:
-                screen.finish(["title: " + title, "category: " + cands[sel]])
+                screen.finish(["title: " + title, "belong: " + cands[sel]])
                 return ("ok", (unquote(title), cands[sel]))
-            error = "error: 输入内容以筛选 category"
+            error = "error: 输入内容以筛选 belong"
             continue
 
         if active == "category" and cands and key in ("UP", "DOWN"):

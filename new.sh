@@ -513,7 +513,7 @@ interactive() {
     read -r -p 'title: ' raw
     title="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
     printf '%s\n' "$(list_types)" >&2
-    read -r -p 'category: ' category
+    read -r -p 'belong: ' category
     if [ "$category" = "book" ] || [ "$category" = "movie" ]; then
       read -r -p "$category name: " raw
       name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
@@ -525,7 +525,7 @@ interactive() {
     return 1
   fi
   if [ -z "$category" ]; then
-    echo "类型不能为空" >&2
+    echo "belong 不能为空" >&2
     return 1
   fi
 
