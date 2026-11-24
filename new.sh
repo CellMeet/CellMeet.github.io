@@ -12,7 +12,7 @@
 #   ./new.sh "电影名" movie          新建一部电影
 #
 #   ./new.sh "文章标题" essay         新建普通文章
-#   ./new.sh                          交互式菜单
+#   ./new.sh                          交互：标题 -> 类型 -> 书名/电影名（行内候选）
 #
 # 集合目录：content/posts/<book|movie>/<名称>/
 #   Info.md    信息（标题、简介、封面），自己写
@@ -21,7 +21,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 SELF_DIR="$(pwd)"
-PICKER="$SELF_DIR/scripts/pick.py"
+PICKER_INLINE="$SELF_DIR/scripts/pick_inline.py"
 
 COLLECTIONS="book movie"
 
@@ -94,44 +94,44 @@ choose_or_create_item() {
   local initial_query="${3:-}"
   local label="新建$(collection_name "$coll")"
 
-  # 终端里：模糊选择（↑↓ / 输入筛选 / Enter）
-  if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
+  # 终端里：行内输入 + 下方候选
+  if use_inline_picker; then
     local choice rc=0
-    local -a pick_args=(--prompt "Select $(collection_name "$coll")" --new-label "+ $label")
+    local -a pick_args=(--prompt "输入$(collection_name "$coll")名" --allow-new)
     if [ -n "$initial_query" ]; then
       pick_args+=(--query "$initial_query")
     fi
-    choice="$(list_items "$coll" | python3 "$PICKER" "${pick_args[@]}")" || rc=$?
+    choice="$(list_items "$coll" | python3 "$PICKER_INLINE" "${pick_args[@]}")" || rc=$?
+
     if [ "${rc:-0}" -eq 1 ]; then
       echo "已取消" >&2
       return 1
     fi
-    if [ "${rc:-0}" -ne 2 ]; then
-
-    case "$choice" in
-      NEW:*)
-        local name="${choice#NEW:}"
-        if [ -z "$name" ]; then
-          read -r -p "$label名字: " name
-        fi
-        if [ -z "$name" ]; then
-          echo "没有输入名字" >&2
-          return 1
-        fi
-        local existing dir
-        if existing="$(find_item_dir "$coll" "$name")"; then
-          printf '%s\n' "$existing"
-          return 0
-        fi
-        dir="$(create_item "$coll" "$name")" || return 1
-        printf '%s\n' "$(basename "$dir")"
-        ;;
-      *)
-        [ -n "$choice" ] || return 1
-        printf '%s\n' "$choice"
-        ;;
-    esac
-    return 0
+    if [ "${rc:-0}" -eq 0 ]; then
+      case "$choice" in
+        NEW:*)
+          local name="${choice#NEW:}"
+          if [ -z "$name" ]; then
+            read -r -p "$label名字: " name
+          fi
+          if [ -z "$name" ]; then
+            echo "没有输入名字" >&2
+            return 1
+          fi
+          local existing dir
+          if existing="$(find_item_dir "$coll" "$name")"; then
+            printf '%s\n' "$existing"
+            return 0
+          fi
+          dir="$(create_item "$coll" "$name")" || return 1
+          printf '%s\n' "$(basename "$dir")"
+          ;;
+        *)
+          [ -n "$choice" ] || return 1
+          printf '%s\n' "$choice"
+          ;;
+      esac
+      return 0
     fi
     # rc=2：选择器不可用，继续走下面的简单输入
   fi
@@ -411,38 +411,109 @@ add_to_collection() {
   create_entry "$coll" "$item" "$arg1"
 }
 
-interactive() {
-  echo "新建什么？"
-  echo "  book    书（选择已有 / 新建）"
-  echo "  movie   电影（选择已有 / 新建）"
-  echo "  post    普通文章"
-  read -r -p "> " kind
+list_types() {
+  find content/posts -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort
+}
 
-  case "$kind" in
-    book|books|书)
-      local item title
-      item="$(choose_or_create_item book "")" || return
-      read -r -p "章节标题（可留空）: " title
-      if [ -n "$title" ]; then
-        create_entry book "$item" "$title"
-      fi
+use_inline_picker() {
+  [ -f "$PICKER_INLINE" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }
+}
+
+pick_type() {
+  local types choice rc=0
+  types="$(list_types)"
+
+  if use_inline_picker; then
+    choice="$(printf '%s\n' "$types" | python3 "$PICKER_INLINE" --prompt "类型: ")" || rc=$?
+    if [ "${rc:-0}" -eq 0 ]; then
+      printf '%s\n' "$choice"
+      return 0
+    fi
+    if [ "${rc:-0}" -eq 1 ]; then
+      return 1
+    fi
+  fi
+
+  local -a arr=()
+  local b
+  while IFS= read -r b; do [ -n "$b" ] && arr+=("$b"); done <<< "$types"
+  local i=1
+  for b in "${arr[@]}"; do
+    printf '  %d) %s\n' "$i" "$b" >&2
+    i=$((i + 1))
+  done
+  read -r -p "选择类型编号: " choice
+  if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#arr[@]} ]; then
+    printf '%s\n' "${arr[choice - 1]}"
+    return 0
+  fi
+  return 1
+}
+
+pick_item_name() {
+  local coll="$1"
+  local prompt="$2"
+  local rc=0 choice
+
+  if use_inline_picker; then
+    choice="$(list_items "$coll" | python3 "$PICKER_INLINE" --prompt "$prompt: " --allow-new)" || rc=$?
+    if [ "${rc:-0}" -eq 0 ]; then
+      printf '%s\n' "$choice"
+      return 0
+    fi
+    if [ "${rc:-0}" -eq 1 ]; then
+      return 1
+    fi
+  fi
+
+  read -r -p "$prompt: " choice
+  [ -n "$choice" ] || return 1
+  printf '%s\n' "$choice"
+}
+
+add_entry_flow() {
+  local coll="$1"
+  local label="$2"
+  local title="$3"
+  local name dir
+
+  name="$(pick_item_name "$coll" "$label")" || return 1
+  [ -n "$name" ] || return 1
+
+  if [ "${name#NEW:}" != "$name" ]; then
+    name="${name#NEW:}"
+    [ -n "$name" ] || return 1
+    dir="$(create_item "$coll" "$name")" || return 1
+    create_entry "$coll" "$(basename "$dir")" "$title"
+  else
+    create_entry "$coll" "$name" "$title"
+  fi
+}
+
+interactive() {
+  local title type
+
+  read -r -p "标题: " title
+  if [ -z "$title" ]; then
+    echo "标题不能为空" >&2
+    return 1
+  fi
+
+  type="$(pick_type)" || {
+    echo "未选择类型" >&2
+    return 1
+  }
+  [ -n "$type" ] || return 1
+
+  case "$type" in
+    book)
+      add_entry_flow book "输入书名" "$title"
       ;;
-    movie|movies|电影)
-      local item title
-      item="$(choose_or_create_item movie "")" || return
-      read -r -p "标题（可留空）: " title
-      if [ -n "$title" ]; then
-        create_entry movie "$item" "$title"
-      fi
-      ;;
-    post|article|essay|文章)
-      local title type
-      read -r -p "文章标题: " title
-      read -r -p "类型（essay/leetcode/music/...）: " type
-      create_post "$title" "$type" >/dev/null
+    movie)
+      add_entry_flow movie "输入电影名" "$title"
       ;;
     *)
-      echo "无效选择（请输入 book / movie / post）"
+      create_post "$title" "$type" >/dev/null
       ;;
   esac
 }
