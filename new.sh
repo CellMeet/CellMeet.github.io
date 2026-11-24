@@ -2,10 +2,12 @@
 # 新建内容
 #
 #   ./new.sh "标题" book "书名"      给指定书籍加一章
+#   ./new.sh "标题" book I feel      打开选择器并预填搜索词
 #   ./new.sh "标题" book             选书（或输入新书名）再加一章
 #   ./new.sh "书名" book             新建一本书
 #
 #   ./new.sh "标题" movie "电影名"   给指定电影加一篇
+#   ./new.sh "标题" movie I feel     打开选择器并预填搜索词
 #   ./new.sh "标题" movie            选电影（或输入新电影名）再加一篇
 #   ./new.sh "电影名" movie          新建一部电影
 #
@@ -89,12 +91,17 @@ print_items() {
 choose_or_create_item() {
   local coll="$1"
   local hint="${2:-}"
+  local initial_query="${3:-}"
   local label="新建$(collection_name "$coll")"
 
   # 终端里：模糊选择（↑↓ / 输入筛选 / Enter）
   if [ -f "$PICKER" ] && command -v python3 >/dev/null 2>&1 && { [ -t 0 ] || [ -t 1 ] || { true </dev/tty; } 2>/dev/null; }; then
     local choice rc=0
-    choice="$(list_items "$coll" | python3 "$PICKER" --prompt "选择$(collection_name "$coll")" --new-label "＋ $label")" || rc=$?
+    local -a pick_args=(--prompt "选择$(collection_name "$coll")" --new-label "＋ $label")
+    if [ -n "$initial_query" ]; then
+      pick_args+=(--query "$initial_query")
+    fi
+    choice="$(list_items "$coll" | python3 "$PICKER" "${pick_args[@]}")" || rc=$?
     if [ "${rc:-0}" -ne 0 ]; then
       echo "已取消" >&2
       return 1
@@ -377,15 +384,19 @@ is_collection() {
 add_to_collection() {
   local coll="$1"
   local arg1="$2"
-  local arg3="${3:-}"
+  local query="${3:-}"
 
-  if [ -n "$arg3" ]; then
-    create_entry "$coll" "$arg3" "$arg1"
-    return 0
+  # 书名和后缀参数完全匹配时，直接加内容，不弹选择器
+  if [ -n "$query" ]; then
+    local exact
+    if exact="$(find_item_dir "$coll" "$query")"; then
+      create_entry "$coll" "$exact" "$arg1"
+      return 0
+    fi
   fi
 
   local item
-  item="$(choose_or_create_item "$coll" "$arg1")" || exit 1
+  item="$(choose_or_create_item "$coll" "$arg1" "$query")" || exit 1
 
   # 输入的新名字和 arg1 相同 -> 只新建；否则 arg1 作为第一部分内容
   if [ "$(slugify "$item")" = "$(slugify "$arg1")" ]; then
@@ -455,10 +466,10 @@ esac
 
 arg1="$1"
 arg2="${2:-}"
-arg3="${3:-}"
 
 if is_collection "$arg2"; then
-  add_to_collection "$arg2" "$arg1" "$arg3"
+  shift 2
+  add_to_collection "$arg2" "$arg1" "$*"
   exit 0
 fi
 

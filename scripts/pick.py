@@ -31,8 +31,8 @@ def score(q, s):
     return 99
 
 
-def pick(stdscr, items, prompt, new_label, allow_new):
-    query = ""
+def pick(stdscr, items, prompt, new_label, allow_new, initial_query=""):
+    query = initial_query
     sel = 0
 
     while True:
@@ -116,6 +116,7 @@ def main():
     prompt = "选择"
     new_label = "＋ 新建"
     allow_new = True
+    initial_query = ""
 
     args = sys.argv[1:]
     i = 0
@@ -126,6 +127,9 @@ def main():
             i += 2
         elif a == "--new-label" and i + 1 < len(args):
             new_label = args[i + 1]
+            i += 2
+        elif a == "--query" and i + 1 < len(args):
+            initial_query = args[i + 1]
             i += 2
         elif a == "--no-new":
             allow_new = False
@@ -147,7 +151,7 @@ def main():
     if tty_fd > 2:
         os.close(tty_fd)
 
-    result = curses.wrapper(pick, items, prompt, new_label, allow_new)
+    result = curses.wrapper(pick, items, prompt, new_label, allow_new, initial_query)
     if result is None:
         os.close(out_fd)
         return 1
