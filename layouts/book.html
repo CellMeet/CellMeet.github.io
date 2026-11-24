@@ -6,14 +6,18 @@
 {{- $label := cond (eq $collection "book") "章节" "内容" }}
 
 <div class="book-page">
+  {{- if $info.link }}
+  <a class="book-header book-header--link" href="{{ $info.link }}" target="_blank" rel="noopener noreferrer">
+  {{- else }}
   <header class="book-header">
+  {{- end }}
     {{- with $cover }}
     <div class="book-cover-wrap">
       <img class="book-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="eager">
     </div>
     {{- end }}
     <div class="book-info">
-      <h1 class="book-title">{{ $info.title }}</h1>
+      <h1 class="book-title">{{ $info.title }}{{ if $info.link }}<span class="book-link-badge">↗</span>{{ end }}</h1>
       {{- with $info.summary }}
       <p class="book-summary">{{ . }}</p>
       {{- end }}
@@ -21,7 +25,11 @@
       <div class="book-intro">{{ . }}</div>
       {{- end }}
     </div>
+  {{- if $info.link }}
+  </a>
+  {{- else }}
   </header>
+  {{- end }}
 
   <section class="book-chapters">
     <div class="book-chapters-head">

@@ -1,6 +1,6 @@
 {{- /* 读取书目录下的 Info.md（普通 Markdown 文件），返回书籍信息 dict。 */ -}}
 {{- $page := . -}}
-{{- $out := dict "title" $page.Title "summary" "" "cover" "" "coverAlt" "" "content" "" -}}
+{{- $out := dict "title" $page.Title "summary" "" "cover" "" "coverAlt" "" "content" "" "link" "" -}}
 {{- $raw := "" -}}
 {{- with $page.File -}}
   {{- $p := path.Join "content" (path.Join .Dir "Info.md") -}}
@@ -25,6 +25,7 @@
   {{- with $fm.title -}}{{ $out = merge $out (dict "title" .) }}{{- end -}}
   {{- with $fm.summary -}}{{ $out = merge $out (dict "summary" .) }}{{- end -}}
   {{- with $fm.tags -}}{{ $out = merge $out (dict "tags" .) }}{{- end -}}
+  {{- with $fm.link -}}{{ $out = merge $out (dict "link" .) }}{{- end -}}
   {{- $img := "" -}}
   {{- $alt := "" -}}
   {{- with $fm.cover -}}

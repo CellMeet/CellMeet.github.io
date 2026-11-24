@@ -249,6 +249,7 @@ build:
   render: never
   list: never
 summary: ""
+link: ""
 cover:
   image: "cover.jpg"
   alt: "《$title》封面"
