@@ -65,7 +65,6 @@
 
       {{- with .GetTerms "tags" }}
       <section class="post-tags-section">
-        <h2 class="post-tags-title">标签</h2>
         <div class="tag-cloud">
           {{- range . }}
           <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>

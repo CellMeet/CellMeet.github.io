@@ -3443,3 +3443,44 @@ a.book-header {
 .post-tags-section .tag-cloud {
     gap: 10px;
 }
+
+/* 首页侧栏：可拖拽 / 滚动的标签球 */
+.tag-sphere {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 14px;
+    touch-action: none;
+}
+.tag-sphere a {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--code-bg);
+    color: var(--secondary);
+    font-size: 12px;
+    line-height: 1.6;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+.tag-sphere a:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+.tag-sphere.sphere-ready a {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    user-select: none;
+    backface-visibility: hidden;
+}
+.tag-sphere.sphere-ready {
+    cursor: grab;
+}
+.tag-sphere.sphere-ready.is-dragging {
+    cursor: grabbing;
+}

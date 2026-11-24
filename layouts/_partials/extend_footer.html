@@ -302,3 +302,141 @@
     window.addEventListener("load", initCodeWindows);
   })();
 </script>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function initSphere(el) {
+    if (el.dataset.sphereReady === "1") return;
+    var nodes = Array.prototype.slice.call(el.querySelectorAll("a"));
+    if (!nodes.length) return;
+    el.dataset.sphereReady = "1";
+
+    var n = nodes.length;
+    var items = nodes.map(function (a, i) {
+      var y = 1 - (i / Math.max(1, n - 1)) * 2;
+      var r = Math.sqrt(Math.max(0, 1 - y * y));
+      var theta = i * 2.399963229728653;
+      return { el: a, x: Math.cos(theta) * r, y: y, z: Math.sin(theta) * r };
+    });
+
+    var rotX = -0.15;
+    var rotY = 0;
+    var paused = false;
+    var dragging = false;
+    var lastX = 0, lastY = 0, moved = 0;
+    var lastT = performance.now();
+
+    el.classList.add("sphere-ready");
+
+    function size() {
+      return { w: el.clientWidth || 280, h: el.clientHeight || 260 };
+    }
+
+    function render() {
+      var s = size();
+      var R = Math.min(s.w, s.h) * 0.43;
+      var sy = Math.sin(rotY), cyy = Math.cos(rotY);
+      var sx = Math.sin(rotX), cxx = Math.cos(rotX);
+
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        var x1 = it.x * cyy - it.z * sy;
+        var z1 = it.x * sy + it.z * cyy;
+        var y1 = it.y * cxx - z1 * sx;
+        var z2 = it.y * sx + z1 * cxx;
+        var p = 1.9 / (2.6 - z2);
+        var px = x1 * R * p;
+        var py = y1 * R * p;
+        var scale = p * 0.78;
+        it.el.style.transform = "translate(-50%, -50%) translate(" + px.toFixed(1) + "px, " + py.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
+        it.el.style.opacity = (0.32 + ((z2 + 1) / 2) * 0.68).toFixed(3);
+        it.el.style.zIndex = String(Math.round((z2 + 1) * 100));
+      }
+    }
+
+    function frame(t) {
+      var dt = Math.min(60, t - lastT);
+      lastT = t;
+      if (!paused && !dragging && !reduceMotion) {
+        rotY += dt * 0.00012;
+      }
+      render();
+      requestAnimationFrame(frame);
+    }
+
+    el.addEventListener("pointerenter", function () { paused = true; });
+    el.addEventListener("pointerleave", function () { paused = false; });
+
+    el.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      moved = 0;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      el.classList.add("is-dragging");
+      if (el.setPointerCapture && e.pointerId != null) {
+        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    });
+
+    el.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - lastX;
+      var dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      rotY += dx * 0.009;
+      rotX += dy * 0.006;
+      rotX = Math.max(-1.15, Math.min(1.15, rotX));
+    });
+
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove("is-dragging");
+      if (el.releasePointerCapture && e.pointerId != null) {
+        try { el.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+    el.addEventListener("pointerup", endDrag);
+    el.addEventListener("pointercancel", endDrag);
+
+    el.addEventListener("click", function (e) {
+      if (moved > 8) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    el.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      rotY += e.deltaY * 0.0015;
+      if (e.shiftKey) {
+        rotX += e.deltaY * 0.001;
+        rotX = Math.max(-1.15, Math.min(1.15, rotX));
+      }
+    }, { passive: false });
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(render).observe(el);
+    }
+
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  function start() {
+    var list = document.querySelectorAll(".tag-sphere");
+    for (var i = 0; i < list.length; i++) initSphere(list[i]);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+</script>
