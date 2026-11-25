@@ -5222,3 +5222,25 @@ details.collapse-month {
     padding-left: 0;
     text-align: center;
 }
+
+/* 分类：第三行居中，上下行轻微向右偏移，形成「(」的过渡 */
+.sidebar-terms a {
+    justify-content: center;
+    text-align: center;
+}
+.sidebar-terms a > span:first-child {
+    flex: 1;
+    text-align: center;
+}
+.sidebar-terms li:nth-child(1) a { padding-left: 32px; }
+.sidebar-terms li:nth-child(2) a { padding-left: 16px; }
+.sidebar-terms li:nth-child(3) a { padding-left: 0; }
+.sidebar-terms li:nth-child(4) a { padding-left: 16px; }
+.sidebar-terms li:nth-child(5) a { padding-left: 32px; }
+.sidebar-terms li:nth-child(6) a { padding-left: 32px; }
+
+/* 分类卡片上下边缘淡化 */
+.sidebar-terms-scroll {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
