@@ -5110,3 +5110,18 @@ details.collapse-year > summary {
 .friend-grid {
     margin-top: 28px;
 }
+
+/* 收藏页恢复原来的宽度和左对齐（之前挺好） */
+.star-panel {
+    max-width: 1120px;
+}
+.star-panel .collapse-list {
+    max-width: none;
+    margin: 0;
+}
+
+/* 内容年份顶部距离与右侧导航卡片的年份中心线对齐 */
+.archive-page .collapse-year:first-child > summary,
+.star-panel .collapse-year:first-child > summary {
+    margin-top: 0;
+}
