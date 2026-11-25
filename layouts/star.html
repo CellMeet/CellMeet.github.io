@@ -1,0 +1,154 @@
+{{- define "main" }}
+{{- $info := partial "star_info.html" . }}
+{{- $page := . }}
+
+<div class="star-page">
+  <a class="star-back" href="{{ .Parent.RelPermalink }}">← 收藏</a>
+
+  <header class="star-header">
+    {{- with $info.cover }}
+    <div class="star-cover-wrap">
+      <img class="star-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="eager">
+    </div>
+    {{- end }}
+    <div class="star-info">
+      <h1 class="star-title">{{ $info.title }}</h1>
+      <div class="star-meta">{{ $info.date }} · 收藏</div>
+      {{- with $info.summary }}<p class="star-summary">{{ . }}</p>{{ end }}
+      {{- with $info.content }}<div class="star-intro">{{ . }}</div>{{ end }}
+    </div>
+  </header>
+
+  {{- with $info.links }}
+  <section class="star-section">
+    <h2 class="star-section-title">链接</h2>
+    <div class="star-links">
+      {{- range . }}
+      <a class="star-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+        <span class="star-link-arrow" aria-hidden="true">↗</span>
+        <span class="star-link-name">{{ .name | default .url }}</span>
+        {{- with .desc }}<span class="star-link-desc">{{ . }}</span>{{ end }}
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* ---------- 音乐 ---------- */}}
+  {{- $musicDir := path.Join "content" (path.Join .File.Dir "music") }}
+  {{- $musicEntries := slice }}
+  {{- with try (os.ReadDir $musicDir) }}{{ with .Value }}{{ $musicEntries = . }}{{ end }}{{ end }}
+  {{- $audioExts := slice "mp3" "m4a" "flac" "wav" "ogg" "aac" }}
+  {{- $albums := slice }}
+  {{- $loose := slice }}
+  {{- range $musicEntries }}
+    {{- if .IsDir }}
+      {{- $albums = $albums | append .Name }}
+    {{- else if in $audioExts (lower (strings.TrimPrefix "." (path.Ext .Name))) }}
+      {{- $loose = $loose | append .Name }}
+    {{- end }}
+  {{- end }}
+
+  {{- if or $albums $loose }}
+  <section class="star-section">
+    <h2 class="star-section-title">音乐</h2>
+    <div class="star-albums">
+      {{- if $loose }}
+      <div class="star-album">
+        <h3 class="star-album-name">单曲</h3>
+        <div class="star-tracks">
+          {{- range $loose }}
+          {{- $src := partial "star_url.html" (dict "base" $page.RelPermalink "rel" (path.Join "music" .)) }}
+          <div class="star-track">
+            <div class="star-track-title">{{ replaceRE "\\.[^.]+$" "" . }}</div>
+            <audio controls preload="metadata" src="{{ $src }}"></audio>
+          </div>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+
+      {{- range $album := $albums }}
+      {{- $albumDir := path.Join $musicDir $album }}
+      {{- $tracks := slice }}
+      {{- with try (os.ReadDir $albumDir) }}{{ with .Value }}{{ $tracks = . }}{{ end }}{{ end }}
+      {{- $albumTracks := slice }}
+      {{- range $tracks }}
+        {{- if and (not .IsDir) (in $audioExts (lower (strings.TrimPrefix "." (path.Ext .Name)))) }}
+          {{- $albumTracks = $albumTracks | append .Name }}
+        {{- end }}
+      {{- end }}
+      {{- if $albumTracks }}
+      <div class="star-album">
+        <h3 class="star-album-name">{{ $album }}</h3>
+        <div class="star-tracks">
+          {{- range $albumTracks }}
+          {{- $src := partial "star_url.html" (dict "base" $page.RelPermalink "rel" (path.Join "music" $album .)) }}
+          <div class="star-track">
+            <div class="star-track-title">{{ replaceRE "\\.[^.]+$" "" . }}</div>
+            <audio controls preload="metadata" src="{{ $src }}"></audio>
+          </div>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* ---------- 书籍 ---------- */}}
+  {{- $bookDir := path.Join "content" (path.Join .File.Dir "books") }}
+  {{- $bookEntries := slice }}
+  {{- with try (os.ReadDir $bookDir) }}{{ with .Value }}{{ $bookEntries = . }}{{ end }}{{ end }}
+  {{- $bookExts := slice "pdf" "epub" "mobi" "djvu" "txt" }}
+  {{- $books := slice }}
+  {{- range $bookEntries }}
+    {{- if and (not .IsDir) (in $bookExts (lower (strings.TrimPrefix "." (path.Ext .Name)))) }}
+      {{- $books = $books | append .Name }}
+    {{- end }}
+  {{- end }}
+  {{- if $books }}
+  <section class="star-section">
+    <h2 class="star-section-title">书籍</h2>
+    <div class="star-books">
+      {{- range $books }}
+      {{- $src := partial "star_url.html" (dict "base" $page.RelPermalink "rel" (path.Join "books" .)) }}
+      <a class="star-book" href="{{ $src }}" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span class="star-book-body">
+          <span class="star-book-name">{{ replaceRE "\\.[^.]+$" "" . }}</span>
+          <span class="star-book-ext">{{ lower (strings.TrimPrefix "." (path.Ext .)) | upper }}</span>
+        </span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* ---------- 图片 ---------- */}}
+  {{- $imgDir := path.Join "content" (path.Join .File.Dir "images") }}
+  {{- $imgEntries := slice }}
+  {{- with try (os.ReadDir $imgDir) }}{{ with .Value }}{{ $imgEntries = . }}{{ end }}{{ end }}
+  {{- $imgExts := slice "jpg" "jpeg" "png" "webp" "gif" "avif" "svg" }}
+  {{- $imgs := slice }}
+  {{- range $imgEntries }}
+    {{- if and (not .IsDir) (in $imgExts (lower (strings.TrimPrefix "." (path.Ext .Name)))) }}
+      {{- $imgs = $imgs | append .Name }}
+    {{- end }}
+  {{- end }}
+  {{- if $imgs }}
+  <section class="star-section">
+    <h2 class="star-section-title">图片</h2>
+    <div class="star-photos">
+      {{- range $imgs }}
+      {{- $src := partial "star_url.html" (dict "base" $page.RelPermalink "rel" (path.Join "images" .)) }}
+      <a class="star-photo" href="{{ $src }}" target="_blank" rel="noopener">
+        <img src="{{ $src }}" alt="" loading="lazy" decoding="async">
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

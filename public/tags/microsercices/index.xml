@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Microsercices on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/tags/microsercices/</link><description>Recent content in Microsercices on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 25 Nov 2026 14:52:59 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/tags/microsercices/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang Microservices: Coming from a Monolith</title><link>https://CellMeet.github.io/posts/golang/Golang-%E5%BE%AE%E6%9C%8D%E5%8A%A1-Coming-from-a-Monolith/</link><pubDate>Wed, 25 Nov 2026 14:52:59 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-%E5%BE%AE%E6%9C%8D%E5%8A%A1-Coming-from-a-Monolith/</guid><description>&lt;h1 id="golang-microservices-coming-from-a-monolith"&gt;Golang Microservices: Coming from a Monolith&lt;/h1&gt;
+&lt;p&gt;课程链接 : &lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=4"&gt;7-Coming from a Monolith&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the real world, 99% of use cases you won't create a project from scratch as microservices.&lt;/p&gt;
+&lt;p&gt;Most of the times you can fix your problems, your scale, scalabitlity issues by just scaling.&lt;/p&gt;
+&lt;p&gt;Yon don't win by having Microservices.&lt;/p&gt;
+&lt;p&gt;The two best reasons to choose MS is because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Your organization is growing and needs to allow for more developers to work, without getting in each other way.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Improved Scalability and Resilience.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In short, Monolith is enough.&lt;/p&gt;</description></item></channel></rss>

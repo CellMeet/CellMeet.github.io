@@ -1,0 +1,7 @@
+{{- $base := .base -}}
+{{- $rel := .rel -}}
+{{- $u := printf "%s%s" $base $rel -}}
+{{- $u = replace $u " " "%20" -}}
+{{- $u = replace $u "#" "%23" -}}
+{{- $u = replace $u "?" "%3F" -}}
+{{- return $u -}}

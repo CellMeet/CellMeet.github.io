@@ -1,0 +1,55 @@
+{{- /* 读取收藏目录下的 Info.md，返回收藏信息 dict。 */ -}}
+{{- $page := . -}}
+{{- $out := dict "title" $page.Title "date" ($page.Date.Format "2006-01-02") "summary" "" "cover" "" "coverAlt" "" "content" "" "links" slice -}}
+{{- $raw := "" -}}
+{{- with $page.File -}}
+  {{- $p := path.Join "content" (path.Join .Dir "Info.md") -}}
+  {{- if fileExists $p -}}
+    {{- $raw = os.ReadFile $p -}}
+  {{- end -}}
+{{- end -}}
+{{- if $raw -}}
+  {{- $text := strings.TrimSpace $raw -}}
+  {{- $fm := dict -}}
+  {{- $body := $text -}}
+  {{- if hasPrefix $text "---" -}}
+    {{- $rest := strings.TrimPrefix "---" $text -}}
+    {{- $parts := split $rest "---" -}}
+    {{- with (index $parts 0) -}}
+      {{- with try (transform.Unmarshal (dict "format" "yaml") .) -}}
+        {{- with .Value -}}{{ $fm = . }}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $body = delimit (after 1 $parts) "---" -}}
+  {{- end -}}
+  {{- with $fm.title -}}{{ $out = merge $out (dict "title" .) }}{{- end -}}
+  {{- with $fm.date -}}{{ $out = merge $out (dict "date" (printf "%v" .)) }}{{- end -}}
+  {{- with $fm.summary -}}{{ $out = merge $out (dict "summary" .) }}{{- end -}}
+  {{- with $fm.links -}}{{ $out = merge $out (dict "links" .) }}{{- end -}}
+  {{- $img := "" -}}
+  {{- $alt := "" -}}
+  {{- with $fm.cover -}}
+    {{- with .image -}}{{ $img = . }}{{- end -}}
+    {{- with .alt -}}{{ $alt = . }}{{- end -}}
+  {{- end -}}
+  {{- with $img -}}
+    {{- $src := . -}}
+    {{- $found := true -}}
+    {{- with $page.Resources.GetMatch $src -}}
+      {{- $src = .RelPermalink -}}
+    {{- else -}}
+      {{- if hasPrefix $src "http" -}}
+        {{- $found = true -}}
+      {{- else if and $page.File (fileExists (printf "content/%s%s" $page.File.Dir $src)) -}}
+        {{- $src = printf "%s%s" $page.RelPermalink $src -}}
+      {{- else -}}
+        {{- $found = false -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if $found -}}{{ $out = merge $out (dict "cover" $src) }}{{- end -}}
+  {{- end -}}
+  {{- with $alt -}}{{ $out = merge $out (dict "coverAlt" .) }}{{- end -}}
+  {{- $rendered := $body | markdownify -}}
+  {{- $out = merge $out (dict "content" $rendered) -}}
+{{- end -}}
+{{- return $out -}}

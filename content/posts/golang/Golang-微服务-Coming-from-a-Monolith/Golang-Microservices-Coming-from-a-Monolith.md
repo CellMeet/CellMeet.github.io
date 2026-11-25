@@ -4,7 +4,7 @@ date: "2026-11-25T14:52:59+08:00"
 draft: false
 url: "/posts/golang/Golang-微服务-Coming-from-a-Monolith/"
 categories: ["golang"]
-tags: ["golang", "微服务"]
+tags: ["golang", "microsercices"]
 summary: ""
 cover:
   image: "go.png"
@@ -23,8 +23,8 @@ Yon don't win by having Microservices.
 
 The two best reasons to choose MS is because:
 
-- Your organization is growing and needs to allow for more developers to work, without getting in each other way.
-- Improved Scalability and Resilience.
+- **Your organization is growing and needs to allow for more developers to work, without getting in each other way.**
+- **Improved Scalability and Resilience.**
 
 In short,  Monolith is enough.
 

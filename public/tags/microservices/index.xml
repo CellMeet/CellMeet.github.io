@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Microservices on Tian Junkai's Blog Space</title><link>https://CellMeet.github.io/tags/microservices/</link><description>Recent content in Microservices on Tian Junkai's Blog Space</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 25 Nov 2026 21:15:28 +0800</lastBuildDate><atom:link href="https://CellMeet.github.io/tags/microservices/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang Microsercise: Guiding Design Principles</title><link>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</link><pubDate>Wed, 25 Nov 2026 21:15:28 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</guid><description>&lt;h1 id="golang-microsercise-guiding-design-principles"&gt;Golang Microsercise: Guiding Design Principles&lt;/h1&gt;
+&lt;p&gt;lesson link : &lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=5"&gt;Microservicise : Guiding Design Principles&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="service"&gt;Service&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Micro:&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Autonomous:&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Loosely Coupled:&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Context Bound:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="cohision-and-coupling"&gt;Cohision and Coupling&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;We want to achieve &lt;strong&gt;High&lt;/strong&gt; Cohesion and &lt;strong&gt;Low&lt;/strong&gt; Coupling.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In conclusion, Every Service, must take it's function, on the other side, we don't need many services to burden the deploy. (that' what about "High cohesion")&lt;/p&gt;</description></item></channel></rss>
