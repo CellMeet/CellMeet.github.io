@@ -33,14 +33,15 @@
 
   <aside class="archive-nav">
     <div class="archive-nav-card">
-      <div class="archive-nav-title">日期</div>
       {{- range $groups }}
       {{- $year := .Key }}
-      <a class="archive-nav-year" href="#y{{ $year }}">{{ $year }}</a>
-      {{- range .Pages.GroupByDate "January" }}
-      {{- $month := (index .Pages 0).Date.Format "01" }}
-      <a class="archive-nav-month" href="#m{{ $year }}-{{ $month }}">{{ $month }}</a>
-      {{- end }}
+      <details class="archive-nav-year-details" open>
+        <summary><a class="archive-nav-year" href="#y{{ $year }}">{{ $year }}</a></summary>
+        {{- range .Pages.GroupByDate "January" }}
+        {{- $month := (index .Pages 0).Date.Format "01" }}
+        <a class="archive-nav-month" href="#m{{ $year }}-{{ $month }}">{{ $month }}</a>
+        {{- end }}
+      </details>
       {{- end }}
     </div>
   </aside>

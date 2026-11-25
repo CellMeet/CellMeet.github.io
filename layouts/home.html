@@ -36,12 +36,12 @@
         </div>
         {{- end }}
         <div class="post-card-body">
-          <h3 class="post-card-title">{{ .Title }}</h3>
           <div class="post-card-meta">
             <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006-01-02" }}</time>
             <span class="sep">·</span>
             <span>{{ .ReadingTime }}min</span>
           </div>
+          <h3 class="post-card-title">{{ .Title }}</h3>
         </div>
       </article>
       {{- end }}

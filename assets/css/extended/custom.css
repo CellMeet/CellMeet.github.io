@@ -4895,3 +4895,124 @@ details.collapse-year > summary {
     0%, 50% { opacity: 1; }
     50.01%, 100% { opacity: 0; }
 }
+
+/* 面板左右留白一致，2026 单独左移，顶部更紧凑 */
+.archive-page,
+.star-panel {
+    padding: 10px 16px 18px;
+}
+details.collapse-year > summary {
+    margin-left: -8px;
+    padding-top: 0;
+}
+.archive-nav {
+    top: 86px;
+}
+.archive-layout {
+    grid-template-columns: minmax(0, 1fr) 260px;
+}
+.archive-nav-card {
+    padding: 12px 14px;
+}
+.archive-nav-year-details > summary {
+    list-style: none;
+    cursor: pointer;
+}
+.archive-nav-year-details > summary::-webkit-details-marker {
+    display: none;
+}
+.archive-nav-year-details > summary::before {
+    content: "›";
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--secondary);
+    transition: transform 0.2s ease;
+}
+.archive-nav-year-details[open] > summary::before {
+    transform: rotate(90deg);
+}
+.archive-nav-year {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-decoration: none;
+}
+.archive-nav-year-details {
+    margin-bottom: 8px;
+}
+
+/* 下拉：页面/课程/书居中，左右留白相等，更窄 */
+.menu .submenu {
+    min-width: 126px;
+    padding: 6px;
+}
+.menu .submenu a {
+    justify-content: center;
+    padding: 8px 8px;
+    gap: 8px;
+    font-size: 16px;
+}
+
+/* 分类：左括号式排版 + 逐行打字展开，去掉闪烁光标 */
+.cat-card .sidebar-card-title::after,
+.sidebar-terms a:hover::after {
+    content: none !important;
+    animation: none !important;
+}
+.sidebar-terms-scroll {
+    border-left: 2px solid var(--border);
+    padding-left: 10px;
+    position: relative;
+}
+.sidebar-terms-scroll::before,
+.sidebar-terms-scroll::after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    width: 8px;
+    height: 2px;
+    background: var(--border);
+}
+.sidebar-terms-scroll::before {
+    top: 0;
+}
+.sidebar-terms-scroll::after {
+    bottom: 0;
+}
+.sidebar-terms li {
+    animation: type-line 0.35s ease both;
+}
+.sidebar-terms li:nth-child(1) { animation-delay: 0.02s; }
+.sidebar-terms li:nth-child(2) { animation-delay: 0.08s; }
+.sidebar-terms li:nth-child(3) { animation-delay: 0.14s; }
+.sidebar-terms li:nth-child(4) { animation-delay: 0.20s; }
+.sidebar-terms li:nth-child(5) { animation-delay: 0.26s; }
+.sidebar-terms li:nth-child(6) { animation-delay: 0.32s; }
+.sidebar-terms li:nth-child(n+7) { animation-delay: 0.38s; }
+@keyframes type-line {
+    from {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0.2;
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+    }
+}
+
+/* 首页卡片：日期/阅读时间在上，但整体靠上，不让标题偏低 */
+.post-card-body {
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 14px 20px 16px;
+}
+.post-card-meta {
+    margin: 0;
+    font-size: 12.5px;
+}
+.post-card-title {
+    margin: 0;
+}
