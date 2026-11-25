@@ -4,12 +4,12 @@
 
 <div class="archive-page">
   {{- range $paginator.Pages.GroupByDate "2006" }}
-  <section class="archive-year">
-    <h2 class="archive-year-header">{{ .Key }}</h2>
+  <details class="collapse-year archive-year" open>
+    <summary><span class="collapse-year-num">{{ .Key }}</span></summary>
     {{- range .Pages.GroupByDate "January" }}
     {{- $monthPages := .Pages }}
-    <div class="archive-month">
-      <h3 class="archive-month-header">{{ (index $monthPages 0).Date.Format "01" }}</h3>
+    <details class="collapse-month archive-month" open>
+      <summary><span class="collapse-month-num">{{ (index $monthPages 0).Date.Format "01" }}</span></summary>
       {{- range $monthPages.GroupByDate "2006-01-02" }}
       {{- $dayPages := .Pages }}
       <div class="archive-day">
@@ -21,9 +21,9 @@
         </div>
       </div>
       {{- end }}
-    </div>
+    </details>
     {{- end }}
-  </section>
+  </details>
   {{- end }}
 </div>
 

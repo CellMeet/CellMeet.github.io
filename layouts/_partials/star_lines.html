@@ -1,0 +1,40 @@
+{{- $pages := .pages -}}
+{{- $showType := .showType -}}
+{{- if $pages }}
+<div class="collapse-list">
+  {{- range $pages.GroupByDate "2006" }}
+  <details class="collapse-year" open>
+    <summary><span class="collapse-year-num">{{ .Key }}</span></summary>
+    {{- range .Pages.GroupByDate "January" }}
+    <details class="collapse-month" open>
+      <summary><span class="collapse-month-num">{{ (index .Pages 0).Date.Format "01" }}</span></summary>
+      {{- range .Pages.GroupByDate "2006-01-02" }}
+      <div class="star-day">
+        <span class="star-day-num">{{ (index .Pages 0).Date.Format "02" }}</span>
+        <div class="star-day-items">
+          {{- range .Pages }}
+          {{- $info := partial "star_info.html" . }}
+          {{- $target := partial "star_target.html" (dict "page" . "info" $info) }}
+          {{- $type := index (split .File.Dir "/") 1 }}
+          {{- $typeLabel := "页面" }}
+          {{- if eq $type "course" }}{{ $typeLabel = "课程" }}{{ else if eq $type "book" }}{{ $typeLabel = "书" }}{{ end }}
+          <a class="star-line" href="{{ $target }}"{{ if ne $target .RelPermalink }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{- if $showType }}<span class="star-type-badge star-type-{{ $type }}">{{ $typeLabel }}</span>{{ end }}
+            <span class="star-line-title">{{ $info.title }}</span>
+            {{- with $info.summary }}<span class="star-line-summary">{{ . }}</span>{{ end }}
+          </a>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+    </details>
+    {{- end }}
+  </details>
+  {{- end }}
+</div>
+{{- else }}
+<div class="star-empty">
+  <p>这里还没有收藏。</p>
+  <p>在终端运行 <code>star</code> 创建。</p>
+</div>
+{{- end }}

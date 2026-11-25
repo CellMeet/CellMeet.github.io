@@ -1,41 +1,17 @@
 {{- define "main" }}
-{{- $pageSection := site.GetPage "/star/page" }}
-{{- $course := site.GetPage "/star/course" }}
-{{- $book := site.GetPage "/star/book" }}
+{{- $all := slice }}
+{{- with site.GetPage "/star" }}
+  {{- range .Sections }}
+    {{- range .Sections }}
+      {{- $all = $all | append . }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- $all = sort $all "Date" "desc" }}
 
-<div class="star-page star-list-page">
-  <header class="star-list-header">
-    <h1>{{ .Title }}</h1>
-    {{- with .Content }}<div class="star-list-intro">{{ . }}</div>{{ end }}
-  </header>
-
-  <div class="star-sections">
-    <a class="star-section-card" href="{{ with $pageSection }}{{ .RelPermalink }}{{ else }}/star/page/{{ end }}">
-      <span class="star-section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      </span>
-      <span class="star-section-name">Page</span>
-      <span class="star-section-desc">值得反复看的网页与链接</span>
-      <span class="star-section-count">{{ with $pageSection }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
-    </a>
-
-    <a class="star-section-card" href="{{ with $course }}{{ .RelPermalink }}{{ else }}/star/course/{{ end }}">
-      <span class="star-section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
-      </span>
-      <span class="star-section-name">Course</span>
-      <span class="star-section-desc">课程、教程与学习资料</span>
-      <span class="star-section-count">{{ with $course }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
-    </a>
-
-    <a class="star-section-card" href="{{ with $book }}{{ .RelPermalink }}{{ else }}/star/book/{{ end }}">
-      <span class="star-section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      </span>
-      <span class="star-section-name">Book</span>
-      <span class="star-section-desc">电子书、PDF 与阅读笔记</span>
-      <span class="star-section-count">{{ with $book }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
-    </a>
+<div class="star-page">
+  <div class="star-panel">
+    {{ partial "star_lines.html" (dict "pages" $all "showType" true) }}
   </div>
 </div>
 {{- end }}

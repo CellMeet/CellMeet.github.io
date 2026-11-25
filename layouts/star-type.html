@@ -1,7 +1,9 @@
 {{- define "main" }}
-<div class="star-page star-type-page">
-  {{- $paginator := .Paginate .Pages }}
-  {{ partial "star_timeline.html" (dict "pages" $paginator.Pages) }}
-  {{ partial "home_pagination.html" $paginator }}
+{{- $paginator := .Paginate .Pages }}
+<div class="star-page">
+  <div class="star-panel">
+    {{ partial "star_lines.html" (dict "pages" $paginator.Pages "showType" false) }}
+  </div>
 </div>
+{{ partial "home_pagination.html" $paginator }}
 {{- end }}

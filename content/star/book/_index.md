@@ -1,4 +1,4 @@
 ---
-title: "Book"
+title: "书"
 layout: "star-type"
 ---

@@ -30,7 +30,7 @@ strip_quotes() {
 
 type_key() {
   case "$1" in
-    page|Page|网页|网站) echo "page" ;;
+    page|Page|网页|网站|页面) echo "page" ;;
     course|Course|课程) echo "course" ;;
     book|Book|书籍|书) echo "book" ;;
     *) echo "" ;;
@@ -39,9 +39,9 @@ type_key() {
 
 type_title() {
   case "$1" in
-    page) echo "Page" ;;
-    course) echo "Course" ;;
-    book) echo "Book" ;;
+    page) echo "页面" ;;
+    course) echo "课程" ;;
+    book) echo "书" ;;
   esac
 }
 
@@ -74,20 +74,20 @@ INDEX
 
 pick_type() {
   if [ -f "$PICKER_INLINE" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
-    printf 'Page\nCourse\nBook\n' | python3 "$PICKER_INLINE" --prompt "belong: "
+    printf '页面\n课程\n书\n' | python3 "$PICKER_INLINE" --prompt "belong: "
     return $?
   fi
 
   echo "belong：" >&2
-  echo "  1) Page" >&2
-  echo "  2) Course" >&2
-  echo "  3) Book" >&2
+  echo "  1) 页面" >&2
+  echo "  2) 课程" >&2
+  echo "  3) 书" >&2
   local n
   read -r -p "选择 [1-3]: " n
   case "$n" in
-    1) echo "Page" ;;
-    2) echo "Course" ;;
-    3) echo "Book" ;;
+    1) echo "页面" ;;
+    2) echo "课程" ;;
+    3) echo "书" ;;
     *) return 1 ;;
   esac
 }
