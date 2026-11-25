@@ -12,8 +12,8 @@
   {{- $score := add (len (intersect $tags (.Params.tags | default slice))) (len (intersect $cats (.Params.categories | default slice))) }}
   {{- if gt $score 0 }}{{ $related = $related | append . }}{{ end }}
 {{- end }}
-{{- $related = first 3 $related }}
-{{- if eq (len $related) 0 }}{{ $related = first 3 $others }}{{ end }}
+{{- $related = first 2 $related }}
+{{- if eq (len $related) 0 }}{{ $related = first 2 $others }}{{ end }}
 
 <article class="post-single">
   <div class="post-hero">

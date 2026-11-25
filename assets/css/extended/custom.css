@@ -5260,3 +5260,22 @@ details.collapse-month {
 .sidebar-terms li:nth-child(4) a { padding-left: 6px; }
 .sidebar-terms li:nth-child(5) a { padding-left: 18px; }
 .sidebar-terms li:nth-child(6) a { padding-left: 18px; }
+
+/* 收藏下拉：按内容收缩，左右留白与左图标距离一致 */
+.menu .submenu {
+    min-width: 0;
+    width: max-content;
+    max-width: 220px;
+    padding: 6px;
+}
+.menu .submenu a {
+    justify-content: flex-start;
+    padding: 8px 10px;
+}
+/* TEMP4 */
+.menu li.has-children > .submenu { opacity:1 !important; visibility:visible !important; transform:translate(-50%,0) !important; }
+
+/* 分类/标签标题留一点左侧空间，不严格贴边 */
+.term-heading {
+    padding-left: 10px;
+}

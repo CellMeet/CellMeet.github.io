@@ -424,3 +424,88 @@
   window.addEventListener("load", start);
 })();
 </script>
+
+<script>
+(function () {
+  function updateScrollIndent(scroll) {
+    var items = Array.prototype.slice.call(scroll.querySelectorAll("li"));
+    if (!items.length) return;
+    var box = scroll.getBoundingClientRect();
+    var visible = items.filter(function (li) {
+      var r = li.getBoundingClientRect();
+      return r.bottom > box.top && r.top < box.bottom;
+    });
+    var mid = Math.min(2, visible.length - 1);
+    visible.forEach(function (li, idx) {
+      var d = Math.abs(idx - mid);
+      var off = d >= 2 ? 18 : (d === 1 ? 6 : 0);
+      var a = li.querySelector("a");
+      if (a) a.style.paddingLeft = off + "px";
+    });
+  }
+
+  function init() {
+    document.querySelectorAll(".sidebar-terms-scroll").forEach(function (scroll) {
+      updateScrollIndent(scroll);
+      scroll.addEventListener("scroll", function () { updateScrollIndent(scroll); }, { passive: true });
+      window.addEventListener("resize", function () { updateScrollIndent(scroll); });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+(function () {
+  function initArchiveNav() {
+    var layout = document.querySelector(".archive-layout");
+    if (!layout) return;
+    var nav = layout.querySelector(".archive-nav");
+    var card = nav && nav.querySelector(".archive-nav-card");
+    if (!nav || !card) return;
+
+    function update() {
+      if (window.innerWidth <= 900) {
+        card.style.position = "";
+        card.style.top = "";
+        card.style.left = "";
+        card.style.width = "";
+        card.style.zIndex = "";
+        return;
+      }
+      var r = layout.getBoundingClientRect();
+      var n = nav.getBoundingClientRect();
+      var top = 20;
+      var h = card.offsetHeight;
+      if (r.top < top && r.bottom > h + top) {
+        card.style.position = "fixed";
+        card.style.top = top + "px";
+        card.style.left = n.left + "px";
+        card.style.width = n.width + "px";
+        card.style.zIndex = "50";
+      } else {
+        card.style.position = "";
+        card.style.top = "";
+        card.style.left = "";
+        card.style.width = "";
+        card.style.zIndex = "";
+      }
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initArchiveNav);
+  } else {
+    initArchiveNav();
+  }
+})();
+</script>
