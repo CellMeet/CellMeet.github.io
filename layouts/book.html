@@ -3,7 +3,10 @@
 {{- $cover := $info.cover }}
 {{- $chapters := where .RegularPagesRecursive "File.BaseFileName" "!=" "Info" }}
 {{- $collection := index (split .File.Dir "/") 1 }}
-{{- $label := cond (eq $collection "book") "章节" "内容" }}
+{{- $key := lower $collection }}
+{{- $label := cond (eq $key "book") "章节" (cond (eq $key "movie") "内容" "文章") }}
+{{- $sectionTitle := "" }}
+{{- with site.GetPage (printf "/posts/%s" $collection) }}{{ $sectionTitle = .Title }}{{ end }}
 
 <div class="book-page">
   {{- if $info.link }}

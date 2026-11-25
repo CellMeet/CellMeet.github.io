@@ -34,14 +34,19 @@
   {{- end -}}
   {{- with $img -}}
     {{- $src := . -}}
+    {{- $found := true -}}
     {{- with $page.Resources.GetMatch $src -}}
       {{- $src = .RelPermalink -}}
     {{- else -}}
-      {{- if not (hasPrefix $src "http") -}}
+      {{- if hasPrefix $src "http" -}}
+        {{- $found = true -}}
+      {{- else if and $page.File (fileExists (printf "content/%s%s" $page.File.Dir $src)) -}}
         {{- $src = printf "%s%s" $page.RelPermalink $src -}}
+      {{- else -}}
+        {{- $found = false -}}
       {{- end -}}
     {{- end -}}
-    {{- $out = merge $out (dict "cover" $src) -}}
+    {{- if $found -}}{{ $out = merge $out (dict "cover" $src) }}{{- end -}}
   {{- end -}}
   {{- with $alt -}}{{ $out = merge $out (dict "coverAlt" .) }}{{- end -}}
   {{- $rendered := $body | markdownify -}}

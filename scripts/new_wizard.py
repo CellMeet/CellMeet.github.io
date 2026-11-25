@@ -375,8 +375,13 @@ def run():
         return None
     title, category = res[1]
 
-    while category in ("book", "movie"):
-        label = "book name: " if category == "book" else "movie name: "
+    while category.lower() in ("book", "movie", "cs"):
+        if category.lower() == "book":
+            label = "book name: "
+        elif category.lower() == "movie":
+            label = "movie name: "
+        else:
+            label = "detail: "
         names = list_dirs(os.path.join("content/posts", category))
         res = edit_name(screen, label, names, "")
         if res is BACK:

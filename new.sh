@@ -24,7 +24,7 @@ SELF_DIR="$(pwd)"
 PICKER_INLINE="$SELF_DIR/scripts/pick_inline.py"
 WIZARD="$SELF_DIR/scripts/new_wizard.py"
 
-COLLECTIONS="book movie"
+COLLECTIONS="book movie CS"
 
 slugify() {
   printf '%s' "$1" |
@@ -44,13 +44,6 @@ collection_root() {
   printf 'content/posts/%s\n' "$1"
 }
 
-collection_name() {
-  case "$1" in
-  book) echo "书" ;;
-  movie) echo "电影" ;;
-  *) echo "内容" ;;
-  esac
-}
 
 list_items() {
   find "$(collection_root "$1")" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort
@@ -92,94 +85,6 @@ print_items() {
 choose_or_create_item() {
   local coll="$1"
   local hint="${2:-}"
-  local initial_query="${3:-}"
-  local label="新建$(collection_name "$coll")"
-
-  # 终端里：行内输入 + 下方候选
-  if use_inline_picker; then
-    local choice rc=0
-    local -a pick_args=(--prompt "输入$(collection_name "$coll")名" --allow-new)
-    if [ -n "$initial_query" ]; then
-      pick_args+=(--query "$initial_query")
-    fi
-    choice="$(list_items "$coll" | python3 "$PICKER_INLINE" "${pick_args[@]}")" || rc=$?
-
-    if [ "${rc:-0}" -eq 1 ]; then
-      echo "已取消" >&2
-      return 1
-    fi
-    if [ "${rc:-0}" -eq 0 ]; then
-      case "$choice" in
-        NEW:*)
-          local name="${choice#NEW:}"
-          if [ -z "$name" ]; then
-            read -r -p "$label名字: " name
-          fi
-          if [ -z "$name" ]; then
-            echo "没有输入名字" >&2
-            return 1
-          fi
-          local existing dir
-          if existing="$(find_item_dir "$coll" "$name")"; then
-            printf '%s\n' "$existing"
-            return 0
-          fi
-          dir="$(create_item "$coll" "$name")" || return 1
-          printf '%s\n' "$(basename "$dir")"
-          ;;
-        *)
-          [ -n "$choice" ] || return 1
-          printf '%s\n' "$choice"
-          ;;
-      esac
-      return 0
-    fi
-    # rc=2：选择器不可用，继续走下面的简单输入
-  fi
-
-  # 非终端回退：编号选择，或直接输入名字
-  local -a items=()
-  local b
-  while IFS= read -r b; do items+=("$b"); done < <(list_items "$coll")
-
-  print_items "$coll"
-
-  local prompt ans
-  if [ -n "$hint" ]; then
-    prompt="选编号 = 把「$hint」作为内容加入；输入新名字 = $label；回车 = $label「$hint」: "
-  else
-    prompt="选编号，或输入新名字: "
-  fi
-  read -r -p "$prompt" ans
-
-  if [[ "$ans" =~ ^[0-9]+$ ]] && [ "$ans" -ge 1 ] && [ "$ans" -le ${#items[@]} ]; then
-    printf '%s\n' "${items[ans - 1]}"
-    return 0
-  fi
-
-  local name="$ans"
-  if [ -z "$name" ]; then
-    if [ -z "$hint" ]; then
-      echo "没有输入名字" >&2
-      return 1
-    fi
-    name="$hint"
-  fi
-
-  local existing
-  if existing="$(find_item_dir "$coll" "$name")"; then
-    printf '%s\n' "$existing"
-    return 0
-  fi
-
-  local dir
-  dir="$(create_item "$coll" "$name")" || return 1
-  printf '%s\n' "$(basename "$dir")"
-}
-
-create_item() {
-  local coll="$1"
-  local hint="${2:-}"
   local -a items=()
   local b
   while IFS= read -r b; do items+=("$b"); done < <(list_items "$coll")
@@ -219,6 +124,36 @@ create_item() {
   printf '%s\n' "$(basename "$dir")"
 }
 
+write_item_meta() {
+  local coll="$1"
+  local dir="$2"
+  local title="$3"
+
+  cat >"$dir/Info.md" <<EOF
+---
+title: "$title"
+build:
+  render: never
+  list: never
+summary: ""
+link: ""
+cover:
+  image: "cover.jpg"
+  alt: "《$title》封面"
+---
+
+在这里写简介。
+EOF
+
+  cat >"$dir/_index.md" <<EOF
+---
+title: "$title"
+layout: "book"
+categories: ["$coll"]
+---
+EOF
+}
+
 create_item() {
   local coll="${1:-}"
   local title="${2:-}"
@@ -235,34 +170,18 @@ create_item() {
   dir="$root/$slug"
 
   if [ -e "$dir" ]; then
-    echo "已存在: $dir" >&2
+    if [ ! -f "$dir/Info.md" ] || [ ! -f "$dir/_index.md" ]; then
+      write_item_meta "$coll" "$dir" "$title"
+      echo "已补全$(collection_name "$coll")信息: $dir" >&2
+    else
+      echo "已存在: $dir" >&2
+    fi
     printf '%s\n' "$dir"
     return 0
   fi
 
   mkdir -p "$dir"
-
-  cat >"$dir/Info.md" <<EOF
----
-title: "$title"
-build:
-  render: never
-  list: never
-summary: ""
-link: ""
-cover:
-  image: "cover.jpg"
-  alt: "《$title》封面"
----
-EOF
-
-  cat >"$dir/_index.md" <<EOF
----
-title: "$title"
-layout: "book"
-categories: ["$coll"]
----
-EOF
+  write_item_meta "$coll" "$dir" "$title"
 
   echo "已创建$(collection_name "$coll"): $dir" >&2
   echo "  写简介: $dir/Info.md" >&2
@@ -294,6 +213,9 @@ create_entry() {
     return 1
   fi
   item_slug="$(basename "$itemdir")"
+  if [ ! -f "$itemdir/Info.md" ] || [ ! -f "$itemdir/_index.md" ]; then
+    write_item_meta "$coll" "$itemdir" "$item_slug"
+  fi
 
   if [ -z "$title" ]; then
     read -r -p "标题: " title
@@ -303,9 +225,10 @@ create_entry() {
     return 1
   fi
 
-  local slug folder item_url slug_url file d file_title
+  local slug folder item_url slug_url file d file_title coll_url
   slug="$(slugify "$title" | tr '[:upper:]' '[:lower:]')"
   folder="$itemdir/$slug"
+  coll_url="$(printf '%s' "$coll" | tr '[:upper:]' '[:lower:]')"
   item_url="$(printf '%s' "$item_slug" | tr '[:upper:]' '[:lower:]')"
   slug_url="$slug"
   file_title="$(printf '%s' "$title" | tr '/' '-')"
@@ -323,7 +246,7 @@ create_entry() {
 title: "$title"
 date: "$d"
 draft: false
-url: "/posts/$coll/$item_url/$slug_url/"
+url: "/posts/$coll_url/$item_url/$slug_url/"
 categories: ["$coll"]
 tags: []
 summary: ""
@@ -382,14 +305,41 @@ EOF
 }
 
 is_collection() {
-  case " $COLLECTIONS " in
-  *" $1 "*) return 0 ;;
+  local want lower_all
+  want="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  lower_all="$(printf '%s' "$COLLECTIONS" | tr '[:upper:]' '[:lower:]')"
+  case " $lower_all " in
+  *" $want "*) return 0 ;;
   *) return 1 ;;
   esac
 }
 
+resolve_collection() {
+  local want lower
+  want="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  local d
+  while IFS= read -r d; do
+    lower="$(printf '%s' "$d" | tr '[:upper:]' '[:lower:]')"
+    if [ "$lower" = "$want" ]; then
+      printf '%s\n' "$d"
+      return 0
+    fi
+  done < <(find content/posts -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null)
+  printf '%s\n' "$1"
+}
+
+collection_name() {
+  case "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" in
+    book) echo "书" ;;
+    movie) echo "电影" ;;
+    cs) echo "detail" ;;
+    *) echo "内容" ;;
+  esac
+}
+
 add_to_collection() {
-  local coll="$1"
+  local coll
+  coll="$(resolve_collection "$1")"
   local arg1="$2"
   local query="${3:-}"
 
@@ -515,10 +465,18 @@ interactive() {
     title="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
     printf '%s\n' "$(list_types)" >&2
     read -r -p 'belong: ' category
-    if [ "$category" = "book" ] || [ "$category" = "movie" ]; then
-      read -r -p "$category name: " raw
-      name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
-    fi
+    case "$(printf '%s' "$category" | tr '[:upper:]' '[:lower:]')" in
+      book | movie | cs)
+        local label
+        label="$(collection_name "$category")"
+        if [ "$label" = "detail" ]; then
+          read -r -p "detail: " raw
+        else
+          read -r -p "输入$label名: " raw
+        fi
+        name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
+        ;;
+    esac
   fi
 
   if [ -z "$title" ]; then
@@ -530,8 +488,8 @@ interactive() {
     return 1
   fi
 
-  case "$category" in
-    book | movie)
+  case "$(printf '%s' "$category" | tr '[:upper:]' '[:lower:]')" in
+    book | movie | cs)
       if [ -z "$name" ]; then
         echo "书名/电影名不能为空" >&2
         return 1
