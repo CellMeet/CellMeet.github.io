@@ -5617,3 +5617,30 @@ html[data-theme="dark"] .search-hit {
         min-height: 220px;
     }
 }
+
+/* 文章目录：标题浅色，内容字体更大、偏艺术、深黑 */
+.post-toc-title {
+    color: var(--secondary) !important;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    opacity: 0.8;
+}
+.post-toc-body li {
+    font-size: 15.5px;
+    line-height: 1.75;
+}
+.post-toc-body a {
+    color: #111111 !important;
+    font-family: Georgia, "Noto Serif SC", "Songti SC", "Source Han Serif SC", serif;
+    font-size: 15.5px;
+    letter-spacing: 0.01em;
+}
+.post-toc-body a:hover {
+    color: var(--accent) !important;
+}
+.post-toc-body ul ul a {
+    font-size: 14.5px;
+}
+html[data-theme="dark"] .post-toc-body a {
+    color: #ececec !important;
+}
