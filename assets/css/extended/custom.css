@@ -5393,3 +5393,42 @@ html[data-theme="dark"] .menu .submenu a:hover .submenu-icon {
 .sidebar-terms li {
     scroll-snap-align: center;
 }
+
+/* 全站统一毛玻璃材质：只在这里定义一次 */
+:root {
+    --frost-bg: var(--glass-bg-strong);
+    --frost-border: var(--glass-border);
+    --frost-blur: 8px;
+}
+.post-card,
+.sidebar-card,
+.post-maincol,
+.post-toc-card,
+.post-hero-inner,
+.post-entry,
+.related-card,
+.chapter-card,
+.archive-page,
+.archive-nav-card,
+.star-panel,
+.star-entry-card,
+.star-header,
+.star-section,
+.star-section-card,
+.star-empty,
+.books-panel,
+.book-card,
+.book-page,
+.taxonomy-panel,
+.friend-card,
+.friend-intro,
+.home-pagination .page-btn,
+.side-tool,
+.side-panel-item,
+.searchbox input,
+.menu .submenu {
+    background: var(--frost-bg) !important;
+    border-color: var(--frost-border) !important;
+    backdrop-filter: blur(var(--frost-blur)) !important;
+    -webkit-backdrop-filter: blur(var(--frost-blur)) !important;
+}

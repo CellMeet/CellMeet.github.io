@@ -16,6 +16,6 @@ links:
     description: ""
   - name: "Martin Fowler"
     url: "https://martinfowler.com/"
-    avatar: "/img/links/martinfowler.png"
+    avatar: ""
     description: ""
 ---
