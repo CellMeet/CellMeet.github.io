@@ -142,7 +142,7 @@ if [ -z "$type_arg" ]; then
 fi
 
 if [ -z "$link" ] && [ "$prompted" -eq 1 ]; then
-  read -r -p "link（可留空）: " link
+  read -r -p "link: " link
   link="$(strip_quotes "$link")"
 fi
 
@@ -151,6 +151,11 @@ case "$link" in
   http://*|https://*) ;;
   *) link="https://$link" ;;
 esac
+
+info=""
+if [ "$prompted" -eq 1 ]; then
+  read -r -p "info: " info
+fi
 
 ensure_base
 ensure_type "$type_arg"
@@ -165,7 +170,10 @@ if [ -e "$dir" ]; then
   exit 1
 fi
 
-mkdir -p "$dir/music" "$dir/books" "$dir/images"
+mkdir -p "$dir"
+if [ "$type_arg" = "book" ]; then
+  mkdir -p "$dir/books"
+fi
 
 title_esc="$(yaml_escape "$title")"
 link_esc="$(yaml_escape "$link")"
@@ -185,7 +193,7 @@ cover:
 links: []
 ---
 
-在这里写这个收藏的介绍。
+${info:-在这里写这个收藏的介绍。}
 INFO
 
 cat >"$dir/_index.md" <<INDEX
@@ -199,5 +207,8 @@ INDEX
 echo "已创建收藏: $dir"
 echo "  belong: $label"
 echo "  Info.md: 写简介、封面"
-echo "  音乐/书籍/图片: $dir/{music,books,images}/"
+if [ "$type_arg" = "book" ]; then
+  echo "  书籍文件: $dir/books/  （放 PDF/EPUB）"
+fi
 echo "  link: ${link:-（空）}"
+echo "  Info.md: 可继续补充简介"

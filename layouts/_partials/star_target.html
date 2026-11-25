@@ -1,0 +1,19 @@
+{{- /* 收藏列表点击目标：Book 优先打开书籍文件，Page/Course 优先打开 link，否则进入详情页。 */ -}}
+{{- $page := .page -}}
+{{- $info := .info -}}
+{{- $type := "" -}}
+{{- with $page.File -}}{{ $type = index (split .Dir "/") 1 }}{{- end -}}
+{{- $target := $info.link | default $page.RelPermalink -}}
+{{- if eq $type "book" -}}
+  {{- $bookDir := path.Join "content" (path.Join $page.File.Dir "books") -}}
+  {{- $entries := slice -}}
+  {{- with try (os.ReadDir $bookDir) }}{{ with .Value }}{{ $entries = . }}{{ end }}{{ end -}}
+  {{- $exts := slice "pdf" "epub" "mobi" "djvu" "txt" -}}
+  {{- range $entries -}}
+    {{- if and (not .IsDir) (in $exts (lower (strings.TrimPrefix "." (path.Ext .Name)))) -}}
+      {{- $target = partial "star_url.html" (dict "base" $page.RelPermalink "rel" (path.Join "books" .Name)) -}}
+      {{- break -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $target -}}

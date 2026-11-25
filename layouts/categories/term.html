@@ -40,7 +40,8 @@
   {{- end }}
 </header>
 
-{{- range .Pages }}
+{{- $paginator := .Paginate .Pages }}
+{{- range $paginator.Pages }}
 <article class="post-entry">
   <header class="entry-header">
     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
@@ -56,6 +57,8 @@
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
 </article>
 {{- end }}
+
+{{ partial "home_pagination.html" $paginator }}
 
 {{- end }}
 {{- end }}

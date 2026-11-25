@@ -1,38 +1,32 @@
 {{- $weekdays := slice "周日" "周一" "周二" "周三" "周四" "周五" "周六" }}
-{{- if .Sections }}
+{{- $pages := .pages }}
+{{- if $pages }}
 <div class="star-timeline">
-  {{- range .Sections.GroupByDate "2006" }}
+  {{- range $pages.GroupByDate "2006" }}
   <section class="star-year-group">
     <h2 class="star-year">{{ .Key }}</h2>
-    {{- range .Pages.GroupByDate "January" }}
-    {{- $pages := .Pages }}
-    <div class="star-month-group">
-      <h3 class="star-month">{{ (index $pages 0).Date.Format "01" }}月</h3>
-      <div class="star-entries">
-        {{- range $pages }}
-        {{- $info := partial "star_info.html" . }}
-        <article class="star-entry">
-          <div class="star-entry-date">
-            <span class="star-entry-day">{{ .Date.Format "02" }}</span>
-            <span class="star-entry-week">{{ index $weekdays (int .Date.Weekday) }}</span>
-          </div>
-          <a class="star-entry-card" href="{{ .RelPermalink }}">
-            {{- with $info.cover }}
-            <span class="star-entry-cover">
-              <img src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="lazy" decoding="async">
-            </span>
-            {{- end }}
-            <span class="star-entry-body">
-              <span class="star-entry-title">{{ $info.title }}</span>
-              {{- with $info.summary }}<span class="star-entry-summary">{{ . }}</span>{{ end }}
-              <span class="star-entry-meta">{{ .Date.Format "2006-01-02" }} · 收藏</span>
-            </span>
-          </a>
-        </article>
-        {{- end }}
-      </div>
+    <div class="star-entries">
+      {{- range .Pages }}
+      {{- $info := partial "star_info.html" . }}
+      {{- $target := partial "star_target.html" (dict "page" . "info" $info) }}
+      <article class="star-entry">
+        <div class="star-entry-date">
+          <span class="star-entry-day">{{ .Date.Format "01-02" }}</span>
+        </div>
+        <a class="star-entry-card" href="{{ $target }}"{{ if ne $target .RelPermalink }} target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{- with $info.cover }}
+          <span class="star-entry-cover">
+            <img src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="lazy" decoding="async">
+          </span>
+          {{- end }}
+          <span class="star-entry-body">
+            <span class="star-entry-title">{{ $info.title }}</span>
+            {{- with $info.summary }}<span class="star-entry-summary">{{ . }}</span>{{ end }}
+          </span>
+        </a>
+      </article>
+      {{- end }}
     </div>
-    {{- end }}
   </section>
   {{- end }}
 </div>
