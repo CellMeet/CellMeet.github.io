@@ -5607,3 +5607,13 @@ html[data-theme="dark"] .search-hit {
 .books-page .term-heading {
     margin-top: 36px;
 }
+
+/* 正文整体上移：缩短顶部背景区域高度 */
+.post-hero {
+    min-height: clamp(250px, 36vh, 380px);
+}
+@media (max-width: 768px) {
+    .post-hero {
+        min-height: 220px;
+    }
+}
