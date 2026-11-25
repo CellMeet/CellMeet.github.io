@@ -5432,3 +5432,28 @@ html[data-theme="dark"] .menu .submenu a:hover .submenu-icon {
     backdrop-filter: blur(var(--frost-blur)) !important;
     -webkit-backdrop-filter: blur(var(--frost-blur)) !important;
 }
+
+/* 书架/CS 分类里的书卡片：去掉内部白底，直接压在毛玻璃面板上 */
+.book-card {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+.book-card:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+/* 正文标题下标签：左边距和正文卡片标题一致，距下方卡片约等于卡片悬浮后的间距 */
+.post-hero-inner {
+    padding: 20px 30px 9px;
+    margin-bottom: 2px;
+}
+.post-hero-tags {
+    margin-top: 10px;
+}
+.post-layout {
+    margin-top: 4px;
+}
