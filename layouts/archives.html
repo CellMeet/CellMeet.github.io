@@ -1,9 +1,4 @@
 {{- define "main" }}
-<header class="page-header">
-  <h1>{{ .Title }}</h1>
-  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
-</header>
-
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $paginator := .Paginate $pages }}
 
@@ -15,26 +10,17 @@
     {{- $monthPages := .Pages }}
     <div class="archive-month">
       <h3 class="archive-month-header">{{ (index $monthPages 0).Date.Format "01" }}</h3>
-      <div class="archive-posts">
-        {{- range $monthPages }}
-        <article class="archive-entry">
-          <div class="archive-entry-head">
-            <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
-            <a class="archive-entry-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </div>
-          {{- with .GetTerms "tags" }}
-          <div class="archive-tags">
-            {{- range . }}
-            <a class="archive-tag" href="{{ .RelPermalink }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-              {{ .LinkTitle }}
-            </a>
-            {{- end }}
-          </div>
+      {{- range $monthPages.GroupByDate "2006-01-02" }}
+      {{- $dayPages := .Pages }}
+      <div class="archive-day">
+        <span class="archive-day-num">{{ (index $dayPages 0).Date.Format "02" }}</span>
+        <div class="archive-day-posts">
+          {{- range $dayPages }}
+          <a class="archive-entry-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
           {{- end }}
-        </article>
-        {{- end }}
+        </div>
       </div>
+      {{- end }}
     </div>
     {{- end }}
   </section>

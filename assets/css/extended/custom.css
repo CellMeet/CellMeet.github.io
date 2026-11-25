@@ -4214,3 +4214,92 @@ html[data-theme="dark"] .star-empty {
         overflow: visible;
     }
 }
+
+/* 归档：收窄、按天分组、无标签 */
+.archive-page {
+    max-width: 920px;
+    margin: 26px auto 0;
+    padding: 22px 26px 18px;
+}
+.archive-month-header {
+    color: var(--secondary);
+    font-size: 15px;
+    letter-spacing: 0.02em;
+}
+.archive-day {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 16px;
+    padding: 10px 4px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+}
+html[data-theme="dark"] .archive-day {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.archive-day:last-child {
+    border-bottom: 0;
+}
+.archive-day-num {
+    padding-top: 2px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--secondary);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+.archive-day-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+.archive-entry-title {
+    display: block;
+    font-size: 19px;
+    font-weight: 650;
+    line-height: 1.5;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: -0.015em;
+}
+.archive-entry-title:hover {
+    color: var(--accent);
+}
+.archive-entry-head,
+.archive-date,
+.archive-tags {
+    display: none;
+}
+
+/* 去掉列表页标题后的小间距 */
+.books-page,
+.star-type-page {
+    padding-top: 26px;
+}
+.main > .post-entry:first-of-type {
+    margin-top: 26px;
+}
+.searchbox {
+    margin-top: 28px;
+}
+
+/* 收藏下拉：选中项用淡紫底 + 蓝色图标文字 */
+.menu .submenu a:hover {
+    background: #f1efff;
+    color: #4f46e5;
+}
+.menu .submenu a:hover .submenu-icon {
+    color: #4f46e5;
+}
+html[data-theme="dark"] .menu .submenu a:hover {
+    background: rgba(99, 102, 241, 0.16);
+    color: #c7d2fe;
+}
+html[data-theme="dark"] .menu .submenu a:hover .submenu-icon {
+    color: #c7d2fe;
+}
+
+.archive-month {
+    display: block;
+    padding: 0;
+}
