@@ -5106,3 +5106,7 @@ details.collapse-year > summary {
 .star-panel .collapse-year:first-child > summary {
     margin-top: -6px;
 }
+
+.friend-grid {
+    margin-top: 28px;
+}
