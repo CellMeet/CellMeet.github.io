@@ -12,4 +12,4 @@ cover:
 links: []
 ---
 
-Golang的后端开发
+Golang微服务项目, 适合入门后端开发.

@@ -201,6 +201,7 @@ fi
 
 title_esc="$(yaml_escape "$title")"
 url_esc="$(yaml_escape "$url")"
+info_esc="$(yaml_escape "$info")"
 
 cat >"$dir/Info.md" <<INFO
 ---
@@ -209,7 +210,7 @@ build:
   render: never
   list: never
 date: "$date"
-summary: ""
+summary: "$info_esc"
 link: "$url_esc"
 cover:
   image: "cover.jpg"

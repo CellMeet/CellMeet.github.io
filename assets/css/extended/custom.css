@@ -5721,3 +5721,9 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     color: var(--accent) !important;
     box-shadow: none !important;
 }
+
+.post-toc-body a:hover {
+    background: var(--accent-soft) !important;
+    color: var(--accent) !important;
+    box-shadow: none !important;
+}

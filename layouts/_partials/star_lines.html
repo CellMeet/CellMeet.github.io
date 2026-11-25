@@ -17,6 +17,9 @@
           {{- $target := partial "star_target.html" (dict "page" . "info" $info) }}
           <a class="star-line" href="{{ $target }}"{{ if ne $target .RelPermalink }} target="_blank" rel="noopener noreferrer"{{ end }}>
             <span class="star-line-title">{{ $info.title }}</span>
+            {{- $desc := $info.summary }}
+            {{- if not $desc }}{{ $desc = $info.content | plainify | htmlUnescape }}{{ end }}
+            {{- with $desc }}<span class="star-line-summary">{{ . | truncate 110 }}</span>{{ end }}
           </a>
           {{- end }}
         </div>
