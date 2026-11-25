@@ -5140,3 +5140,32 @@ details.collapse-year > summary {
     width: 100%;
     transform: translateY(-16px);
 }
+
+/* 归档/收藏：月份和 day 向右一点 */
+details.collapse-month {
+    margin-left: 12px;
+}
+.star-day-num,
+.archive-day-num {
+    transform: translateX(6px);
+}
+
+/* 右侧时间导航：年份和月份居中，月份在年份正下方 */
+.archive-nav-year-details > summary {
+    position: relative;
+    justify-content: center;
+}
+.archive-nav-year-details > summary::before {
+    position: absolute;
+    left: 0;
+    margin-right: 0;
+}
+.archive-nav-year {
+    display: block;
+    text-align: center;
+}
+.archive-nav-month {
+    display: block;
+    padding-left: 0;
+    text-align: center;
+}
