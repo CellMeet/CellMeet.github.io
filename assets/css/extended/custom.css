@@ -4842,3 +4842,56 @@ html[data-theme="dark"] .archive-nav-card {
         order: -1;
     }
 }
+
+/* 收藏下拉：毛玻璃、更窄、更大字 */
+.menu .submenu {
+    min-width: 140px;
+    padding: 7px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 28px -18px rgba(31, 38, 135, 0.5);
+}
+html[data-theme="dark"] .menu .submenu {
+    background: rgba(20, 22, 32, 0.82);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.menu .submenu a {
+    font-size: 16.5px;
+    padding: 8px 10px;
+    gap: 9px;
+}
+
+/* 年份更靠左 */
+.archive-page,
+.star-panel {
+    padding-left: 12px;
+}
+details.collapse-year > summary {
+    margin-left: -4px;
+}
+
+/* 签名和统计之间小一点 */
+.profile-stats {
+    margin-top: 8px;
+    padding-top: 10px;
+}
+
+/* 分类打字机光标 */
+.cat-card .sidebar-card-title::after {
+    content: "▍";
+    margin-left: 4px;
+    color: var(--accent);
+    animation: cat-cursor 1s step-end infinite;
+}
+.sidebar-terms a:hover::after {
+    content: "▍";
+    margin-left: 4px;
+    color: var(--accent);
+    animation: cat-cursor 1s step-end infinite;
+}
+@keyframes cat-cursor {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}

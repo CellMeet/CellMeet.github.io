@@ -1,6 +1,6 @@
 {{- define "main" }}
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $paginator := .Paginate $pages 20 }}
+{{- $paginator := .Paginate $pages 30 }}
 {{- $groups := $paginator.Pages.GroupByDate "2006" }}
 
 <div class="archive-layout">

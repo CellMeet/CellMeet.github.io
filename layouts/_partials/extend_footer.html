@@ -18,28 +18,6 @@
 </script>
 {{- end }}
 
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
-<script>
-  (function () {
-    function run() {
-      if (window.pangu) {
-        try {
-          if (window.pangu.spacingElementByClassName) {
-            window.pangu.spacingElementByClassName('main');
-          } else {
-            window.pangu.spacingPage();
-          }
-        } catch (e) {}
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 80); });
-    } else {
-      setTimeout(run, 80);
-    }
-  })();
-</script>
-
 {{- /* 网站运行时间（首页网站信息卡片） */}}
 <script>
   (function () {
@@ -397,7 +375,7 @@
       lastY = e.clientY;
       moved += Math.abs(dx) + Math.abs(dy);
       if (e.pointerType === "mouse" || dragging) {
-        rotY += dx * 0.009;
+        rotY -= dx * 0.009;
         rotX += dy * 0.006;
       }
     });
@@ -423,7 +401,7 @@
     el.addEventListener("wheel", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      rotY += e.deltaY * 0.0022;
+      rotY -= e.deltaY * 0.0022;
     }, { passive: false });
 
     if (window.ResizeObserver) {
