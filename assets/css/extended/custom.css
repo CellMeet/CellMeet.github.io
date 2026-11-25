@@ -5300,3 +5300,80 @@ details.collapse-month {
     padding-top: 6px;
     padding-bottom: 7px;
 }
+
+/* 书 / CS 详情：只保留一层毛玻璃，去掉内部白底 */
+.book-page {
+    max-width: 1000px;
+    margin: 30px auto 0;
+    padding: 24px 26px 30px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 16px -4px rgba(138, 138, 138, 0.15);
+}
+html[data-theme="dark"] .book-page {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+}
+.book-header,
+.book-chapters {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0;
+}
+.book-header {
+    margin-bottom: 26px;
+}
+.book-chapters {
+    margin-top: 0;
+}
+@media (max-width: 768px) {
+    .book-page {
+        padding: 20px 18px 24px;
+    }
+}
+
+/* 收藏下拉：真正的毛玻璃；书和图标一起居中；hover 只变字体颜色 */
+.menu .submenu {
+    background: rgba(255, 255, 255, 0.58);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 12px 34px -20px rgba(15, 23, 42, 0.45);
+}
+html[data-theme="dark"] .menu .submenu {
+    background: rgba(20, 22, 32, 0.58);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 34px -20px rgba(0, 0, 0, 0.65);
+}
+.menu .submenu a {
+    justify-content: center;
+    padding: 8px 8px;
+}
+.menu .submenu a:hover {
+    background: transparent;
+    color: #4f46e5;
+    box-shadow: none;
+}
+.menu .submenu a:hover .submenu-icon {
+    color: #4f46e5;
+}
+html[data-theme="dark"] .menu .submenu a:hover {
+    background: transparent;
+    color: #c7d2fe;
+}
+html[data-theme="dark"] .menu .submenu a:hover .submenu-icon {
+    color: #c7d2fe;
+}
+
+/* 分类/标签标题：再向下、向右一点，和内容间距收紧 */
+.term-heading {
+    margin-top: 34px;
+    margin-bottom: 10px;
+    padding-left: 18px;
+}
