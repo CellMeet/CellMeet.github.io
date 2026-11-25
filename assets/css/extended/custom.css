@@ -5483,3 +5483,39 @@ html[data-theme="dark"] .book-card-summary {
     position: static !important;
     top: auto !important;
 }
+
+/* 书架/CS 分类：保留毛玻璃面板，只去掉书卡片内部白底和封面色带 */
+.books-panel {
+    background: var(--frost-bg) !important;
+    border: 1px solid var(--frost-border) !important;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--frost-blur)) !important;
+    -webkit-backdrop-filter: blur(var(--frost-blur)) !important;
+    padding: 26px;
+}
+.book-card-cover {
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+/* 全站玻璃更统一，减少不同背景造成的颜色差 */
+:root {
+    --frost-bg: rgba(244, 247, 250, 0.8);
+}
+html[data-theme="dark"] {
+    --frost-bg: rgba(24, 26, 36, 0.8);
+}
+
+/* 正文标题下标签：向下、向右微调，和下方卡片距离接近悬浮后的间距 */
+.post-hero-inner {
+    padding-bottom: 14px;
+    margin-bottom: 0;
+}
+.post-hero-tags {
+    margin-top: 16px;
+    margin-left: 6px;
+}
+.post-layout {
+    margin-top: 7px;
+}
