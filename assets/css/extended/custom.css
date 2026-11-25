@@ -5244,3 +5244,19 @@ details.collapse-month {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
 }
+
+/* 分类：左对齐，只有第三行真正贴左，其余行轻微右移 */
+.sidebar-terms a {
+    justify-content: flex-start;
+    text-align: left;
+}
+.sidebar-terms a > span:first-child {
+    flex: 0 1 auto;
+    text-align: left;
+}
+.sidebar-terms li:nth-child(1) a { padding-left: 18px; }
+.sidebar-terms li:nth-child(2) a { padding-left: 6px; }
+.sidebar-terms li:nth-child(3) a { padding-left: 0; }
+.sidebar-terms li:nth-child(4) a { padding-left: 6px; }
+.sidebar-terms li:nth-child(5) a { padding-left: 18px; }
+.sidebar-terms li:nth-child(6) a { padding-left: 18px; }
