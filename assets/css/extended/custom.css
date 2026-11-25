@@ -5169,3 +5169,36 @@ details.collapse-month {
     padding-left: 0;
     text-align: center;
 }
+
+/* 时间导航：2026 保持左对齐，只把月份移到年份中间偏下位置 */
+.archive-nav-year-details > summary {
+    justify-content: flex-start;
+}
+.archive-nav-year-details > summary::before {
+    position: static;
+    margin-right: 6px;
+}
+.archive-nav-year {
+    text-align: left;
+}
+.archive-nav-month {
+    margin-left: 38px;
+    padding-left: 0;
+    text-align: left;
+}
+
+/* 分类：左括号式偏移，Essay 真正左对齐，其他行轻微右移 */
+.sidebar-terms a {
+    justify-content: flex-start;
+    text-align: left;
+}
+.sidebar-terms a > span:first-child {
+    flex: 0 1 auto;
+    text-align: left;
+}
+.sidebar-terms li:nth-child(1) a { padding-left: 18px; }
+.sidebar-terms li:nth-child(2) a { padding-left: 6px; }
+.sidebar-terms li:nth-child(3) a { padding-left: 0; }
+.sidebar-terms li:nth-child(4) a { padding-left: 6px; }
+.sidebar-terms li:nth-child(5) a { padding-left: 18px; }
+.sidebar-terms li:nth-child(6) a { padding-left: 18px; }
