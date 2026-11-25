@@ -37,6 +37,16 @@
         {{- partial "translation_list.html" . -}}
         {{- partial "edit_post.html" . -}}
         {{- partial "post_canonical.html" . -}}
+        {{- with .GetTerms "tags" }}
+        <span class="post-meta-tags">
+          {{- range . }}
+          <a class="post-meta-tag" href="{{ .RelPermalink }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            {{ .LinkTitle }}
+          </a>
+          {{- end }}
+        </span>
+        {{- end }}
       </div>
       {{- end }}
     </div>
@@ -62,16 +72,6 @@
         {{- partial "share_icons.html" . -}}
         {{- end }}
       </footer>
-
-      {{- with .GetTerms "tags" }}
-      <section class="post-tags-section">
-        <div class="tag-cloud">
-          {{- range . }}
-          <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>
-          {{- end }}
-        </div>
-      </section>
-      {{- end }}
 
       {{- with $related }}
       <section class="related-section">

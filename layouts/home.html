@@ -31,7 +31,7 @@
         {{- with $cover }}
         <div class="post-card-cover">
           <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"
-               alt="{{ $p.Title | plainify }}" loading="lazy" decoding="async"
+               alt="{{ $p.Title | plainify }}" loading="eager" decoding="async"
                onerror="this.parentNode.style.display='none'">
         </div>
         {{- end }}
@@ -39,18 +39,12 @@
           <div class="post-card-meta">
             <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006-01-02" }}</time>
             <span class="sep">·</span>
-            <span>{{ .ReadingTime }} 分钟</span>
+            <span>{{ .ReadingTime }}min</span>
             {{- with .GetTerms "categories" }}
             <span class="post-card-cat">{{ (index . 0).LinkTitle }}</span>
             {{- end }}
           </div>
           <h3 class="post-card-title">{{ .Title }}</h3>
-          {{- with .Summary }}
-          <p class="post-card-summary">{{ . | plainify | htmlUnescape | truncate 110 }}</p>
-          {{- end }}
-          <div class="post-card-foot">
-            <span class="post-card-read">阅读全文</span>
-          </div>
         </div>
       </article>
       {{- end }}

@@ -4481,3 +4481,86 @@ html[data-theme="dark"] .star-panel {
 details.collapse-year > summary {
     padding-top: 0;
 }
+
+/* 正文标题栏标签：蓝色标签图标 + 文字 */
+.post-meta-tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+.post-meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #3b82f6;
+    font-size: 12.5px;
+    line-height: 1.5;
+    text-decoration: none;
+}
+.post-meta-tag svg {
+    flex: 0 0 14px;
+    color: #3b82f6;
+    opacity: 0.9;
+}
+.post-meta-tag:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+html[data-theme="dark"] .post-meta-tag,
+html[data-theme="dark"] .post-meta-tag svg {
+    color: #60a5fa;
+}
+.post-hero .post-title {
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+/* 全局方角：毛玻璃 / 卡片 / 图片 / 下拉 / 分页 */
+.post-card,
+.sidebar-card,
+.post-maincol,
+.post-toc-card,
+.post-hero-inner,
+.post-entry,
+.archive-page,
+.star-panel,
+.star-entry-card,
+.star-header,
+.star-section,
+.star-section-card,
+.star-empty,
+.books-panel,
+.book-card,
+.book-header,
+.book-chapters,
+.chapter-card,
+.related-card,
+.friend-card,
+.friend-intro,
+.taxonomy-panel,
+.home-pagination .page-btn,
+.menu .submenu,
+.menu .submenu a,
+.searchbox input,
+.side-tool,
+.side-panel-item,
+.book-cover,
+.chapter-cover,
+.chapter-cover-wrap,
+.post-card-cover,
+.post-card-cover img,
+.related-cover,
+.star-cover,
+.star-cover-wrap,
+.star-entry-cover,
+.star-entry-cover img,
+.entry-cover,
+.entry-cover img,
+.star-photo,
+.star-photo img,
+.post-content .highlight,
+.post-content .highlight:not(table) {
+    border-radius: 0 !important;
+}
