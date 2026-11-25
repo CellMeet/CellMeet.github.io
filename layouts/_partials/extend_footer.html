@@ -464,3 +464,72 @@
 })();
 </script>
 
+
+<script>
+(function () {
+  function getHighlightQuery() {
+    try {
+      return (new URLSearchParams(window.location.search).get("highlight") || "").trim();
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function highlightNode(node, query) {
+    var text = node.nodeValue;
+    if (!text) return null;
+    var lower = text.toLowerCase();
+    var q = query.toLowerCase();
+    var pos = lower.indexOf(q);
+    if (pos === -1) return null;
+    var frag = document.createDocumentFragment();
+    var last = 0;
+    while (pos !== -1) {
+      if (pos > last) frag.appendChild(document.createTextNode(text.slice(last, pos)));
+      var span = document.createElement("span");
+      span.className = "search-hit";
+      span.textContent = text.slice(pos, pos + query.length);
+      frag.appendChild(span);
+      last = pos + query.length;
+      pos = lower.indexOf(q, last);
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    return frag;
+  }
+
+  function run() {
+    var query = getHighlightQuery();
+    if (!query) return;
+    var root = document.querySelector(".post-content");
+    if (!root) return;
+
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentElement;
+        if (p && p.closest("script,style,noscript")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var frag = highlightNode(node, query);
+      if (frag) node.parentNode.replaceChild(frag, node);
+    });
+
+    var hit = root.querySelector(".search-hit");
+    if (hit) {
+      try { hit.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>

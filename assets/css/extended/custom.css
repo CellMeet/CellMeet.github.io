@@ -5590,3 +5590,20 @@ html[data-theme="dark"] .home-pagination .page-btn.current {
 .term-heading {
     margin-bottom: 6px;
 }
+
+/* 搜索命中内容变红 */
+.search-hit {
+    color: #e11d48;
+    font-weight: 700;
+}
+html[data-theme="dark"] .search-hit {
+    color: #fb7185;
+}
+
+/* Book / CS 分类标签和普通分类标签顶部对齐 */
+.books-page {
+    padding-top: 0 !important;
+}
+.books-page .term-heading {
+    margin-top: 36px;
+}
