@@ -5202,3 +5202,23 @@ details.collapse-month {
 .sidebar-terms li:nth-child(4) a { padding-left: 6px; }
 .sidebar-terms li:nth-child(5) a { padding-left: 18px; }
 .sidebar-terms li:nth-child(6) a { padding-left: 18px; }
+
+/* 时间导航卡片恢复居中（用户确认居中更好） */
+.archive-nav-year-details > summary {
+    justify-content: center;
+}
+.archive-nav-year-details > summary::before {
+    position: absolute;
+    left: 0;
+    margin-right: 0;
+}
+.archive-nav-year {
+    display: block;
+    text-align: center;
+}
+.archive-nav-month {
+    display: block;
+    margin-left: 0;
+    padding-left: 0;
+    text-align: center;
+}
