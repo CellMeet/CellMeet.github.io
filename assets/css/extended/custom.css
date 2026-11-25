@@ -5644,3 +5644,36 @@ html[data-theme="dark"] .search-hit {
 html[data-theme="dark"] .post-toc-body a {
     color: #ececec !important;
 }
+
+/* 目录：选中/悬停出现和主页分类卡片一样的色底 */
+.post-toc-body a {
+    display: block;
+    padding: 4px 8px;
+    margin: 1px 0;
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.post-toc-body a:hover,
+.post-toc-body a.active {
+    background: var(--accent-soft);
+    color: var(--accent) !important;
+}
+
+/* Book / CS 标签到下方毛玻璃的距离，和其他分类/标签一致 */
+.books-page .books-panel {
+    margin-top: 26px;
+}
+
+/* 目录当前项：明显的色底 */
+.post-toc-body a.active,
+.post-toc-body a:hover {
+    background: #d8f3ec !important;
+    color: #0f766e !important;
+    box-shadow: inset 3px 0 0 var(--accent);
+    font-weight: 600;
+}
+html[data-theme="dark"] .post-toc-body a.active,
+html[data-theme="dark"] .post-toc-body a:hover {
+    background: rgba(26, 188, 156, 0.22) !important;
+    color: #7ce0c9 !important;
+}
