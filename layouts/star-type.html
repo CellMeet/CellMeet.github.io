@@ -1,0 +1,11 @@
+{{- define "main" }}
+<div class="star-page star-type-page">
+  <a class="star-back" href="{{ "/star/" | relURL }}">← 收藏</a>
+  <header class="star-list-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Content }}<div class="star-list-intro">{{ . }}</div>{{ end }}
+  </header>
+
+  {{ partial "star_timeline.html" . }}
+</div>
+{{- end }}

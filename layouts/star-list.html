@@ -1,5 +1,8 @@
 {{- define "main" }}
-{{- $weekdays := slice "周日" "周一" "周二" "周三" "周四" "周五" "周六" }}
+{{- $course := site.GetPage "/star/course" }}
+{{- $web := site.GetPage "/star/web" }}
+{{- $music := site.GetPage "/star/music" }}
+{{- $book := site.GetPage "/star/book" }}
 
 <div class="star-page star-list-page">
   <header class="star-list-header">
@@ -7,49 +10,42 @@
     {{- with .Content }}<div class="star-list-intro">{{ . }}</div>{{ end }}
   </header>
 
-  {{- if .Sections }}
-  <div class="star-timeline">
-    {{- range .Sections.GroupByDate "2006" }}
-    <section class="star-year-group">
-      <h2 class="star-year">{{ .Key }}</h2>
-      {{- range .Pages.GroupByDate "January" }}
-      {{- $pages := .Pages }}
-      <div class="star-month-group">
-        <h3 class="star-month">{{ (index $pages 0).Date.Format "01" }}月</h3>
-        <div class="star-entries">
-          {{- range $pages }}
-          {{- $entry := . }}
-          {{- $info := partial "star_info.html" . }}
-          <article class="star-entry">
-            <div class="star-entry-date">
-              <span class="star-entry-day">{{ .Date.Format "02" }}</span>
-              <span class="star-entry-week">{{ index $weekdays (int .Date.Weekday) }}</span>
-            </div>
-            <a class="star-entry-card" href="{{ .RelPermalink }}">
-              {{- with $info.cover }}
-              <span class="star-entry-cover">
-                <img src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="lazy" decoding="async">
-              </span>
-              {{- end }}
-              <span class="star-entry-body">
-                <span class="star-entry-title">{{ $info.title }}</span>
-                {{- with $info.summary }}<span class="star-entry-summary">{{ . }}</span>{{ end }}
-                <span class="star-entry-meta">{{ .Date.Format "2006-01-02" }} · 收藏</span>
-              </span>
-            </a>
-          </article>
-          {{- end }}
-        </div>
-      </div>
-      {{- end }}
-    </section>
-    {{- end }}
+  <div class="star-sections">
+    <a class="star-section-card" href="{{ with $course }}{{ .RelPermalink }}{{ else }}/star/course/{{ end }}">
+      <span class="star-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+      </span>
+      <span class="star-section-name">课程</span>
+      <span class="star-section-desc">课程、教程与学习资料</span>
+      <span class="star-section-count">{{ with $course }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
+    </a>
+
+    <a class="star-section-card" href="{{ with $web }}{{ .RelPermalink }}{{ else }}/star/web/{{ end }}">
+      <span class="star-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </span>
+      <span class="star-section-name">网页</span>
+      <span class="star-section-desc">值得反复看的网站与链接</span>
+      <span class="star-section-count">{{ with $web }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
+    </a>
+
+    <a class="star-section-card" href="{{ with $music }}{{ .RelPermalink }}{{ else }}/star/music/{{ end }}">
+      <span class="star-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </span>
+      <span class="star-section-name">音乐</span>
+      <span class="star-section-desc">专辑、单曲与歌单</span>
+      <span class="star-section-count">{{ with $music }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
+    </a>
+
+    <a class="star-section-card" href="{{ with $book }}{{ .RelPermalink }}{{ else }}/star/book/{{ end }}">
+      <span class="star-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </span>
+      <span class="star-section-name">书籍</span>
+      <span class="star-section-desc">电子书、PDF 与阅读笔记</span>
+      <span class="star-section-count">{{ with $book }}{{ len .Sections }} 个收藏{{ else }}0 个收藏{{ end }}</span>
+    </a>
   </div>
-  {{- else }}
-  <div class="star-empty">
-    <p>还没有收藏。</p>
-    <p>在终端运行 <code>star "名字"</code>，创建第一个收藏。</p>
-  </div>
-  {{- end }}
 </div>
 {{- end }}

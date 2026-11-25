@@ -3,7 +3,7 @@
 {{- $page := . }}
 
 <div class="star-page">
-  <a class="star-back" href="{{ .Parent.RelPermalink }}">← 收藏</a>
+  <a class="star-back" href="{{ .Parent.RelPermalink }}">← {{ .Parent.Title }}</a>
 
   <header class="star-header">
     {{- with $info.cover }}
