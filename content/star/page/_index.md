@@ -1,4 +1,4 @@
 ---
-title: "网页"
+title: "Page"
 layout: "star-type"
 ---

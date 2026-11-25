@@ -15,6 +15,9 @@
       <h1 class="star-title">{{ $info.title }}</h1>
       <div class="star-meta">{{ $info.date }} · 收藏</div>
       {{- with $info.summary }}<p class="star-summary">{{ . }}</p>{{ end }}
+      {{- with $info.link }}
+      <a class="star-primary-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">打开链接 <span aria-hidden="true">↗</span></a>
+      {{- end }}
       {{- with $info.content }}<div class="star-intro">{{ . }}</div>{{ end }}
     </div>
   </header>

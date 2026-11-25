@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# 新建收藏：star [类型] [名字]
-#   类型：course/web/music/book 或 课程/网页/音乐/书籍
+# 新建收藏：star [类型] [标题] [链接]
+#   类型：page/course/book 或 网页/课程/书籍
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -17,23 +17,44 @@ slugify() {
     | sed 's/-\+/-/g; s/^-//; s/-$//'
 }
 
+yaml_escape() {
+  printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+}
+
+strip_quotes() {
+  local s="$1"
+  s="${s#\"}"
+  s="${s%\"}"
+  printf '%s' "$s"
+}
+
 type_key() {
   case "$1" in
-    course|课程) echo "course" ;;
-    web|网页|网站) echo "web" ;;
-    music|音乐|歌曲) echo "music" ;;
-    book|书籍|书) echo "book" ;;
+    page|Page|网页|网站) echo "page" ;;
+    course|Course|课程) echo "course" ;;
+    book|Book|书籍|书) echo "book" ;;
     *) echo "" ;;
   esac
 }
 
 type_title() {
   case "$1" in
-    course) echo "课程" ;;
-    web) echo "网页" ;;
-    music) echo "音乐" ;;
-    book) echo "书籍" ;;
+    page) echo "Page" ;;
+    course) echo "Course" ;;
+    book) echo "Book" ;;
   esac
+}
+
+ensure_base() {
+  mkdir -p "$STAR_DIR"
+  if [ ! -f "$STAR_DIR/_index.md" ]; then
+    cat >"$STAR_DIR/_index.md" <<'INDEX'
+---
+title: "收藏"
+layout: "star-list"
+---
+INDEX
+  fi
 }
 
 ensure_type() {
@@ -53,64 +74,89 @@ INDEX
 
 pick_type() {
   if [ -f "$PICKER_INLINE" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
-    printf '课程\n网页\n音乐\n书籍\n' | python3 "$PICKER_INLINE" --prompt "收藏到: "
+    printf 'Page\nCourse\nBook\n' | python3 "$PICKER_INLINE" --prompt "belong: "
     return $?
   fi
 
-  echo "收藏到：" >&2
-  echo "  1) 课程" >&2
-  echo "  2) 网页" >&2
-  echo "  3) 音乐" >&2
-  echo "  4) 书籍" >&2
+  echo "belong：" >&2
+  echo "  1) Page" >&2
+  echo "  2) Course" >&2
+  echo "  3) Book" >&2
   local n
-  read -r -p "选择 [1-4]: " n
+  read -r -p "选择 [1-3]: " n
   case "$n" in
-    1) echo "课程" ;;
-    2) echo "网页" ;;
-    3) echo "音乐" ;;
-    4) echo "书籍" ;;
+    1) echo "Page" ;;
+    2) echo "Course" ;;
+    3) echo "Book" ;;
     *) return 1 ;;
   esac
 }
 
 type_arg=""
-name=""
+title=""
+link=""
+prompted=0
 
 if [ $# -eq 0 ]; then
-  :
-elif [ -n "$(type_key "$1")" ]; then
-  type_arg="$(type_key "$1")"
-  shift
-  name="$*"
+  prompted=1
 else
-  name="$1"
-  shift
-  if [ $# -gt 0 ]; then
-    name="$name $*"
+  if [ -n "$(type_key "$1")" ]; then
+    type_arg="$(type_key "$1")"
+    shift
+    title="${1:-}"
+    [ $# -gt 0 ] && shift
+    link="$*"
+  elif [ $# -ge 2 ] && [ -n "$(type_key "$2")" ]; then
+    title="$1"
+    type_arg="$(type_key "$2")"
+    shift 2
+    link="$*"
+  else
+    title="$1"
+    shift
+    link="$*"
   fi
 fi
 
-if [ -z "$name" ]; then
-  read -r -p "收藏名字: " name
+title="$(strip_quotes "$title")"
+link="$(strip_quotes "$link")"
+
+if [ -z "$title" ]; then
+  read -r -p "title: " title
+  title="$(strip_quotes "$title")"
+  prompted=1
 fi
-if [ -z "$name" ]; then
-  echo "名字不能为空" >&2
+if [ -z "$title" ]; then
+  echo "标题不能为空" >&2
   exit 1
 fi
 
 if [ -z "$type_arg" ]; then
-  label="$(pick_type)" || { echo "未选择类型" >&2; exit 1; }
+  label="$(pick_type)" || { echo "未选择 belong" >&2; exit 1; }
   type_arg="$(type_key "$label")"
   if [ -z "$type_arg" ]; then
-    echo "类型无效: $label" >&2
+    echo "belong 无效: $label" >&2
     exit 1
   fi
+  prompted=1
 fi
 
-ensure_type "$type_arg"
-title="$(type_title "$type_arg")"
+if [ -z "$link" ] && [ "$prompted" -eq 1 ]; then
+  read -r -p "link（可留空）: " link
+  link="$(strip_quotes "$link")"
+fi
 
-slug="$(slugify "$name")"
+case "$link" in
+  "") ;;
+  http://*|https://*) ;;
+  *) link="https://$link" ;;
+esac
+
+ensure_base
+ensure_type "$type_arg"
+label="$(type_title "$type_arg")"
+
+slug="$(slugify "$title")"
 dir="$STAR_DIR/$type_arg/$slug"
 date="$(date '+%F')"
 
@@ -121,17 +167,21 @@ fi
 
 mkdir -p "$dir/music" "$dir/books" "$dir/images"
 
+title_esc="$(yaml_escape "$title")"
+link_esc="$(yaml_escape "$link")"
+
 cat >"$dir/Info.md" <<INFO
 ---
-title: "$name"
+title: "$title_esc"
 build:
   render: never
   list: never
 date: "$date"
 summary: ""
+link: "$link_esc"
 cover:
   image: "cover.jpg"
-  alt: "《$name》"
+  alt: "《$title_esc》"
 links: []
 ---
 
@@ -140,16 +190,14 @@ INFO
 
 cat >"$dir/_index.md" <<INDEX
 ---
-title: "$name"
+title: "$title_esc"
 date: "$date"
 layout: "star"
 ---
 INDEX
 
 echo "已创建收藏: $dir"
-echo "  版块: $title"
-echo "  介绍: $dir/Info.md"
-echo "  音乐: $dir/music/  （子文件夹 = 专辑）"
-echo "  书籍: $dir/books/"
-echo "  图片: $dir/images/"
-echo "  链接: Info.md 里的 links"
+echo "  belong: $label"
+echo "  Info.md: 写简介、封面"
+echo "  音乐/书籍/图片: $dir/{music,books,images}/"
+echo "  link: ${link:-（空）}"

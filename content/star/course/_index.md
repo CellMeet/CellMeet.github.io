@@ -1,4 +1,4 @@
 ---
-title: "课程"
+title: "Course"
 layout: "star-type"
 ---

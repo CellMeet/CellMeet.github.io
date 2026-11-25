@@ -1,6 +1,6 @@
 {{- /* 读取收藏目录下的 Info.md，返回收藏信息 dict。 */ -}}
 {{- $page := . -}}
-{{- $out := dict "title" $page.Title "date" ($page.Date.Format "2006-01-02") "summary" "" "cover" "" "coverAlt" "" "content" "" "links" slice -}}
+{{- $out := dict "title" $page.Title "date" ($page.Date.Format "2006-01-02") "summary" "" "cover" "" "coverAlt" "" "content" "" "links" slice "link" "" -}}
 {{- $raw := "" -}}
 {{- with $page.File -}}
   {{- $p := path.Join "content" (path.Join .Dir "Info.md") -}}
@@ -26,6 +26,7 @@
   {{- with $fm.date -}}{{ $out = merge $out (dict "date" (printf "%v" .)) }}{{- end -}}
   {{- with $fm.summary -}}{{ $out = merge $out (dict "summary" .) }}{{- end -}}
   {{- with $fm.links -}}{{ $out = merge $out (dict "links" .) }}{{- end -}}
+  {{- with $fm.link -}}{{ $out = merge $out (dict "link" .) }}{{- end -}}
   {{- $img := "" -}}
   {{- $alt := "" -}}
   {{- with $fm.cover -}}

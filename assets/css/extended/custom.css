@@ -3985,3 +3985,103 @@ html[data-theme="dark"] .star-section-card {
     max-width: 940px;
     margin: 0 auto;
 }
+
+/* 导航栏下拉菜单（收藏 → Page/Course/Book） */
+.menu > li {
+    position: relative;
+}
+.menu li.has-children > a {
+    display: inline-flex;
+    align-items: center;
+}
+.menu-caret {
+    margin-left: 3px;
+    transition: transform 0.2s ease;
+    opacity: 0.75;
+}
+.menu li.has-children:hover > a .menu-caret,
+.menu li.has-children:focus-within > a .menu-caret {
+    transform: rotate(180deg);
+}
+.menu .submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 120;
+    min-width: 168px;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 8px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+}
+.menu li.has-children:hover > .submenu,
+.menu li.has-children:focus-within > .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+.menu .submenu li {
+    margin: 0;
+}
+.menu .submenu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: var(--primary);
+    white-space: nowrap;
+}
+.menu .submenu a:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.menu .submenu .submenu-icon {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    color: var(--secondary);
+}
+.menu .submenu a:hover .submenu-icon {
+    color: var(--accent);
+}
+html[data-theme="dark"] .menu .submenu {
+    background: rgba(24, 26, 36, 0.96);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+}
+
+.star-primary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 2px 0 10px;
+    padding: 8px 16px;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.star-primary-link:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+}
