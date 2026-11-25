@@ -5701,3 +5701,23 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     color: #ffffff !important;
     box-shadow: none !important;
 }
+
+/* 目录：标题淡色，内容深黑；点击后的效果和主页分类卡片一致 */
+.post-toc-title {
+    color: var(--secondary) !important;
+    opacity: 0.8;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+}
+.post-toc-body a {
+    color: #111111 !important;
+}
+html[data-theme="dark"] .post-toc-body a {
+    color: #ececec !important;
+}
+.post-toc-body a.toc-clicked,
+html[data-theme="dark"] .post-toc-body a.toc-clicked {
+    background: var(--accent-soft) !important;
+    color: var(--accent) !important;
+    box-shadow: none !important;
+}
