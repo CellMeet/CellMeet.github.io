@@ -31,10 +31,17 @@
       {{- if .Description }}
       <div class="post-description">{{ .Description }}</div>
       {{- end }}
+      {{- with .GetTerms "tags" }}
+      <div class="post-hero-tags">
+        {{- range . }}
+        <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
     </div>
   </div>
 
-  <div class="post-layout{{ if not $hasToc }} post-layout--no-toc{{ end }}">
+  <div class="post-layout">
     <div class="post-maincol">
       {{- if .Content }}
       <div class="post-content md-content">
@@ -54,16 +61,6 @@
         {{- partial "share_icons.html" . -}}
         {{- end }}
       </footer>
-
-      {{- with .GetTerms "tags" }}
-      <section class="post-tags-section">
-        <div class="tag-cloud">
-          {{- range . }}
-          <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>
-          {{- end }}
-        </div>
-      </section>
-      {{- end }}
 
       {{- with $related }}
       <section class="related-section">
@@ -97,14 +94,12 @@
       {{- end }}
     </div>
 
-    {{- if $hasToc }}
     <aside class="post-sidebar">
       <div class="post-toc-card">
         <div class="post-toc-title">目录</div>
         <div class="post-toc-body">{{ $toc }}</div>
       </div>
     </aside>
-    {{- end }}
   </div>
 </article>
 

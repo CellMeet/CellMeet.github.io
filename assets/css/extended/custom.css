@@ -4603,3 +4603,101 @@ body.list .main {
 .post-hero-inner {
     max-width: 860px;
 }
+
+/* 正文：标题卡与正文+目录同宽，间距更小，标签在标题下 */
+.post-single {
+    max-width: 1080px;
+}
+.post-hero-inner {
+    max-width: 1080px;
+    width: 100%;
+}
+.post-layout {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    margin-top: 14px;
+}
+.post-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+.post-hero-tags .tag-chip {
+    font-size: 13px;
+    padding: 5px 13px;
+}
+.post-content {
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    font-size: 17.5px;
+}
+.post-content pre {
+    overflow-x: auto;
+}
+.post-content table {
+    display: block;
+    overflow-x: auto;
+}
+.post-card-title {
+    font-size: 21px;
+}
+
+/* 归档与收藏对齐主页宽度 */
+.archive-page,
+.star-panel {
+    max-width: 1120px;
+}
+.star-panel {
+    min-height: 0;
+}
+
+/* 收藏行：右侧“打开”占位 */
+.star-line {
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+html[data-theme="dark"] .star-line {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+.star-line-title {
+    flex: 1;
+    min-width: 0;
+}
+.star-line-open {
+    flex: 0 0 auto;
+    color: var(--secondary);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* 搜索框收窄 */
+.searchbox {
+    max-width: 520px;
+    margin: 30px auto;
+}
+
+/* 归档 / 收藏：作者式纯白卡片，不用半透明毛玻璃 */
+.archive-page,
+.star-panel {
+    background: #ffffff;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
+}
+html[data-theme="dark"] .archive-page,
+html[data-theme="dark"] .star-panel {
+    background: #121212;
+    box-shadow: 0 3px 8px 6px rgba(0, 0, 0, 0.3);
+}
+
+.post-hero-inner {
+    margin-bottom: 12px;
+}
+.post-layout {
+    margin-top: 10px;
+}
