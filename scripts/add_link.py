@@ -8,6 +8,8 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
+import time
 import unicodedata
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
@@ -19,6 +21,8 @@ UA = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
+COOKIE_JAR = os.path.join(tempfile.gettempdir(), f"addlink-cookies-{os.getpid()}.txt")
+BASE_CMD = ["curl", "-sL", "--max-time", "25", "-A", UA, "-c", COOKIE_JAR, "-b", COOKIE_JAR]
 
 
 class HeadParser(HTMLParser):
@@ -61,7 +65,7 @@ class HeadParser(HTMLParser):
 
 
 def curl(url, binary=False, timeout=25):
-    cmd = ["curl", "-sL", "--max-time", str(timeout), "-A", UA]
+    cmd = BASE_CMD + ["--max-time", str(timeout)]
     try:
         r = subprocess.run(cmd + [url], capture_output=True, timeout=timeout + 5)
     except subprocess.TimeoutExpired:
@@ -72,18 +76,30 @@ def curl(url, binary=False, timeout=25):
 
 
 def page_and_final_url(url):
-    cmd = ["curl", "-sL", "--max-time", "25", "-A", UA, "-w", "\n__URL__%{url_effective}", url]
-    try:
-        r = subprocess.run(cmd, capture_output=True, timeout=30)
-    except subprocess.TimeoutExpired:
-        return None, url
-    if r.returncode != 0 or not r.stdout:
-        return None, url
-    text = r.stdout.decode("utf-8", "replace")
-    if "__URL__" in text:
-        html, final = text.rsplit("__URL__", 1)
-        return html, final.strip()
-    return text, url
+    cmd = BASE_CMD + ["--max-time", "25", "-w", "\n__META__%{url_effective} %{http_code}", url]
+    html, final = None, url
+    for attempt in range(2):
+        try:
+            r = subprocess.run(cmd, capture_output=True, timeout=30)
+        except subprocess.TimeoutExpired:
+            return None, url
+        if r.returncode != 0 or not r.stdout:
+            return None, url
+        text = r.stdout.decode("utf-8", "replace")
+        if "__META__" in text:
+            body, meta = text.rsplit("__META__", 1)
+            parts = meta.strip().rsplit(" ", 1)
+            if len(parts) == 2:
+                final, code = parts[0], parts[1]
+            else:
+                final, code = meta.strip(), ""
+        else:
+            body, code = text, ""
+        html = body
+        if code == "200" and len(body) > 500:
+            return html, final
+        time.sleep(1)
+    return html, final
 
 
 def clean_title(t):
@@ -194,6 +210,35 @@ def url_exists(url):
     return False
 
 
+def update_avatar(url, avatar):
+    if not os.path.exists(LINKS_MD):
+        return False
+    text = open(LINKS_MD, encoding="utf-8").read()
+    target = normalize_url(url)
+    lines = text.splitlines()
+    in_block = False
+    changed = False
+    for i, line in enumerate(lines):
+        m = re.match(r'^\s*url:\s*["\']?([^"\'\s]+)', line)
+        if m and normalize_url(m.group(1)) == target:
+            in_block = True
+            # already has avatar?
+            for j in range(i + 1, min(i + 4, len(lines))):
+                if re.match(r'^\s*avatar:', lines[j]):
+                    if avatar:
+                        lines[j] = f'    avatar: "{avatar}"'
+                        changed = True
+                    break
+            else:
+                if avatar:
+                    lines.insert(i + 1, f'    avatar: "{avatar}"')
+                    changed = True
+            break
+    if changed:
+        open(LINKS_MD, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    return changed
+
+
 def add_to_links(name, url, avatar):
     if not os.path.exists(LINKS_MD):
         print(f"找不到 {LINKS_MD}", file=sys.stderr)
@@ -245,6 +290,10 @@ def add_to_links(name, url, avatar):
 
 def main():
     args = sys.argv[1:]
+    update_only = False
+    if "--update" in args:
+        update_only = True
+        args = [a for a in args if a != "--update"]
     if not args:
         try:
             url = input("网址: ").strip()
@@ -260,8 +309,8 @@ def main():
         url = "https://" + url
     url = url.strip()
 
-    if url_exists(url):
-        print(f"友链已存在: {url}")
+    if url_exists(url) and not update_only:
+        print(f"友链已存在: {url}（如需更新图标，加 --update）")
         return 0
 
     print(f"抓取: {url}")
@@ -306,6 +355,14 @@ def main():
     else:
         print(f"图标: {used}")
         print(f"已保存: {icon_rel.lstrip('/')}")
+
+    if update_only:
+        if update_avatar(url, icon_rel):
+            print(f"已更新图标: {url} → {icon_rel}")
+            print("运行 publish 发布")
+        else:
+            print("没有更新（可能网址不存在或图标为空）")
+        return 0
 
     if add_to_links(name, url, icon_rel):
         print(f"已添加友链: {name} → {url}")

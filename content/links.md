@@ -12,7 +12,7 @@ links:
     description: ""
   - name: "苏剑林科学空间"
     url: "https://spaces.ac.cn/content.html"
-    avatar: ""
+    avatar: "/img/links/scientific-spaces.ico"
     description: ""
   - name: "Martin Fowler"
     url: "https://martinfowler.com/"

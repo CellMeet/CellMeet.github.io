@@ -1,5 +1,5 @@
 ---
-title: "Golang 微服务: Coming from a Monolith"
+title: "Golang microsever: Coming from a Monolith"
 date: "2026-11-25T14:52:59+08:00"
 draft: false
 url: "/posts/golang/Golang-微服务-Coming-from-a-Monolith/"
