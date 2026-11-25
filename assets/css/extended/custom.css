@@ -5272,10 +5272,31 @@ details.collapse-month {
     justify-content: flex-start;
     padding: 8px 10px;
 }
-/* TEMP4 */
-.menu li.has-children > .submenu { opacity:1 !important; visibility:visible !important; transform:translate(-50%,0) !important; }
 
 /* 分类/标签标题留一点左侧空间，不严格贴边 */
 .term-heading {
     padding-left: 10px;
+}
+
+/* 月份在年份和日期之间垂直居中 */
+details.collapse-month {
+    margin-top: 14px;
+}
+details.collapse-month > summary {
+    padding: 2px 0 0;
+}
+.archive-day,
+.star-day {
+    padding-top: 0;
+    padding-bottom: 7px;
+}
+
+/* 微调月份在年份和日期之间的垂直居中 */
+details.collapse-month {
+    margin-top: 8px;
+}
+.archive-day,
+.star-day {
+    padding-top: 6px;
+    padding-bottom: 7px;
 }
