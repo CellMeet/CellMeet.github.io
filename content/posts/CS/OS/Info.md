@@ -3,11 +3,9 @@ title: "OS"
 build:
   render: never
   list: never
-summary: ""
+summary: "计算机四大件: 操作系统"
 link: ""
 cover:
-  image: "cover.jpg"
-  alt: "《OS》封面"
+  image: "os.png"
+  alt: ""
 ---
-
-在这里写简介。

@@ -44,7 +44,6 @@ collection_root() {
   printf 'content/posts/%s\n' "$1"
 }
 
-
 list_items() {
   find "$(collection_root "$1")" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort
 }
@@ -142,7 +141,6 @@ cover:
   alt: "《$title》封面"
 ---
 
-在这里写简介。
 EOF
 
   cat >"$dir/_index.md" <<EOF
@@ -330,10 +328,10 @@ resolve_collection() {
 
 collection_name() {
   case "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" in
-    book) echo "书" ;;
-    movie) echo "电影" ;;
-    cs) echo "detail" ;;
-    *) echo "内容" ;;
+  book) echo "书" ;;
+  movie) echo "电影" ;;
+  cs) echo "detail" ;;
+  *) echo "内容" ;;
   esac
 }
 
@@ -390,7 +388,7 @@ pick_type() {
 
   local -a arr=()
   local b
-  while IFS= read -r b; do [ -n "$b" ] && arr+=("$b"); done <<< "$types"
+  while IFS= read -r b; do [ -n "$b" ] && arr+=("$b"); done <<<"$types"
   local i=1
   for b in "${arr[@]}"; do
     printf '  %d) %s\n' "$i" "$b" >&2
@@ -454,11 +452,11 @@ interactive() {
     }
     while IFS=$'\x1f' read -r key val; do
       case "$key" in
-        TITLE) title="$val" ;;
-        CATEGORY) category="$val" ;;
-        NAME) name="$val" ;;
+      TITLE) title="$val" ;;
+      CATEGORY) category="$val" ;;
+      NAME) name="$val" ;;
       esac
-    done <<< "$out"
+    done <<<"$out"
   else
     # 非交互终端回退
     read -r -p 'title: ' raw
@@ -466,16 +464,16 @@ interactive() {
     printf '%s\n' "$(list_types)" >&2
     read -r -p 'belong: ' category
     case "$(printf '%s' "$category" | tr '[:upper:]' '[:lower:]')" in
-      book | movie | cs)
-        local label
-        label="$(collection_name "$category")"
-        if [ "$label" = "detail" ]; then
-          read -r -p "detail: " raw
-        else
-          read -r -p "输入$label名: " raw
-        fi
-        name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
-        ;;
+    book | movie | cs)
+      local label
+      label="$(collection_name "$category")"
+      if [ "$label" = "detail" ]; then
+        read -r -p "detail: " raw
+      else
+        read -r -p "输入$label名: " raw
+      fi
+      name="$(printf '%s' "$raw" | sed -e 's/^"//' -e 's/"$//')"
+      ;;
     esac
   fi
 
@@ -489,23 +487,23 @@ interactive() {
   fi
 
   case "$(printf '%s' "$category" | tr '[:upper:]' '[:lower:]')" in
-    book | movie | cs)
-      if [ -z "$name" ]; then
-        echo "书名/电影名不能为空" >&2
-        return 1
-      fi
-      if [ "${name#NEW:}" != "$name" ]; then
-        name="${name#NEW:}"
-        local dir
-        dir="$(create_item "$category" "$name")" || return 1
-        create_entry "$category" "$(basename "$dir")" "$title"
-      else
-        create_entry "$category" "$name" "$title"
-      fi
-      ;;
-    *)
-      create_post "$title" "$category" >/dev/null
-      ;;
+  book | movie | cs)
+    if [ -z "$name" ]; then
+      echo "书名/电影名不能为空" >&2
+      return 1
+    fi
+    if [ "${name#NEW:}" != "$name" ]; then
+      name="${name#NEW:}"
+      local dir
+      dir="$(create_item "$category" "$name")" || return 1
+      create_entry "$category" "$(basename "$dir")" "$title"
+    else
+      create_entry "$category" "$name" "$title"
+    fi
+    ;;
+  *)
+    create_post "$title" "$category" >/dev/null
+    ;;
   esac
 }
 
@@ -519,7 +517,6 @@ if [ $# -eq 1 ] && { [ "$1" = "book" ] || [ "$1" = "movie" ]; }; then
   choose_or_create_item "$1" "" "" >/dev/null
   exit 0
 fi
-
 
 arg1="$1"
 arg2="${2:-}"
