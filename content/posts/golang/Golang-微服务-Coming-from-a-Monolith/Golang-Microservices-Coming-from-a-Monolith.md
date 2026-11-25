@@ -4,7 +4,7 @@ date: "2026-11-25T14:52:59+08:00"
 draft: false
 url: "/posts/golang/Golang-微服务-Coming-from-a-Monolith/"
 categories: ["golang"]
-tags: ["golang", "microsercices"]
+tags: ["golang", "microservicies"]
 summary: ""
 cover:
   image: "go.png"

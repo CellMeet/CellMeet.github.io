@@ -26,7 +26,9 @@
   {{- with $fm.date -}}{{ $out = merge $out (dict "date" (printf "%v" .)) }}{{- end -}}
   {{- with $fm.summary -}}{{ $out = merge $out (dict "summary" .) }}{{- end -}}
   {{- with $fm.links -}}{{ $out = merge $out (dict "links" .) }}{{- end -}}
-  {{- with $fm.link -}}{{ $out = merge $out (dict "link" .) }}{{- end -}}
+  {{- $linkVal := "" -}}
+  {{- with $fm.url -}}{{ $linkVal = . }}{{- else -}}{{ with $fm.link }}{{ $linkVal = . }}{{ end }}{{- end -}}
+  {{- with $linkVal -}}{{ $out = merge $out (dict "link" .) }}{{- end -}}
   {{- $img := "" -}}
   {{- $alt := "" -}}
   {{- with $fm.cover -}}

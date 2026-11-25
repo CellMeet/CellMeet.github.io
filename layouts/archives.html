@@ -1,30 +1,49 @@
 {{- define "main" }}
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $paginator := .Paginate $pages 15 }}
+{{- $paginator := .Paginate $pages 20 }}
+{{- $groups := $paginator.Pages.GroupByDate "2006" }}
 
-<div class="archive-page">
-  {{- range $paginator.Pages.GroupByDate "2006" }}
-  <details class="collapse-year archive-year" open>
-    <summary><span class="collapse-year-num">{{ .Key }}</span></summary>
-    {{- range .Pages.GroupByDate "January" }}
-    {{- $monthPages := .Pages }}
-    <details class="collapse-month archive-month" open>
-      <summary><span class="collapse-month-num">{{ (index $monthPages 0).Date.Format "01" }}</span></summary>
-      {{- range $monthPages.GroupByDate "2006-01-02" }}
-      {{- $dayPages := .Pages }}
-      <div class="archive-day">
-        <span class="archive-day-num">{{ (index $dayPages 0).Date.Format "02" }}</span>
-        <div class="archive-day-posts">
-          {{- range $dayPages }}
-          <a class="archive-entry-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-          {{- end }}
+<div class="archive-layout">
+  <div class="archive-page">
+    {{- range $groups }}
+    {{- $year := .Key }}
+    <details class="collapse-year archive-year" id="y{{ $year }}" open>
+      <summary><span class="collapse-year-num">{{ $year }}</span></summary>
+      {{- range .Pages.GroupByDate "January" }}
+      {{- $monthPages := .Pages }}
+      {{- $month := (index $monthPages 0).Date.Format "01" }}
+      <details class="collapse-month archive-month" id="m{{ $year }}-{{ $month }}" open>
+        <summary><span class="collapse-month-num">{{ $month }}</span></summary>
+        {{- range $monthPages.GroupByDate "2006-01-02" }}
+        {{- $dayPages := .Pages }}
+        <div class="archive-day">
+          <span class="archive-day-num">{{ (index $dayPages 0).Date.Format "02" }}</span>
+          <div class="archive-day-posts">
+            {{- range $dayPages }}
+            <a class="archive-entry-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{- end }}
+          </div>
         </div>
-      </div>
+        {{- end }}
+      </details>
       {{- end }}
     </details>
     {{- end }}
-  </details>
-  {{- end }}
+  </div>
+
+  <aside class="archive-nav">
+    <div class="archive-nav-card">
+      <div class="archive-nav-title">日期</div>
+      {{- range $groups }}
+      {{- $year := .Key }}
+      <a class="archive-nav-year" href="#y{{ $year }}">{{ $year }}</a>
+      {{- range .Pages.GroupByDate "January" }}
+      {{- $month := (index .Pages 0).Date.Format "01" }}
+      <a class="archive-nav-month" href="#m{{ $year }}-{{ $month }}">{{ $month }}</a>
+      {{- end }}
+      {{- end }}
+    </div>
+  </aside>
 </div>
 
 {{ partial "home_pagination.html" $paginator }}

@@ -4,7 +4,7 @@ date: "2026-11-24T16:56:43+08:00"
 draft: false
 url: "/posts/leetcode/LeetCode-Hot100-56-Merge-Intervals-(合并区间)/"
 categories: ["leetcode"]
-tags: ["hot1"]
+tags: ["hot100"]
 summary: ""
 cover:
   image: "cover.png"

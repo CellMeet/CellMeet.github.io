@@ -4701,3 +4701,144 @@ html[data-theme="dark"] .star-panel {
 .post-layout {
     margin-top: 10px;
 }
+
+/* 标签卡片方角 */
+.tag-chip {
+    border-radius: 0 !important;
+}
+/* 正文标题下标签字号 */
+.post-hero-tags .tag-chip {
+    font-size: 19px;
+    padding: 6px 16px;
+}
+/* 首页标题再大一点 */
+.post-card-title {
+    font-size: 23px;
+}
+/* 归档 / 收藏恢复统一毛玻璃 */
+.archive-page,
+.star-panel {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 16px -4px rgba(138, 138, 138, 0.15);
+}
+html[data-theme="dark"] .archive-page,
+html[data-theme="dark"] .star-panel {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+}
+/* 收藏下拉更窄 */
+.menu .submenu {
+    min-width: 150px;
+    padding: 7px;
+}
+.menu .submenu a {
+    padding: 9px 11px;
+    font-size: 14.5px;
+    gap: 9px;
+}
+/* 搜索框变宽 + 去掉选中边框 */
+.searchbox {
+    max-width: 720px;
+}
+.searchbox input:focus {
+    border-color: var(--glass-border);
+    box-shadow: none;
+    outline: none;
+}
+
+/* 分类卡片：只露 5 行，可上下滚动（打字机感） */
+.sidebar-terms-scroll {
+    max-height: 172px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+.sidebar-terms-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar-terms-scroll::-webkit-scrollbar-thumb {
+    background: rgba(15, 23, 42, 0.15);
+}
+.sidebar-terms a {
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+}
+
+/* Hot 卡片 */
+.hot-card .hot-list {
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+/* 归档：右侧日期导航 + 收窄正文 */
+.archive-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 20px;
+    align-items: start;
+    max-width: 1120px;
+    margin: 26px auto 0;
+}
+.archive-layout .archive-page {
+    max-width: none;
+    margin: 0;
+    min-height: 0;
+}
+.archive-nav {
+    position: sticky;
+    top: 90px;
+}
+.archive-nav-card {
+    padding: 16px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 16px -4px rgba(138, 138, 138, 0.15);
+}
+html[data-theme="dark"] .archive-nav-card {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+}
+.archive-nav-title {
+    margin-bottom: 10px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--secondary);
+}
+.archive-nav-year {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-decoration: none;
+}
+.archive-nav-month {
+    display: block;
+    padding: 3px 0 3px 14px;
+    font-size: 14px;
+    color: var(--secondary);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+}
+.archive-nav a:hover {
+    color: var(--accent);
+}
+@media (max-width: 900px) {
+    .archive-layout {
+        grid-template-columns: 1fr;
+    }
+    .archive-nav {
+        position: static;
+        order: -1;
+    }
+}

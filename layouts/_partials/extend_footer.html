@@ -423,10 +423,7 @@
     el.addEventListener("wheel", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      rotY += e.deltaY * 0.0015;
-      if (e.shiftKey) {
-        rotX += e.deltaY * 0.001;
-      }
+      rotY += e.deltaY * 0.0022;
     }, { passive: false });
 
     if (window.ResizeObserver) {

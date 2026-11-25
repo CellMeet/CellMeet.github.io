@@ -296,7 +296,7 @@ def main():
         args = [a for a in args if a != "--update"]
     if not args:
         try:
-            url = input("网址: ").strip()
+            url = input("address: ").strip()
         except EOFError:
             return 1
     else:

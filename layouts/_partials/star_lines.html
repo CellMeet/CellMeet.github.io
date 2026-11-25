@@ -17,7 +17,6 @@
           {{- $target := partial "star_target.html" (dict "page" . "info" $info) }}
           <a class="star-line" href="{{ $target }}"{{ if ne $target .RelPermalink }} target="_blank" rel="noopener noreferrer"{{ end }}>
             <span class="star-line-title">{{ $info.title }}</span>
-            <span class="star-line-open">打开 ↗</span>
           </a>
           {{- end }}
         </div>

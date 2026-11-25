@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# 新建收藏：star [类型] [标题] [链接]
-#   类型：page/course/book 或 网页/课程/书籍
+# 新建收藏：star [belong] [标题] [url]
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -9,10 +8,7 @@ PICKER_INLINE="scripts/pick_inline.py"
 
 slugify() {
   printf '%s' "$1" \
-    | tr '/' '-' \
-    | tr '|' '-' \
-    | tr ':' '-' \
-    | tr '？?' '-' \
+    | sed -e 's#[/|:：]#-#g' -e 's/[?？]/ /g' \
     | tr -s ' ' '-' \
     | sed 's/-\+/-/g; s/^-//; s/-$//'
 }
@@ -28,23 +24,6 @@ strip_quotes() {
   printf '%s' "$s"
 }
 
-type_key() {
-  case "$1" in
-    page|Page|网页|网站|页面) echo "page" ;;
-    course|Course|课程) echo "course" ;;
-    book|Book|书籍|书) echo "book" ;;
-    *) echo "" ;;
-  esac
-}
-
-type_title() {
-  case "$1" in
-    page) echo "页面" ;;
-    course) echo "课程" ;;
-    book) echo "书" ;;
-  esac
-}
-
 ensure_base() {
   mkdir -p "$STAR_DIR"
   if [ ! -f "$STAR_DIR/_index.md" ]; then
@@ -57,69 +36,115 @@ INDEX
   fi
 }
 
-ensure_type() {
-  local key="$1"
-  local title
-  title="$(type_title "$key")"
+list_belongs() {
+  find "$STAR_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort
+}
+
+resolve_belong() {
+  local name="$1"
+  local want lower d
+  want="$(printf '%s' "$name" | sed 's/^ *//; s/ *$//')"
+  [ -z "$want" ] && return 1
+
+  case "$want" in
+    page|网页|页面|网站) want="page" ;;
+    course|课程) want="course" ;;
+    book|书|书籍) want="book" ;;
+  esac
+
+  lower="$(printf '%s' "$want" | tr '[:upper:]' '[:lower:]' 2>/dev/null || printf '%s' "$want")"
+  while IFS= read -r d; do
+    local dl
+    dl="$(printf '%s' "$d" | tr '[:upper:]' '[:lower:]' 2>/dev/null || printf '%s' "$d")"
+    if [ "$dl" = "$lower" ]; then
+      printf '%s\n' "$d"
+      return 0
+    fi
+  done < <(list_belongs)
+
+  local key
+  key="$(slugify "$want")"
+  [ -n "$key" ] || key="$want"
   mkdir -p "$STAR_DIR/$key"
   if [ ! -f "$STAR_DIR/$key/_index.md" ]; then
     cat >"$STAR_DIR/$key/_index.md" <<INDEX
 ---
-title: "$title"
+title: "$want"
 layout: "star-type"
 ---
 INDEX
   fi
+  printf '%s\n' "$key"
 }
 
-pick_type() {
+pick_belong() {
+  ensure_base
   if [ -f "$PICKER_INLINE" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
-    printf '页面\n课程\n书\n' | python3 "$PICKER_INLINE" --prompt "belong: "
+    list_belongs | python3 "$PICKER_INLINE" --prompt "belong: " --allow-new
     return $?
   fi
 
-  echo "belong：" >&2
-  echo "  1) 页面" >&2
-  echo "  2) 课程" >&2
-  echo "  3) 书" >&2
-  local n
-  read -r -p "选择 [1-3]: " n
-  case "$n" in
-    1) echo "页面" ;;
-    2) echo "课程" ;;
-    3) echo "书" ;;
-    *) return 1 ;;
+  echo "现有 belong：" >&2
+  local -a arr=()
+  local b
+  while IFS= read -r b; do arr+=("$b"); done < <(list_belongs)
+  local i=1
+  for b in "${arr[@]}"; do
+    printf '  %d) %s\n' "$i" "$b" >&2
+    i=$((i+1))
+  done
+  read -r -p "belong（可直接输入新名字）: " b
+  [ -n "$b" ] || return 1
+  case "$b" in
+    [0-9]*) if [ "$b" -ge 1 ] 2>/dev/null && [ "$b" -le ${#arr[@]} ]; then
+              printf '%s\n' "${arr[b-1]}"; return 0
+            fi ;;
   esac
+  printf 'NEW:%s\n' "$b"
 }
 
 type_arg=""
 title=""
-link=""
+url=""
+info=""
 prompted=0
 
-if [ $# -eq 0 ]; then
-  prompted=1
-else
-  if [ -n "$(type_key "$1")" ]; then
-    type_arg="$(type_key "$1")"
-    shift
-    title="${1:-}"
-    [ $# -gt 0 ] && shift
-    link="$*"
-  elif [ $# -ge 2 ] && [ -n "$(type_key "$2")" ]; then
-    title="$1"
-    type_arg="$(type_key "$2")"
-    shift 2
-    link="$*"
-  else
-    title="$1"
-    shift
-    link="$*"
+# 解析参数：支持 star "标题" course url / star course "标题" url
+if [ $# -ge 1 ]; then
+  first="$1"
+  if [ $# -ge 2 ] && ! printf '%s' "$2" | grep -qE '^https?://'; then
+    # 第二个参数看起来像 belong
+    if [ $# -ge 3 ] || [ -d "$STAR_DIR/$2" ] || [ "$2" = "page" ] || [ "$2" = "course" ] || [ "$2" = "book" ] || [ "$2" = "课程" ] || [ "$2" = "书" ] || [ "$2" = "页面" ]; then
+      title="$1"
+      type_arg="$2"
+      shift 2
+      url="${1:-}"
+      [ $# -gt 0 ] && shift
+      info="$*"
+    fi
+  fi
+  if [ -z "$title" ] && [ -z "$type_arg" ]; then
+    # 可能是 star course "标题" url
+    if [ -d "$STAR_DIR/$first" ] || [ "$first" = "page" ] || [ "$first" = "course" ] || [ "$first" = "book" ] || [ "$first" = "课程" ] || [ "$first" = "书" ] || [ "$first" = "页面" ]; then
+      type_arg="$first"
+      shift
+      title="${1:-}"
+      [ $# -gt 0 ] && shift
+      url="${1:-}"
+      [ $# -gt 0 ] && shift
+      info="$*"
+    else
+      title="$first"
+      shift
+      url="${1:-}"
+      [ $# -gt 0 ] && shift
+      info="$*"
+    fi
   fi
 fi
 
 title="$(strip_quotes "$title")"
-link="$(strip_quotes "$link")"
+url="$(strip_quotes "$url")"
 
 if [ -z "$title" ]; then
   read -r -p "title: " title
@@ -127,43 +152,42 @@ if [ -z "$title" ]; then
   prompted=1
 fi
 if [ -z "$title" ]; then
-  echo "标题不能为空" >&2
+  echo "title 不能为空" >&2
   exit 1
 fi
 
 if [ -z "$type_arg" ]; then
-  label="$(pick_type)" || { echo "未选择 belong" >&2; exit 1; }
-  type_arg="$(type_key "$label")"
-  if [ -z "$type_arg" ]; then
-    echo "belong 无效: $label" >&2
-    exit 1
-  fi
+  prompted=1
+  choice="$(pick_belong)" || { echo "未选择 belong" >&2; exit 1; }
+  case "$choice" in
+    NEW:*) type_arg="$(resolve_belong "${choice#NEW:}")" ;;
+    *) type_arg="$(resolve_belong "$choice")" ;;
+  esac
+else
+  type_arg="$(resolve_belong "$type_arg")"
+fi
+[ -n "$type_arg" ] || { echo "belong 无效" >&2; exit 1; }
+
+if [ -z "$url" ]; then
+  read -r -p "url: " url
+  url="$(strip_quotes "$url")"
   prompted=1
 fi
-
-if [ -z "$link" ] && [ "$prompted" -eq 1 ]; then
-  read -r -p "link: " link
-  link="$(strip_quotes "$link")"
-fi
-
-case "$link" in
-  "") ;;
-  http://*|https://*) ;;
-  *) link="https://$link" ;;
-esac
-
-info=""
-if [ "$prompted" -eq 1 ]; then
+if [ -z "$info" ] && [ "$prompted" -eq 1 ]; then
   read -r -p "info: " info
 fi
 
-ensure_base
-ensure_type "$type_arg"
-label="$(type_title "$type_arg")"
+case "$url" in
+  "") ;;
+  http://*|https://*) ;;
+  *) url="https://$url" ;;
+esac
 
+ensure_base
 slug="$(slugify "$title")"
 dir="$STAR_DIR/$type_arg/$slug"
 date="$(date '+%F')"
+datetime="$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
 if [ -e "$dir" ]; then
   echo "收藏已存在: $dir" >&2
@@ -176,7 +200,7 @@ if [ "$type_arg" = "book" ]; then
 fi
 
 title_esc="$(yaml_escape "$title")"
-link_esc="$(yaml_escape "$link")"
+url_esc="$(yaml_escape "$url")"
 
 cat >"$dir/Info.md" <<INFO
 ---
@@ -186,7 +210,7 @@ build:
   list: never
 date: "$date"
 summary: ""
-link: "$link_esc"
+link: "$url_esc"
 cover:
   image: "cover.jpg"
   alt: "《$title_esc》"
@@ -199,16 +223,15 @@ INFO
 cat >"$dir/_index.md" <<INDEX
 ---
 title: "$title_esc"
-date: "$date"
+date: "$datetime"
 layout: "star"
 ---
 INDEX
 
 echo "已创建收藏: $dir"
-echo "  belong: $label"
-echo "  Info.md: 写简介、封面"
+echo "  belong: $type_arg"
+echo "  url: ${url:-（空）}"
 if [ "$type_arg" = "book" ]; then
-  echo "  书籍文件: $dir/books/  （放 PDF/EPUB）"
+  echo "  书籍文件: $dir/books/"
 fi
-echo "  link: ${link:-（空）}"
-echo "  Info.md: 可继续补充简介"
+echo "  介绍: $dir/Info.md"
