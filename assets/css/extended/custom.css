@@ -5477,3 +5477,9 @@ html[data-theme="dark"] .book-card-title,
 html[data-theme="dark"] .book-card-summary {
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
 }
+
+/* 归档时间导航：随页面正常滚动，不固定 */
+.archive-nav {
+    position: static !important;
+    top: auto !important;
+}
