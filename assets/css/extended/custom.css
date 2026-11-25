@@ -5574,3 +5574,19 @@ html[data-theme="dark"] .home-pagination .page-btn.current {
 .post-layout {
     margin-top: 10px;
 }
+
+/* 分类/标签入口：使用彩色标签风格，位置下移右移 */
+.term-heading {
+    margin: 36px 0 20px 22px;
+    padding-left: 0;
+}
+.term-chip {
+    font-size: 22px;
+    padding: 8px 18px;
+    border-radius: 0;
+}
+
+/* 分类/标签入口标签与下方卡片的距离，接近卡片悬浮后的间距 */
+.term-heading {
+    margin-bottom: 6px;
+}

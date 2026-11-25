@@ -4,7 +4,9 @@
 {{- $isCollection := and (eq .Data.Plural "categories") $termSection (gt (len $termSection.Sections) 0) }}
 {{- if $isCollection }}
 <div class="books-page">
-  <div class="term-heading">{{ $termSection.Title }}</div>
+  <div class="term-heading">
+    <span class="tag-chip term-chip" style="background-color: {{ partial "term_color.html" . }};">{{ .Title }}</span>
+  </div>
   <div class="books-panel">
   {{- with $termSection }}
   <div class="book-grid">
@@ -30,7 +32,9 @@
 </div>
 {{- else }}
 
-<div class="term-heading">{{ .Title }}</div>
+<div class="term-heading">
+  <span class="tag-chip term-chip" style="background-color: {{ partial "term_color.html" . }};">{{ .Title }}</span>
+</div>
 
 {{- $paginator := .Paginate .Pages }}
 {{- range $paginator.Pages }}

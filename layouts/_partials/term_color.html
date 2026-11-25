@@ -1,0 +1,10 @@
+{{- $term := . -}}
+{{- $plural := $term.Data.Plural -}}
+{{- $colors := slice "#2ecc71" "#1c1c1c" "#1abc9c" "#8e44ad" "#d35400" "#9b59b6" "#3498db" "#27ae60" "#c0392b" "#2980b9" "#16a085" "#e67e22" "#7f8c8d" "#a55eea" "#10ac84" -}}
+{{- $idx := 0 -}}
+{{- with index site.Taxonomies $plural -}}
+  {{- range $i, $entry := .Alphabetical -}}
+    {{- if eq $entry.Page.RelPermalink $term.RelPermalink -}}{{ $idx = $i }}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return (index $colors (mod $idx (len $colors))) -}}
