@@ -5519,3 +5519,58 @@ html[data-theme="dark"] {
 .post-layout {
     margin-top: 7px;
 }
+
+/* 分类选中/悬停：方角 */
+.sidebar-terms a {
+    border-radius: 0 !important;
+}
+/* 标签球里的标签：方角 */
+.tag-sphere a {
+    border-radius: 0 !important;
+}
+
+/* 分页恢复之前的风格：方角按钮 + 青色当前页 */
+.home-pagination .page-btn {
+    border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0.78) !important;
+    border: 1px solid rgba(255, 255, 255, 0.72) !important;
+    color: #334155 !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px -14px rgba(15, 23, 42, 0.4);
+}
+.home-pagination .page-btn:hover {
+    color: #0f766e !important;
+    border-color: #1abc9c !important;
+    background: rgba(26, 188, 156, 0.12) !important;
+    transform: translateY(-1px);
+}
+.home-pagination .page-btn.current {
+    background: #1abc9c !important;
+    border-color: #1abc9c !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 20px -12px rgba(26, 188, 156, 0.8);
+}
+html[data-theme="dark"] .home-pagination .page-btn {
+    background: rgba(20, 22, 32, 0.62) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--secondary) !important;
+}
+html[data-theme="dark"] .home-pagination .page-btn.current {
+    background: #1abc9c !important;
+    border-color: #1abc9c !important;
+    color: #ffffff !important;
+}
+
+/* 恢复正文页标题卡片和正文的间距（之前误改到这里） */
+.post-hero-inner {
+    padding: 20px 26px;
+    margin-bottom: 12px;
+}
+.post-hero-tags {
+    margin-top: 12px;
+    margin-left: 0;
+}
+.post-layout {
+    margin-top: 10px;
+}
