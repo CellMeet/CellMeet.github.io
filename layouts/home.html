@@ -40,9 +40,6 @@
             <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006-01-02" }}</time>
             <span class="sep">·</span>
             <span>{{ .ReadingTime }}min</span>
-            {{- with .GetTerms "categories" }}
-            <span class="post-card-cat">{{ (index . 0).LinkTitle }}</span>
-            {{- end }}
           </div>
           <h3 class="post-card-title">{{ .Title }}</h3>
         </div>

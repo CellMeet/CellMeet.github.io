@@ -15,11 +15,7 @@
           {{- range .Pages }}
           {{- $info := partial "star_info.html" . }}
           {{- $target := partial "star_target.html" (dict "page" . "info" $info) }}
-          {{- $type := index (split .File.Dir "/") 1 }}
-          {{- $typeLabel := "页面" }}
-          {{- if eq $type "course" }}{{ $typeLabel = "课程" }}{{ else if eq $type "book" }}{{ $typeLabel = "书" }}{{ end }}
           <a class="star-line" href="{{ $target }}"{{ if ne $target .RelPermalink }} target="_blank" rel="noopener noreferrer"{{ end }}>
-            {{- if $showType }}<span class="star-type-badge star-type-{{ $type }}">{{ $typeLabel }}</span>{{ end }}
             <span class="star-line-title">{{ $info.title }}</span>
             {{- with $info.summary }}<span class="star-line-summary">{{ . }}</span>{{ end }}
           </a>

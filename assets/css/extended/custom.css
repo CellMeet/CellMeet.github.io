@@ -4564,3 +4564,42 @@ html[data-theme="dark"] .post-meta-tag svg {
 .post-content .highlight:not(table) {
     border-radius: 0 !important;
 }
+
+/* 阅读宽度与居中 */
+body.list .main {
+    max-width: calc(1120px + var(--gap) * 2);
+}
+.home-layout {
+    max-width: 1120px;
+    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 24px;
+}
+.post-single {
+    max-width: 1080px;
+}
+.post-layout {
+    grid-template-columns: minmax(0, 1fr) 240px;
+}
+.post-hero-inner {
+    max-width: 1000px;
+    width: calc(100% - 48px);
+}
+.post-tags-section {
+    margin-top: 30px;
+}
+.post-tags-section .tag-chip {
+    font-size: 14px;
+    padding: 7px 16px;
+}
+
+.post-layout--no-toc {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-hero-inner {
+    max-width: 860px;
+}
