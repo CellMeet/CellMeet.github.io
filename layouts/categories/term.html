@@ -14,7 +14,7 @@
     {{- $cover := $info.cover }}
     <a class="book-card" href="{{ $book.RelPermalink }}">
       {{- with $cover }}
-      <img class="book-card-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="lazy">
+      <img class="book-card-cover" src="{{ . }}" alt="{{ $info.coverAlt | default $info.title }}" loading="eager">
       {{- else }}
       <span class="book-card-placeholder">{{ substr $info.title 0 1 }}</span>
       {{- end }}
