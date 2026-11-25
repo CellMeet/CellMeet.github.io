@@ -5016,3 +5016,93 @@ details.collapse-year > summary {
 .post-card-title {
     margin: 0;
 }
+
+/* 进入分类/标签后的名字：左对齐，略大于文章标题 */
+.term-heading {
+    margin: 26px 0 14px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: var(--primary);
+}
+.books-page .term-heading {
+    margin-top: 26px;
+}
+
+/* 首页卡片：日期在第二行，标题第三行开始 */
+.post-card-body {
+    padding-top: 30px;
+}
+
+/* 归档 / 收藏：年份顶部间距一致 */
+.archive-year {
+    margin-top: 0;
+}
+.archive-page,
+.star-panel {
+    padding-top: 20px;
+}
+.collapse-year-num {
+    font-size: 30px;
+}
+
+/* 收藏面板收窄，内容居中 */
+.star-panel {
+    max-width: 760px;
+}
+.star-panel .collapse-list {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* 分类：居中排列，像「(」一样左右对称；去掉括号线和滚动条 */
+.sidebar-terms-scroll {
+    border-left: 0;
+    padding-left: 0;
+    scrollbar-width: none;
+}
+.sidebar-terms-scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.sidebar-terms-scroll::before,
+.sidebar-terms-scroll::after {
+    content: none;
+}
+.sidebar-terms li {
+    animation: none !important;
+}
+.sidebar-terms a {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+}
+.sidebar-terms a .term-count {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sidebar-terms a > span:first-child {
+    flex: 1;
+    text-align: center;
+}
+
+/* Hot 列表去掉滚动条 */
+.hot-card .hot-list {
+    scrollbar-width: none;
+}
+.hot-card .hot-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* 归档/收藏首个年份上移，和右侧导航卡片的年份对齐 */
+.archive-page .collapse-year:first-child > summary,
+.star-panel .collapse-year:first-child > summary {
+    margin-top: -6px;
+}
