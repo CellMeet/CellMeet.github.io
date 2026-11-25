@@ -534,44 +534,29 @@
 })();
 </script>
 
+
 <script>
 (function () {
-  function initTocHighlight() {
+  function init() {
     var toc = document.querySelector(".post-toc-body");
-    var content = document.querySelector(".post-content");
-    if (!toc || !content) return;
+    if (!toc) return;
     var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
-    if (!links.length) return;
-
-    function update() {
-      var headings = Array.prototype.slice.call(
-        content.querySelectorAll("h2[id], h3[id], h4[id]")
-      );
-      if (!headings.length) return;
-      var current = headings[0];
-      for (var i = 0; i < headings.length; i++) {
-        if (headings[i].getBoundingClientRect().top <= 130) {
-          current = headings[i];
-        } else {
-          break;
-        }
-      }
+    links.forEach(function (a) {
+      a.addEventListener("click", function () {
+        links.forEach(function (x) { x.classList.remove("toc-clicked"); });
+        a.classList.add("toc-clicked");
+      });
+    });
+    if (window.location.hash) {
       links.forEach(function (a) {
-        var target = "";
-        try { target = decodeURIComponent(a.hash.slice(1)); } catch (e) { target = a.hash.slice(1); }
-        a.classList.toggle("active", target === current.id);
+        if (a.hash === window.location.hash) a.classList.add("toc-clicked");
       });
     }
-
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
   }
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTocHighlight);
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    initTocHighlight();
+    init();
   }
 })();
 </script>

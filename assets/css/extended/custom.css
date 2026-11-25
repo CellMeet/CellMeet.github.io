@@ -5677,3 +5677,27 @@ html[data-theme="dark"] .post-toc-body a:hover {
     background: rgba(26, 188, 156, 0.22) !important;
     color: #7ce0c9 !important;
 }
+
+/* 目录使用正常颜色，只有点击时出现紫色底 */
+.post-toc-title {
+    color: var(--primary) !important;
+    opacity: 1;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.post-toc-body a {
+    color: var(--primary) !important;
+}
+.post-toc-body a:hover,
+.post-toc-body a.active {
+    background: transparent !important;
+    color: var(--primary) !important;
+    box-shadow: none !important;
+    font-weight: normal;
+}
+.post-toc-body a.toc-clicked,
+html[data-theme="dark"] .post-toc-body a.toc-clicked {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
