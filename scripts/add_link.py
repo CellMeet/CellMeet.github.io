@@ -6,10 +6,8 @@
 """
 import os
 import re
-import shutil
 import subprocess
 import sys
-import tempfile
 import unicodedata
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
@@ -104,26 +102,48 @@ def slugify(name, domain):
     return s or "site"
 
 
-def download_icon(url, dest):
-    tmp = tempfile.mktemp(suffix=".icon")
-    try:
-        data = curl(url, binary=True, timeout=20)
-        if not data or len(data) < 32:
-            return False
-        with open(tmp, "wb") as f:
-            f.write(data)
-        r = subprocess.run(
-            ["magick", tmp, "-background", "none", "-resize", "128x128^",
-             "-gravity", "center", "-extent", "128x128", "PNG32:" + dest],
-            capture_output=True,
-            timeout=30,
-        )
-        return r.returncode == 0 and os.path.exists(dest) and os.path.getsize(dest) > 0
-    except Exception:
-        return False
-    finally:
-        if os.path.exists(tmp):
-            os.remove(tmp)
+def detect_ext(data):
+    if not data or len(data) < 16:
+        return None
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "png"
+    if data.startswith(b"\xff\xd8"):
+        return "jpg"
+    if data.startswith(b"GIF8"):
+        return "gif"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "webp"
+    if data.startswith(b"\x00\x00\x01\x00") or data.startswith(b"\x00\x00\x02\x00"):
+        return "ico"
+    head = data[:600].lstrip().lower()
+    if head.startswith(b"<svg") or (head.startswith(b"<?xml") and b"<svg" in head):
+        return "svg"
+    return None
+
+
+def save_icon(data, slug):
+    ext = detect_ext(data)
+    if not ext:
+        return ""
+    os.makedirs(ICON_DIR, exist_ok=True)
+    fname = f"{slug}.{ext}"
+    dest = os.path.join(ICON_DIR, fname)
+    with open(dest, "wb") as f:
+        f.write(data)
+    return f"/img/links/{fname}"
+
+
+def online_icon(domain):
+    """在线接口（favicon.run 使用的同款接口）：拿不到站点图标时兜底。"""
+    urls = [
+        f"https://www.google.com/s2/favicons?domain={domain}&sz=128",
+        f"https://favicon.run/favicon?domain={domain}",
+    ]
+    for u in urls:
+        data = curl(u, binary=True, timeout=15)
+        if data and detect_ext(data):
+            return data
+    return None
 
 
 def choose_icon(parser, final_url):
@@ -262,23 +282,30 @@ def main():
     slug = slugify(name, domain)
 
     os.makedirs(ICON_DIR, exist_ok=True)
-    icon_path = os.path.join(ICON_DIR, slug + ".png")
-    icon_rel = f"/img/links/{slug}.png"
-
-    ok = False
+    icon_rel = ""
     used = ""
+
+    # 优先使用网站自己的图标，保留原始格式（png/jpg/webp/svg/ico 都行）
     for icon_url in choose_icon(parser, final_url):
-        if download_icon(icon_url, icon_path):
-            ok = True
+        data = curl(icon_url, binary=True, timeout=20)
+        rel = save_icon(data, slug) if data else ""
+        if rel:
+            icon_rel = rel
             used = icon_url
             break
 
-    if not ok:
-        icon_rel = ""
+    # 找不到时用在线接口兜底
+    if not icon_rel:
+        data = online_icon(domain)
+        if data:
+            icon_rel = save_icon(data, slug)
+            used = "online favicon api"
+
+    if not icon_rel:
         print("没有找到可用图标，先不设置头像")
     else:
         print(f"图标: {used}")
-        print(f"已保存: static/img/links/{slug}.png")
+        print(f"已保存: {icon_rel.lstrip('/')}")
 
     if add_to_links(name, url, icon_rel):
         print(f"已添加友链: {name} → {url}")

@@ -16,3 +16,5 @@ cover:
 课程链接 : [7-Coming from a Monolith](https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&vd_source=04dd8360819d8ba12c0b49a6f2a33153&p=4)
 
 In the real world, 99% of use cases you won't create a project from scratch as microservices.
+
+Most of the times you can fix your problems, your scale, scalabitlity issues by just scaling.
