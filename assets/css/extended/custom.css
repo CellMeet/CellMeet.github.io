@@ -5727,3 +5727,10 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     color: var(--accent) !important;
     box-shadow: none !important;
 }
+
+/* 主页文章标题：略带艺术感的衬线字体，保持加粗 */
+.post-card-title {
+    font-family: Georgia, "Cormorant Garamond", "Noto Serif SC", "Songti SC", "Source Han Serif SC", "STSong", serif;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+}
