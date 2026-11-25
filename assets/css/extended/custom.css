@@ -5377,3 +5377,19 @@ html[data-theme="dark"] .menu .submenu a:hover .submenu-icon {
     margin-bottom: 10px;
     padding-left: 18px;
 }
+
+/* 分类卡片上下滚动：丝滑过渡，打字机焦点感 */
+.sidebar-terms a {
+    transition: padding-left 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.28s ease,
+                color 0.2s ease,
+                background 0.2s ease;
+    will-change: padding-left, opacity;
+}
+.sidebar-terms-scroll {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+.sidebar-terms li {
+    scroll-snap-align: center;
+}

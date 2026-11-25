@@ -439,8 +439,12 @@
     visible.forEach(function (li, idx) {
       var d = Math.abs(idx - mid);
       var off = d >= 2 ? 18 : (d === 1 ? 6 : 0);
+      var op = d >= 2 ? 0.45 : (d === 1 ? 0.72 : 1);
       var a = li.querySelector("a");
-      if (a) a.style.paddingLeft = off + "px";
+      if (a) {
+        a.style.paddingLeft = off + "px";
+        a.style.opacity = op;
+      }
     });
   }
 
