@@ -16,9 +16,11 @@
     --radius-lg: 18px;
     --radius-md: 14px;
     /* 界面字体：英文 Georgia，中文霞鹜文楷 / 曹溪·藏锋楷 回退 */
-    --font-kai: Georgia, "曹溪·藏锋楷", "曹溪_藏锋楷", "CaoXi CangFengKai",
-        "Caoxi CangFeng Kai", "LXGW WenKai", "霞鹜文楷", "Noto Serif SC",
-        "Songti SC", "STKaiti", "KaiTi", serif;
+    --font-kai: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman",
+        "Liberation Serif", "DejaVu Serif", "Noto Serif",
+        "曹溪·藏锋楷", "曹溪_藏锋楷", "CaoXi CangFengKai", "Caoxi CangFeng Kai",
+        "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", "STKaiti",
+        "KaiTi", serif;
     --font-sans: var(--font-kai);
     --font-mono: "Cascadia Code", "CaskaydiaCove Nerd Font", "JetBrains Mono",
         "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -5794,12 +5796,4 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
         url("/fonts/cangfengkai.ttf") format("truetype");
     font-display: swap;
     font-weight: 400;
-}
-@font-face {
-    font-family: "曹溪·藏锋楷";
-    src: local("曹溪·藏锋楷 Bold"), local("曹溪_藏锋楷 Bold"), local("CaoXi CangFengKai Bold"),
-        url("/fonts/cangfengkai-bold.woff2") format("woff2"),
-        url("/fonts/cangfengkai-bold.ttf") format("truetype");
-    font-display: swap;
-    font-weight: 700;
 }
