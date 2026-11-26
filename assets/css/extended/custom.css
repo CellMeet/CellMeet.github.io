@@ -5967,3 +5967,46 @@ body {
 .menu .submenu a {
     font-size: 17px;
 }
+
+/* 个人资料卡：GitHub 图标上移一点；卡片下边框上移 */
+.profile-icon[href^="https://github.com"] svg {
+    position: relative;
+    top: -1.5px;
+}
+.profile-card {
+    padding-bottom: 9px;
+}
+
+/* 图标之间的分隔线：实线、深色 */
+.profile-divider {
+    background: var(--primary);
+    opacity: 1;
+    width: 1.5px;
+}
+
+/* 首页分类卡片 / 标签卡片：使用更清晰的字体与渲染方式 */
+.sidebar-terms a,
+.tag-sphere a {
+    font-family: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman", "Liberation Serif",
+        "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", serif;
+    -webkit-text-stroke: 0;
+    -webkit-font-smoothing: auto;
+    letter-spacing: 0.01em;
+}
+
+/* 大标题清晰度：去掉描边与光晕，使用真实粗体 */
+.home-hero-title {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.45);
+    -webkit-text-stroke: 0;
+    text-rendering: geometricPrecision;
+}
+html[data-theme="dark"] .home-hero-title {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+.post-title,
+.home-profile-name {
+    -webkit-text-stroke: 0;
+    text-rendering: geometricPrecision;
+}
