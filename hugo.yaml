@@ -140,7 +140,7 @@ menu:
     - identifier: star
       name: 收藏夹
       url: /star/
-      weight: 4
+      weight: 5
       pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
     - identifier: star-page
       name: 页面
@@ -163,7 +163,7 @@ menu:
     - identifier: archives
       name: 归档
       url: /archives/
-      weight: 5
+      weight: 4
       pre: '<svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>'
     - identifier: search
       name: 搜索

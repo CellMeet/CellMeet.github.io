@@ -6494,3 +6494,20 @@ img {
     -webkit-user-drag: none;
     user-drag: none;
 }
+
+/* 首页分类卡片：中间最深，上下逐级变浅 */
+:root {
+    --cat-strong: #17181d;
+    --cat-mid: #5a5e6b;
+    --cat-soft: #9a9fae;
+}
+html[data-theme="dark"] {
+    --cat-strong: #ececec;
+    --cat-mid: #b3b8c4;
+    --cat-soft: #767c8c;
+}
+.sidebar-terms a {
+    transition: padding-left 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+                color 0.32s ease,
+                background 0.2s ease;
+}

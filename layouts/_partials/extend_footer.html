@@ -475,11 +475,12 @@
     visible.forEach(function (li, idx) {
       var d = Math.abs(idx - mid);
       var off = d >= 2 ? 18 : (d === 1 ? 6 : 0);
-      var op = d >= 2 ? 0.45 : (d === 1 ? 0.72 : 1);
       var a = li.querySelector("a");
       if (a) {
         a.style.paddingLeft = off + "px";
-        a.style.opacity = op;
+        a.style.opacity = "1";
+        /* 中间最深，上下逐渐变浅 */
+        a.style.color = d === 0 ? "var(--cat-strong)" : (d === 1 ? "var(--cat-mid)" : "var(--cat-soft)");
       }
     });
   }
