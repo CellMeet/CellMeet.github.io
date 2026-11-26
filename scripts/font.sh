@@ -6,7 +6,7 @@
 #
 # 作用：
 #   1. 按 GB2312 常用字 + 站内已用字符做子集，避免 30MB 原字体直接上线
-#   2. 输出 static/fonts/shoujin.woff2
+#   2. 输出 static/fonts/uikai.woff2
 #   3. 站点自动使用，发布后生效
 #
 # 需要：python-fonttools + brotli（或 woff2_compress）
@@ -31,7 +31,7 @@ mkdir -p "$dest"
 
 if python3 -c "import fontTools, brotli" >/dev/null 2>&1; then
     echo "正在生成子集（GB2312 常用字 + 站内字符）..."
-    python3 - "$root" "$src" "$dest/shoujin.woff2" <<'PY'
+    python3 - "$root" "$src" "$dest/uikai.woff2" <<'PY'
 import os, sys
 from fontTools import subset
 
@@ -77,10 +77,10 @@ else
         echo "缺少 woff2_compress（Arch: sudo pacman -S woff2）"
         exit 1
     fi
-    cp "$src" "$dest/shoujin.ttf"
-    ( cd "$dest" && woff2_compress shoujin.ttf >/dev/null )
+    cp "$src" "$dest/uikai.ttf"
+    ( cd "$dest" && woff2_compress uikai.ttf >/dev/null )
 fi
 
 echo
-ls -lh "$dest/shoujin.woff2"
+ls -lh "$dest/uikai.woff2"
 echo "完成，执行 ./publish.sh 发布。"

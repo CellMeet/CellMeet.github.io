@@ -17,7 +17,7 @@
     --radius-md: 14px;
     /* 界面字体：英文 Georgia，中文霞鹜文楷 / 曹溪·藏锋楷 回退 */
     --font-kai: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman",
-        "Liberation Serif", "DejaVu Serif", "Noto Serif", "SiteShouJin",
+        "Liberation Serif", "DejaVu Serif", "Noto Serif", "SiteKai",
         "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", "STKaiti",
         "KaiTi", serif;
     --font-sans: var(--font-kai);
@@ -1379,26 +1379,7 @@ html[data-theme="dark"] .home-avatar {
 .profile-stats span {
     font-size: 12px;
 }
-.profile-follow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    margin-top: 14px;
-    padding: 9px 12px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #fff !important;
-    font-size: 13.5px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: filter 0.2s ease, transform 0.2s ease;
-}
-.profile-follow:hover {
-    filter: brightness(1.08);
-    transform: translateY(-1px);
-}
+
 
 /* ---------- 最新文章（带缩略图） ---------- */
 .sidebar-recent {
@@ -5782,10 +5763,10 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     margin-top: 2px;
 }
 
-/* 界面中文字体：宋徽宗瘦金加粗版（本地子集） */
+/* 界面中文字体：Aa松柳楷体（本地子集） */
 @font-face {
-    font-family: "SiteShouJin";
-    src: url("/fonts/shoujin.woff2") format("woff2");
+    font-family: "SiteKai";
+    src: url("/fonts/uikai.woff2") format("woff2");
     font-display: swap;
     font-weight: 400;
 }
@@ -5846,26 +5827,19 @@ body {
     font-variant-numeric: normal;
 }
 
-/* 导航栏再大一点 */
+/* 导航栏字号 */
 .menu a {
-    font-size: 17px;
+    font-size: 19px;
 }
 @media (max-width: 768px) {
     .menu a {
-        font-size: 16px;
+        font-size: 17px;
     }
 }
 
-/* 个人资料卡中文放大 */
-.home-profile-desc {
-    font-size: 15.5px;
-    line-height: 1.8;
-}
+/* 个人资料卡：统计文字放大，简介与数字保持原样 */
 .profile-stats span {
     font-size: 14px;
-}
-.profile-stats strong {
-    font-size: 20px;
 }
 
 /* Hot 文章标题加粗、略放大 */
@@ -5888,4 +5862,40 @@ body {
 }
 .post-content {
     -webkit-text-stroke: 0;
+}
+
+/* 个人资料卡：统计文字与签名同色 */
+.profile-stats span {
+    color: var(--secondary);
+}
+
+/* 个人资料卡：GitHub / 邮箱图标按钮 */
+.profile-links {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 14px;
+}
+.profile-icon {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--primary);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.profile-icon svg {
+    width: 18px;
+    height: 18px;
+}
+.profile-icon:hover {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color: transparent;
+    color: #ffffff;
+    transform: translateY(-1px);
 }
