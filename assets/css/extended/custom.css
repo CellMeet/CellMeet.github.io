@@ -6026,3 +6026,20 @@ html[data-theme="dark"] .home-hero-title {
     font-size: 16.5px;
     line-height: 1.85;
 }
+
+/* 主页签名：悬停时变深色 */
+.home-profile-desc {
+    transition: color 0.2s ease;
+}
+.home-profile-desc:hover,
+.home-profile-desc:hover p,
+.profile-card:hover .home-profile-desc,
+.profile-card:hover .home-profile-desc p {
+    color: var(--primary);
+}
+
+/* 主页大标题：去掉白色立体光晕 */
+.home-hero-title,
+html[data-theme="dark"] .home-hero-title {
+    text-shadow: none;
+}
