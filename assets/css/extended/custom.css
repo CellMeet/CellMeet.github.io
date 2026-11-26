@@ -2571,7 +2571,7 @@ html[data-theme="dark"] .side-panel-item .icon-moon {
 .home-hero-sub--typing {
     min-height: 2.1em;
     margin-top: 12px;
-    font-size: clamp(18px, 2.6vw, 27px);
+    font-size: clamp(19px, 2.7vw, 28px);
     letter-spacing: 0.1em;
     text-shadow: none !important;
 }
