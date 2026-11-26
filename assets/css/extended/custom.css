@@ -6442,3 +6442,34 @@ details > summary {
 .post-card-title a:hover {
     color: var(--accent);
 }
+
+/* 主页卡片：去掉悬浮整块位移和图片缩放 */
+.post-card:hover,
+.post-card:focus-within {
+    transform: none !important;
+}
+.post-card:hover .post-card-cover img {
+    transform: none;
+}
+
+/* 目录：悬浮不变色，只有点击选中才出现底色，且文字颜色不变 */
+.post-toc-body a:hover {
+    background: transparent !important;
+    color: #111111 !important;
+}
+html[data-theme="dark"] .post-toc-body a:hover {
+    color: #ececec !important;
+}
+.post-toc-body a.toc-clicked {
+    background: var(--select-bg) !important;
+    color: #111111 !important;
+}
+html[data-theme="dark"] .post-toc-body a.toc-clicked {
+    color: #ececec !important;
+}
+
+/* 选中文字：只出现底色，文字颜色保持原样 */
+::selection {
+    background: var(--select-bg);
+    color: inherit;
+}

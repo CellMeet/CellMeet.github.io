@@ -28,7 +28,7 @@
       {{- if not $cover }}{{ $cover = site.Params.defaultCover }}{{ end }}
       <article class="post-card">
         {{- with $cover }}
-        <a class="post-card-cover" href="{{ $p.RelPermalink }}" aria-hidden="true" tabindex="-1">
+        <a class="post-card-cover" href="{{ $p.RelPermalink }}" aria-hidden="true" tabindex="-1" draggable="false">
           <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"
                alt="" loading="eager" decoding="async"
                onerror="this.parentNode.style.display='none'">
@@ -41,7 +41,7 @@
               <span class="sep">·</span>
               <span>{{ .ReadingTime }}min</span>
             </div>
-            <h3 class="post-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <h3 class="post-card-title"><a href="{{ .RelPermalink }}" draggable="false">{{ .Title }}</a></h3>
           </div>
         </div>
       </article>
