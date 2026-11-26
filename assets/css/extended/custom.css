@@ -6400,3 +6400,11 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
     }
 }
+
+/* 正文文字固定为更深的颜色；选中时只出现底色，不再改变文字颜色 */
+.post-content {
+    color: var(--primary);
+}
+::selection {
+    color: currentColor;
+}
