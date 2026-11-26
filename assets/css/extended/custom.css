@@ -6101,3 +6101,41 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-font-smoothing: auto;
     text-rendering: geometricPrecision;
 }
+
+/* 代码块：米黄色背景，观感更柔和 */
+.post-content .highlight,
+.post-content .chroma {
+    background: #faf6ea !important;
+}
+.post-content .chroma {
+    color: #33302a;
+}
+.post-content pre,
+.post-content .highlight {
+    border-color: #e9e0ca;
+}
+.post-content .code-window-bar {
+    background: #f2ead8;
+    border-bottom-color: #e6dcc6;
+}
+.post-content .chroma .lntd:first-child {
+    background: #f4eddc;
+    border-right-color: #e6dcc6;
+}
+.post-content .chroma .lnt,
+.post-content .chroma .ln {
+    color: #9c927e;
+}
+
+/* 代码块：覆盖高优先级的浅蓝底，统一为米黄色 */
+.post-content .highlight:not(table) {
+    background: #faf6ea !important;
+    border-color: #e9e0ca;
+}
+.post-content .highlight table.lntable,
+.post-content .chroma .lntable,
+.post-content .chroma .lntable tbody,
+.post-content .chroma .lntable tr,
+.post-content .chroma .lntable td {
+    background: transparent !important;
+}
