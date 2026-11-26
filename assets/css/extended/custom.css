@@ -5837,3 +5837,11 @@ h1, h2, h3, h4, h5, h6 {
 .post-content h6 {
     -webkit-text-stroke: 0;
 }
+
+/* Gelasio 默认是旧式数字（高低不齐），界面统一改用等高数字 */
+body {
+    font-variant-numeric: lining-nums;
+}
+.post-content {
+    font-variant-numeric: normal;
+}
