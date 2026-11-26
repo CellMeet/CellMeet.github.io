@@ -49,7 +49,7 @@ resolve_belong() {
   case "$want" in
     page|网页|页面|网站) want="page" ;;
     course|课程) want="course" ;;
-    book|书|书籍) want="book" ;;
+    tool|工具|工具箱) want="tool" ;;
   esac
 
   lower="$(printf '%s' "$want" | tr '[:upper:]' '[:lower:]' 2>/dev/null || printf '%s' "$want")"
@@ -114,7 +114,7 @@ if [ $# -ge 1 ]; then
   first="$1"
   if [ $# -ge 2 ] && ! printf '%s' "$2" | grep -qE '^https?://'; then
     # 第二个参数看起来像 belong
-    if [ $# -ge 3 ] || [ -d "$STAR_DIR/$2" ] || [ "$2" = "page" ] || [ "$2" = "course" ] || [ "$2" = "book" ] || [ "$2" = "课程" ] || [ "$2" = "书" ] || [ "$2" = "页面" ]; then
+    if [ $# -ge 3 ] || [ -d "$STAR_DIR/$2" ] || [ "$2" = "page" ] || [ "$2" = "course" ] || [ "$2" = "tool" ] || [ "$2" = "课程" ] || [ "$2" = "工具" ] || [ "$2" = "页面" ]; then
       title="$1"
       type_arg="$2"
       shift 2
@@ -125,7 +125,7 @@ if [ $# -ge 1 ]; then
   fi
   if [ -z "$title" ] && [ -z "$type_arg" ]; then
     # 可能是 star course "标题" url
-    if [ -d "$STAR_DIR/$first" ] || [ "$first" = "page" ] || [ "$first" = "course" ] || [ "$first" = "book" ] || [ "$first" = "课程" ] || [ "$first" = "书" ] || [ "$first" = "页面" ]; then
+    if [ -d "$STAR_DIR/$first" ] || [ "$first" = "page" ] || [ "$first" = "course" ] || [ "$first" = "tool" ] || [ "$first" = "课程" ] || [ "$first" = "工具" ] || [ "$first" = "页面" ]; then
       type_arg="$first"
       shift
       title="${1:-}"
@@ -195,9 +195,6 @@ if [ -e "$dir" ]; then
 fi
 
 mkdir -p "$dir"
-if [ "$type_arg" = "book" ]; then
-  mkdir -p "$dir/books"
-fi
 
 title_esc="$(yaml_escape "$title")"
 url_esc="$(yaml_escape "$url")"
@@ -232,7 +229,4 @@ INDEX
 echo "已创建收藏: $dir"
 echo "  belong: $type_arg"
 echo "  url: ${url:-（空）}"
-if [ "$type_arg" = "book" ]; then
-  echo "  书籍文件: $dir/books/"
-fi
 echo "  介绍: $dir/Info.md"

@@ -12,3 +12,8 @@ cover:
 ---
 
 # Golang Microsevices: Architecture Definition Process
+
+
+
+recommend page: [Introducing Assemblage - a microservice architecture definition process](https://microservices.io/post/architecture/2023/02/09/assemblage-architecture-definition-process.html)
+

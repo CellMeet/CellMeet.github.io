@@ -136,7 +136,7 @@ class Ui:
         self.drawn = 0
 
 
-def run(items, prompt, allow_new, max_rows, initial_query=""):
+def run(items, prompt, allow_new, max_rows, initial_query="", typed_only=False):
     ui = Ui(prompt, allow_new, max_rows)
     query = initial_query
     sel = 0
@@ -146,7 +146,7 @@ def run(items, prompt, allow_new, max_rows, initial_query=""):
         q = norm(query)
         filtered = [it for it in items if score(q, it) < 99]
         filtered.sort(key=lambda it: (score(q, it), len(norm(it)), it.lower()))
-        shown = filtered[:max_rows]
+        shown = [] if (typed_only and not query) else filtered[:max_rows]
         if not shown:
             sel = 0
         else:
@@ -202,6 +202,7 @@ def main():
     allow_new = False
     max_rows = 8
     initial_query = ""
+    typed_only = False
 
     args = sys.argv[1:]
     i = 0
@@ -212,6 +213,9 @@ def main():
             i += 2
         elif a == "--allow-new":
             allow_new = True
+            i += 1
+        elif a == "--typed-only":
+            typed_only = True
             i += 1
         elif a == "--query" and i + 1 < len(args):
             initial_query = args[i + 1]
@@ -243,7 +247,7 @@ def main():
     result = None
     try:
         tty.setcbreak(0)
-        result = run(items, prompt, allow_new, max_rows, initial_query)
+        result = run(items, prompt, allow_new, max_rows, initial_query, typed_only)
     finally:
         termios.tcsetattr(0, termios.TCSADRAIN, old_attrs)
 
