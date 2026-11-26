@@ -30,13 +30,16 @@
   })();
 </script>
 
-{{- /* Live2D 看板娘（参考 luotian 右下角 2D 纸片人） */}}
+{{- /* Live2D 看板娘：本地资源，加载失败自动回退 CDN */}}
 <script>
   (function () {
     if (window.innerWidth <= 900) return;
-    var base = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
-    function load(src, type) {
-      return new Promise(function (resolve) {
+
+    var local = "/live2d/";
+    var cdn = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+
+    function add(src, type) {
+      return new Promise(function (resolve, reject) {
         var el;
         if (type === "css") {
           el = document.createElement("link");
@@ -45,24 +48,56 @@
         } else {
           el = document.createElement("script");
           el.src = src;
-          el.defer = true;
+          el.async = false;
         }
-        el.onload = el.onerror = resolve;
+        var timer = setTimeout(function () {
+          reject(new Error("timeout"));
+        }, 12000);
+        el.onload = function () {
+          clearTimeout(timer);
+          resolve();
+        };
+        el.onerror = function () {
+          clearTimeout(timer);
+          reject(new Error("error"));
+        };
         document.head.appendChild(el);
       });
     }
-    Promise.all([
-      load(base + "waifu.css", "css"),
-      load(base + "live2d.min.js", "js"),
-      load(base + "waifu-tips.js", "js")
-    ]).then(function () {
-      if (typeof window.initWidget !== "function") return;
+
+    function loadSet(base) {
+      return Promise.all([
+        add(base + "waifu.css", "css"),
+        add(base + "live2d.min.js", "js"),
+        add(base + "waifu-tips.js", "js")
+      ]);
+    }
+
+    function start(base) {
+      if (typeof window.initWidget !== "function" || typeof window.loadlive2d !== "function") {
+        return false;
+      }
+      /* 只内置一个模型，固定使用第 0 个 */
+      localStorage.setItem("modelId", "0");
       window.initWidget({
         waifuPath: base + "waifu-tips.json",
-        cdnPath: "https://cdn.jsdelivr.net/gh/fghrsh/live2d_api/",
-        tools: ["hitokoto", "switch-model", "switch-texture", "photo", "info", "quit"]
+        cdnPath: base,
+        tools: ["hitokoto", "photo", "info", "quit"]
       });
-    });
+      return true;
+    }
+
+    loadSet(local)
+      .then(function () {
+        if (!start(local)) throw new Error("not ready");
+      })
+      .catch(function () {
+        loadSet(cdn)
+          .then(function () {
+            start(cdn);
+          })
+          .catch(function () {});
+      });
   })();
 </script>
 
@@ -585,5 +620,29 @@
   } else {
     init();
   }
+})();
+</script>
+
+<script>
+/* 全站：禁止链接/图片被拖动，但保留文字拖选 */
+(function () {
+  function init() {
+    document.querySelectorAll("a[href], img").forEach(function (el) {
+      el.setAttribute("draggable", "false");
+    });
+    document.addEventListener(
+      "dragstart",
+      function (e) {
+        if (e.target.closest && e.target.closest("a, img")) e.preventDefault();
+      },
+      true
+    );
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+  window.addEventListener("load", init);
 })();
 </script>

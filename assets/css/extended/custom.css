@@ -6487,3 +6487,10 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
 .post-card-title a:hover {
     color: inherit;
 }
+
+/* 链接和图片不可拖动，但文字仍可拖选 */
+a,
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
