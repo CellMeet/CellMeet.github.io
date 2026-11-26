@@ -6157,3 +6157,19 @@ h1, h2, h3, h4, h5, h6 {
     background: transparent !important;
     border-right: 0 !important;
 }
+
+/* 推荐阅读：去掉白色卡片层，直接放在毛玻璃上 */
+.related-card {
+    padding: 10px 0;
+    border-color: transparent;
+    border-radius: 0;
+    background: transparent;
+}
+.related-card:hover {
+    border-color: transparent;
+    background: transparent;
+    transform: none;
+}
+.related-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+}
