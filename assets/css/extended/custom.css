@@ -6270,3 +6270,46 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.45;
     letter-spacing: -0.015em;
 }
+
+/* 代码块：虚线再拉长 */
+.post-content .chroma .lntd:first-child::after {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        #e6dbc3 0,
+        #e6dbc3 12px,
+        transparent 12px,
+        transparent 20px
+    );
+}
+
+/* 推荐阅读：整体按比例缩小 */
+.related-grid {
+    gap: 12px;
+}
+.related-card {
+    min-height: 104px;
+    padding: 6px 0 6px 12px;
+}
+.related-cover {
+    flex: 0 0 31%;
+    max-width: 190px;
+}
+.related-cover img {
+    min-height: 104px;
+}
+.related-body {
+    padding: 10px 12px 10px 14px;
+    gap: 4px;
+}
+.related-card-title {
+    font-size: 16px;
+    line-height: 1.4;
+}
+.related-section {
+    margin-top: 24px;
+    padding-top: 18px;
+}
+.related-title {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
