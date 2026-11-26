@@ -2791,8 +2791,7 @@ html[data-theme="dark"] .code-lang {
     color: #9aa4b2;
 }
 
-.code-copy,
-.code-chevron {
+.code-copy {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2808,21 +2807,17 @@ html[data-theme="dark"] .code-lang {
     margin-left: auto;
     cursor: pointer;
 }
-.code-copy:hover,
-.code-chevron:hover {
+.code-copy:hover {
     color: var(--accent);
     background: rgba(15, 23, 42, 0.06);
 }
-html[data-theme="dark"] .code-copy,
-html[data-theme="dark"] .code-chevron {
+html[data-theme="dark"] .code-copy {
     color: #9aa4b2;
 }
-html[data-theme="dark"] .code-copy:hover,
-html[data-theme="dark"] .code-chevron:hover {
+html[data-theme="dark"] .code-copy:hover {
     background: rgba(255, 255, 255, 0.08);
 }
-.code-copy svg,
-.code-chevron svg {
+.code-copy svg {
     width: 15px;
     height: 15px;
 }
@@ -5816,4 +5811,15 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     font-style: normal;
     font-weight: 700;
     font-display: swap;
+}
+
+/* 换字体后导航偏小，恢复字号 */
+.menu a {
+    font-size: 16px;
+    font-weight: 600;
+}
+@media (max-width: 768px) {
+    .menu a {
+        font-size: 15px;
+    }
 }
