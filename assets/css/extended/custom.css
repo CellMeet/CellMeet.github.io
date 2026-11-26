@@ -6088,3 +6088,16 @@ h1, h2, h3, h4, h5, h6 {
     width: 16px;
     height: 16px;
 }
+
+/* 正文代码块：字号 +1px，并提升清晰度 */
+.post-content pre,
+.post-content pre code,
+.post-content .chroma,
+.post-content .chroma code,
+.post-content .highlight pre,
+.post-content .highlight code {
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: auto;
+    text-rendering: geometricPrecision;
+}

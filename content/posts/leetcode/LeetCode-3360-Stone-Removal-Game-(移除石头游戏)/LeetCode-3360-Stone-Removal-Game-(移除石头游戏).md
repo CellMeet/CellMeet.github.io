@@ -42,8 +42,6 @@ class Solution:
             return True
         
         return False
-        
-        
 ```
 
 ​		但是代码的丑陋程度真是一言难尽... 看一下大佬的题解
