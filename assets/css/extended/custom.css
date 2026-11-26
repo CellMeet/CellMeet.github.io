@@ -6010,3 +6010,30 @@ html[data-theme="dark"] .home-hero-title {
     -webkit-text-stroke: 0;
     text-rendering: geometricPrecision;
 }
+
+/* 收藏夹：放大内容字号并提升清晰度 */
+.star-line-title {
+    font-size: 19px;
+}
+.star-line-summary {
+    font-size: 16px;
+    line-height: 1.7;
+}
+.star-summary {
+    font-size: 16px;
+}
+.star-intro {
+    font-size: 16.5px;
+    line-height: 1.85;
+}
+.star-line-title,
+.star-line-summary,
+.star-summary,
+.star-intro,
+.star-link-name,
+.star-link-desc {
+    font-family: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman", "Liberation Serif",
+        "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", serif;
+    -webkit-text-stroke: 0;
+    -webkit-font-smoothing: auto;
+}
