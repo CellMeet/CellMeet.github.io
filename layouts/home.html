@@ -82,6 +82,7 @@
 
   </div>
 
+  {{- if eq $paginator.PageNumber 1 }}
   <aside class="home-sidebar">
     {{- /* ---------- 个人资料 ---------- */}}
     {{ partial "widget_profile.html" . }}
@@ -172,6 +173,7 @@
       </ul>
     </div>
   </aside>
+  {{- end }}
 </div>
 
 {{- end }}
