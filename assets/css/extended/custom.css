@@ -6139,3 +6139,21 @@ h1, h2, h3, h4, h5, h6 {
 .post-content .chroma .lntable td {
     background: transparent !important;
 }
+
+/* 代码块：只保留一层米黄底，行号列与代码区同一背景，不再有内层圆角和边框 */
+.post-content .highlight pre,
+.post-content .chroma pre,
+.post-content .highlight code,
+.post-content .chroma code,
+.post-content .chroma .lntd,
+.post-content .chroma .lntd pre,
+.post-content .chroma .lntd code {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.post-content .chroma .lntd:first-child {
+    background: transparent !important;
+    border-right: 0 !important;
+}

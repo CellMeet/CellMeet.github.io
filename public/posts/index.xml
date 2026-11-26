@@ -3,7 +3,7 @@
 &lt;h2 id="解题思路"&gt;解题思路&lt;/h2&gt;
 &lt;p&gt;计算&lt;code&gt;nums = [0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]&lt;/code&gt; 数组的前缀和, 得到数组&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[0, 10, 19, 27 ...]&lt;/code&gt; 我们认为在[0, 10)区间内, Alice是输了, [10, 19)是赢了, 以此类推,&lt;/p&gt;</description></item><item><title>Golang Microservices: Communication Styles</title><link>https://CellMeet.github.io/posts/golang/Golang-Microservices-Communication-Styles/</link><pubDate>Wed, 25 Nov 2026 22:39:04 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-Microservices-Communication-Styles/</guid><description>&lt;h1 id="golang-microservices-communication-styles"&gt;Golang Microservices: Communication Styles&lt;/h1&gt;
-&lt;p&gt;&lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=6"&gt;lesson link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;课程链接 : &lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=6"&gt;Communication Styles&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Synchronous | Asynchronous&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>Golang Microsercise: Guiding Design Principles</title><link>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</link><pubDate>Wed, 25 Nov 2026 21:15:28 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</guid><description>&lt;h1 id="golang-microsercise-guiding-design-principles"&gt;Golang Microsercise: Guiding Design Principles&lt;/h1&gt;
