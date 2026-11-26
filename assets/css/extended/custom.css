@@ -6026,14 +6026,3 @@ html[data-theme="dark"] .home-hero-title {
     font-size: 16.5px;
     line-height: 1.85;
 }
-.star-line-title,
-.star-line-summary,
-.star-summary,
-.star-intro,
-.star-link-name,
-.star-link-desc {
-    font-family: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman", "Liberation Serif",
-        "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", serif;
-    -webkit-text-stroke: 0;
-    -webkit-font-smoothing: auto;
-}
