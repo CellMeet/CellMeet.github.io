@@ -6066,3 +6066,25 @@ body,
 h1, h2, h3, h4, h5, h6 {
     -webkit-text-stroke: 0;
 }
+
+/* 标签球：每个标签用自己的颜色 */
+.tag-sphere a {
+    color: #fff !important;
+    border-radius: 0 !important;
+    background-image: none;
+    transition: filter 0.2s ease, color 0.2s ease;
+}
+.tag-sphere a:hover {
+    color: #fff !important;
+    background: none;
+    filter: brightness(1.12);
+}
+
+/* 侧栏卡片标题：Hot / 分类 / 标签 / 网站信息 字号加大 */
+.sidebar-card-title {
+    font-size: 16px;
+}
+.sidebar-card-icon {
+    width: 16px;
+    height: 16px;
+}
