@@ -6055,3 +6055,14 @@ html[data-theme="dark"] .home-hero-title {
     font-kerning: normal;
     font-variant-ligatures: common-ligatures;
 }
+
+/* 全站统一：关闭描边，使用精确排版，提升清晰度 */
+html {
+    text-rendering: geometricPrecision;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+}
+body,
+h1, h2, h3, h4, h5, h6 {
+    -webkit-text-stroke: 0;
+}
