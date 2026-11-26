@@ -6043,3 +6043,15 @@ html[data-theme="dark"] .home-hero-title {
 html[data-theme="dark"] .home-hero-title {
     text-shadow: none;
 }
+
+/* 收藏夹 / 归档：不改字体，仅提升文字渲染清晰度 */
+.archive-page,
+.archive-layout,
+.star-page,
+.star-list-page,
+.collapse-list {
+    -webkit-text-stroke: 0;
+    text-rendering: geometricPrecision;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+}
