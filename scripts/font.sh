@@ -66,7 +66,8 @@ with open(text_file, 'w', encoding='utf-8') as fh:
     fh.write(''.join(sorted(chars)))
 
 args = [src, '--text-file=' + text_file, '--flavor=woff2',
-        '--output-file=' + out, '--no-hinting']
+        '--output-file=' + out, '--no-hinting',
+        '--drop-tables+=vhea,vmtx,VORG']
 subset.main(args)
 print(f'字符数: {len(chars)}')
 PY

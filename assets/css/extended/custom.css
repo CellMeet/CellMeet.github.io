@@ -360,7 +360,7 @@ html[data-theme="dark"] .sidebar-card {
 .sidebar-recent-date {
     font-size: 12px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 
 /* ---------- category chips ---------- */
@@ -401,7 +401,7 @@ html[data-theme="dark"] .sidebar-card {
     background: var(--code-bg);
     color: var(--secondary);
     font-size: 11px;
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 
 /* ---------- section heading ---------- */
@@ -486,7 +486,7 @@ html[data-theme="dark"] .sidebar-card {
     gap: 8px;
     font-size: 12px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 
 .post-card-meta .sep {
@@ -600,7 +600,7 @@ html[data-theme="dark"] .sidebar-card {
 .page-info {
     font-size: 12.5px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 
 /* ---------- list / taxonomy pages ---------- */
@@ -1510,7 +1510,7 @@ html[data-theme="dark"] .home-avatar {
 .sidebar-info strong {
     color: var(--primary);
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 
 /* ---------- 文章页：正文玻璃卡片 + 右侧目录 ---------- */
@@ -3352,7 +3352,7 @@ html[data-theme="dark"] .chapter-cover-wrap {
     flex: 0 0 30px;
     font-size: 13px;
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
     color: var(--secondary);
 }
 .chapter-toc-title {
@@ -3366,7 +3366,7 @@ html[data-theme="dark"] .chapter-cover-wrap {
     flex: 0 0 auto;
     font-size: 12.5px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 html[data-theme="dark"] .book-chapters {
     border-color: rgba(255, 255, 255, 0.1);
@@ -3570,7 +3570,7 @@ a.book-header {
     font-weight: 700;
     line-height: 1.4;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
     white-space: nowrap;
 }
 .star-entry-week {
@@ -3971,7 +3971,7 @@ html[data-theme="dark"] .star-book {
     margin-top: 4px;
     font-size: 12px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 html[data-theme="dark"] .star-section-card {
     background: rgba(30, 30, 30, 0.6);
@@ -4110,7 +4110,7 @@ html[data-theme="dark"] .menu .submenu {
     font-size: 16px;
     font-weight: 700;
     color: var(--accent);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 .archive-posts {
     display: flex;
@@ -4140,7 +4140,7 @@ html[data-theme="dark"] .archive-entry {
     flex: 0 0 auto;
     font-size: 12.5px;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 .archive-entry-title {
     font-size: 19px;
@@ -4242,7 +4242,7 @@ html[data-theme="dark"] .archive-day {
     font-size: 16px;
     font-weight: 700;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
     text-align: right;
 }
 .archive-day-posts {
@@ -4359,7 +4359,7 @@ details.collapse-month > summary {
     font-weight: 700;
     line-height: 1;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 .star-day,
 .archive-day {
@@ -4375,7 +4375,7 @@ details.collapse-month > summary {
     font-weight: 700;
     line-height: 1.5;
     color: var(--secondary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
     text-align: right;
 }
 .star-day-items,
@@ -4826,7 +4826,7 @@ html[data-theme="dark"] .archive-nav-card {
     font-size: 14px;
     color: var(--secondary);
     text-decoration: none;
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
 }
 .archive-nav a:hover {
     color: var(--accent);
@@ -5844,4 +5844,48 @@ body {
 }
 .post-content {
     font-variant-numeric: normal;
+}
+
+/* 导航栏再大一点 */
+.menu a {
+    font-size: 17px;
+}
+@media (max-width: 768px) {
+    .menu a {
+        font-size: 16px;
+    }
+}
+
+/* 个人资料卡中文放大 */
+.home-profile-desc {
+    font-size: 15.5px;
+    line-height: 1.8;
+}
+.profile-stats span {
+    font-size: 14px;
+}
+.profile-stats strong {
+    font-size: 20px;
+}
+
+/* Hot 文章标题加粗、略放大 */
+.sidebar-recent-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+.hot-list .sidebar-recent-title {
+    font-weight: 600;
+}
+/* Hot 日期：等高 + 等宽数字，保证对齐 */
+.sidebar-recent-date {
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: 0.01em;
+}
+
+/* 中文界面字体只有单一字重，浏览器不会自动加粗，用细描边补齐 */
+body {
+    -webkit-text-stroke: 0.25px currentColor;
+}
+.post-content {
+    -webkit-text-stroke: 0;
 }
