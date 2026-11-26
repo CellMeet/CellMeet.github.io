@@ -5962,3 +5962,8 @@ body {
     width: 23px;
     height: 23px;
 }
+
+/* 收藏夹下拉：菜单字号 17px */
+.menu .submenu a {
+    font-size: 17px;
+}
