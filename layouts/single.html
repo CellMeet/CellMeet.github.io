@@ -31,17 +31,10 @@
       {{- if .Description }}
       <div class="post-description">{{ .Description }}</div>
       {{- end }}
-      {{- $heroTerms := slice }}
-      {{- with .GetTerms "categories" }}
-        {{- range . }}{{ $heroTerms = $heroTerms | append (dict "page" . "color" (partial "term_color.html" .)) }}{{ end }}
-      {{- end }}
       {{- with .GetTerms "tags" }}
-        {{- range . }}{{ $heroTerms = $heroTerms | append (dict "page" . "color" (partial "tag_color.html" .)) }}{{ end }}
-      {{- end }}
-      {{- with $heroTerms }}
       <div class="post-hero-tags">
         {{- range . }}
-        <a class="tag-chip" href="{{ .page.RelPermalink }}" style="background-color: {{ .color }};">{{ .page.LinkTitle }}</a>
+        <a class="tag-chip" href="{{ .RelPermalink }}" style="background-color: {{ partial "tag_color.html" . }};">{{ .LinkTitle }}</a>
         {{- end }}
       </div>
       {{- end }}
