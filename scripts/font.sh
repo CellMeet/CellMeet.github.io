@@ -83,4 +83,4 @@ fi
 
 echo
 ls -lh "$dest/uikai.woff2"
-echo "完成，执行 ./publish.sh 发布。"
+echo "完成，执行 ./sh/pub.sh 发布。"

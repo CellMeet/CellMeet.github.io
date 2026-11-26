@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 # 新建内容
 #
-#   ./new.sh "标题" book "书名"      给指定书籍加一章
-#   ./new.sh "标题" book I feel      打开选择器并预填搜索词
-#   ./new.sh "标题" book             选书（或输入新书名）再加一章
-#   ./new.sh "书名" book             新建一本书
+#   ./sh/new.sh "标题" book "书名"      给指定书籍加一章
+#   ./sh/new.sh "标题" book I feel      打开选择器并预填搜索词
+#   ./sh/new.sh "标题" book             选书（或输入新书名）再加一章
+#   ./sh/new.sh "书名" book             新建一本书
 #
-#   ./new.sh "标题" movie "电影名"   给指定电影加一篇
-#   ./new.sh "标题" movie I feel     打开选择器并预填搜索词
-#   ./new.sh "标题" movie            选电影（或输入新电影名）再加一篇
-#   ./new.sh "电影名" movie          新建一部电影
+#   ./sh/new.sh "标题" movie "电影名"   给指定电影加一篇
+#   ./sh/new.sh "标题" movie I feel     打开选择器并预填搜索词
+#   ./sh/new.sh "标题" movie            选电影（或输入新电影名）再加一篇
+#   ./sh/new.sh "电影名" movie          新建一部电影
 #
-#   ./new.sh "文章标题" essay         新建普通文章
-#   ./new.sh                          交互：标题 -> 类型 -> 书名/电影名（行内候选）
+#   ./sh/new.sh "文章标题" essay         新建普通文章
+#   ./sh/new.sh                          交互：标题 -> 类型 -> 书名/电影名（行内候选）
 #
 # 集合目录：content/posts/<book|movie>/<名称>/
 #   Info.md    信息（标题、简介、封面），自己写
 #   _index.md  Hugo 用，自动生成，不用管
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 SELF_DIR="$(pwd)"
 PICKER_INLINE="$SELF_DIR/scripts/pick_inline.py"
@@ -207,7 +207,7 @@ create_entry() {
     itemdir="$root/$itemdir"
   else
     echo "找不到$(collection_name "$coll"): $item_slug" >&2
-    echo "先新建: ./new.sh \"$item_slug\" $coll" >&2
+    echo "先新建: ./sh/new.sh \"$item_slug\" $coll" >&2
     return 1
   fi
   item_slug="$(basename "$itemdir")"
@@ -356,7 +356,7 @@ add_to_collection() {
   # 输入的新名字和 arg1 相同 -> 只新建；否则 arg1 作为第一部分内容
   if [ "$(slugify "$item")" = "$(slugify "$arg1")" ]; then
     if [ -n "$arg1" ]; then
-      echo " 添加内容: ./new.sh \"标题\" $coll \"$item\""
+      echo " 添加内容: ./sh/new.sh \"标题\" $coll \"$item\""
     fi
     exit 0
   fi

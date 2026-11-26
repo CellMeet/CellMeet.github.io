@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 一键发布：本地构建检查 -> 提交 -> 推送，GitHub Actions 自动部署
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 echo "==> 本地构建检查"
 hugo --gc --minify

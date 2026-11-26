@@ -17,3 +17,6 @@ cover:
 
 recommend page: [Introducing Assemblage - a microservice architecture definition process](https://microservices.io/post/architecture/2023/02/09/assemblage-architecture-definition-process.html)
 
+The relationship of User/ TripService/DriverService/Driver: 
+
+![Trip Assignment Event Flow-2026-11-26-055105](Trip Assignment Event Flow-2026-11-26-055105.png)
