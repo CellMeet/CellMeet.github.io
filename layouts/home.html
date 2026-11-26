@@ -27,13 +27,12 @@
       {{- $cover = partial "resolve_cover.html" (dict "page" $p "cover" $cover) }}
       {{- if not $cover }}{{ $cover = site.Params.defaultCover }}{{ end }}
       <article class="post-card">
-        <a class="post-card-link" href="{{ .RelPermalink }}" aria-label="{{ .Title | plainify }}"></a>
         {{- with $cover }}
-        <div class="post-card-cover">
+        <a class="post-card-cover" href="{{ $p.RelPermalink }}" aria-hidden="true" tabindex="-1">
           <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"
-               alt="{{ $p.Title | plainify }}" loading="eager" decoding="async"
+               alt="" loading="eager" decoding="async"
                onerror="this.parentNode.style.display='none'">
-        </div>
+        </a>
         {{- end }}
         <div class="post-card-body">
           <div class="post-card-inner">
@@ -42,7 +41,7 @@
               <span class="sep">·</span>
               <span>{{ .ReadingTime }}min</span>
             </div>
-            <h3 class="post-card-title">{{ .Title }}</h3>
+            <h3 class="post-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
           </div>
         </div>
       </article>
