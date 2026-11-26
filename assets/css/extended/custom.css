@@ -17,8 +17,7 @@
     --radius-md: 14px;
     /* 界面字体：英文 Georgia，中文霞鹜文楷 / 曹溪·藏锋楷 回退 */
     --font-kai: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman",
-        "Liberation Serif", "DejaVu Serif", "Noto Serif",
-        "曹溪·藏锋楷", "曹溪_藏锋楷", "CaoXi CangFengKai", "Caoxi CangFeng Kai",
+        "Liberation Serif", "DejaVu Serif", "Noto Serif", "SiteShouJin",
         "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", "STKaiti",
         "KaiTi", serif;
     --font-sans: var(--font-kai);
@@ -5788,12 +5787,33 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     margin-top: 2px;
 }
 
-/* 曹溪·藏锋楷：安装到本机或把字体文件放到 static/fonts/ 后自动生效 */
+/* 界面中文字体：宋徽宗瘦金加粗版（本地子集） */
 @font-face {
-    font-family: "曹溪·藏锋楷";
-    src: local("曹溪·藏锋楷"), local("曹溪_藏锋楷"), local("CaoXi CangFengKai"),
-        url("/fonts/cangfengkai.woff2") format("woff2"),
-        url("/fonts/cangfengkai.ttf") format("truetype");
+    font-family: "SiteShouJin";
+    src: url("/fonts/shoujin.woff2") format("woff2");
     font-display: swap;
     font-weight: 400;
+}
+
+/* 界面英文字体：Gelasio（Georgia 同度量开源字体，本地） */
+@font-face {
+    font-family: "Gelasio";
+    src: url("/fonts/gelasio-400.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Gelasio";
+    src: url("/fonts/gelasio-600.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Gelasio";
+    src: url("/fonts/gelasio-700.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
 }
