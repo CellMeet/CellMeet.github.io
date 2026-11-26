@@ -80,7 +80,7 @@ INDEX
 pick_belong() {
   ensure_base
   if [ -f "$PICKER_INLINE" ] && command -v python3 >/dev/null 2>&1 && [ "${TERM:-x}" != "dumb" ] && { [ -t 1 ] || [ -t 0 ] || { true </dev/tty; } 2>/dev/null; }; then
-    list_belongs | python3 "$PICKER_INLINE" --prompt "belong: " --allow-new
+    list_belongs | python3 "$PICKER_INLINE" --prompt "belong: " --allow-new --typed-only
     return $?
   fi
 

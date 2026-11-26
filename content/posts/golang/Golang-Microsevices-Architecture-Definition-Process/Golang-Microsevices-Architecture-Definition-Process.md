@@ -11,7 +11,11 @@ cover:
   alt: ""
 ---
 
-# Golang Microsevices: Architecture Definition Process
+
+
+
+
+## 10: Architecture Definition Process
 
 
 
@@ -20,3 +24,14 @@ recommend page: [Introducing Assemblage - a microservice architecture definition
 The relationship of User/ TripService/DriverService/Driver: 
 
 ![Trip Assignment Event Flow-2026-11-26-055105](Trip Assignment Event Flow-2026-11-26-055105.png)
+
+
+
+
+
+## 11: Effective Error Handling
+
+
+
+
+
