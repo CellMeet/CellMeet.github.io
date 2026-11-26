@@ -1,8 +1,12 @@
 {
     "models": [
-        "Potion-Maker/Pio"
+        "Potion-Maker/Pio",
+        "KantaiCollection/murakumo",
+        "HyperdimensionNeptunia/blanc_normal"
     ],
     "messages": [
-        "愿你有一天能与重要的人重逢。"
+        "愿你有一天能与重要的人重逢。",
+        "既然都来了，就多待一会儿吧。",
+        "今天也要好好休息哦。"
     ]
 }

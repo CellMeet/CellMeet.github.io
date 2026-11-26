@@ -77,12 +77,16 @@
       if (typeof window.initWidget !== "function" || typeof window.loadlive2d !== "function") {
         return false;
       }
-      /* 只内置一个模型，固定使用第 0 个 */
-      localStorage.setItem("modelId", "0");
+      /* 内置 3 个模型；模型编号越界时回到第一个 */
+      var modelCount = 3;
+      var mid = parseInt(localStorage.getItem("modelId"), 10);
+      if (isNaN(mid) || mid < 0 || mid >= modelCount) {
+        localStorage.setItem("modelId", "0");
+      }
       window.initWidget({
         waifuPath: base + "waifu-tips.json",
         cdnPath: base,
-        tools: ["hitokoto", "photo", "info", "quit"]
+        tools: ["hitokoto", "switch-model", "switch-texture", "photo", "info", "quit"]
       });
       return true;
     }
