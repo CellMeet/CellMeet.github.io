@@ -5939,3 +5939,26 @@ body {
     font-family: "Gelasio", Georgia, "Times New Roman", "Nimbus Roman", "Liberation Serif",
         "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", "Songti SC", serif;
 }
+
+/* 个人资料卡：图标之间的斜杠分隔 */
+.profile-links {
+    gap: 10px;
+    align-items: center;
+}
+.profile-divider {
+    flex: 0 0 auto;
+    width: 1px;
+    height: 27px;
+    background: var(--secondary);
+    opacity: 0.5;
+    transform: rotate(18deg);
+    border-radius: 1px;
+}
+.profile-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.profile-icon[href^="mailto:"] svg {
+    width: 23px;
+    height: 23px;
+}
