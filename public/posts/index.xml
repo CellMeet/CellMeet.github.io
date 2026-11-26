@@ -6,7 +6,8 @@
 &lt;p&gt;课程链接 : &lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=6"&gt;Communication Styles&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Synchronous | Asynchronous&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Golang Microsercise: Guiding Design Principles</title><link>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</link><pubDate>Wed, 25 Nov 2026 21:15:28 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</guid><description>&lt;h1 id="golang-microsercise-guiding-design-principles"&gt;Golang Microsercise: Guiding Design Principles&lt;/h1&gt;
+&lt;/ul&gt;
+&lt;p&gt;former need response, latter let's use a highly available middleman where we can send messages and it handles how to drive them, to the right destination.&lt;/p&gt;</description></item><item><title>Golang Microsercise: Guiding Design Principles</title><link>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</link><pubDate>Wed, 25 Nov 2026 21:15:28 +0800</pubDate><guid>https://CellMeet.github.io/posts/golang/Golang-Microsercise-Guiding-Design-Principles/</guid><description>&lt;h1 id="golang-microsercise-guiding-design-principles"&gt;Golang Microsercise: Guiding Design Principles&lt;/h1&gt;
 &lt;p&gt;lesson link : &lt;a href="https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=04dd8360819d8ba12c0b49a6f2a33153&amp;amp;p=5"&gt;Microservicise : Guiding Design Principles&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="service"&gt;Service&lt;/h2&gt;
 &lt;ul&gt;

@@ -6473,3 +6473,17 @@ html[data-theme="dark"] .post-toc-body a.toc-clicked {
     background: var(--select-bg);
     color: inherit;
 }
+
+/* 恢复主页卡片的悬浮位移和图片缩放 */
+.post-card:hover,
+.post-card:focus-within {
+    transform: translateY(-4px) !important;
+}
+.post-card:hover .post-card-cover img {
+    transform: scale(1.05);
+}
+
+/* 标题悬浮不变色 */
+.post-card-title a:hover {
+    color: inherit;
+}

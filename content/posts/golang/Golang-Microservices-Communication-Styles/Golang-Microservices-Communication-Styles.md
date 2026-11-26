@@ -16,3 +16,5 @@ cover:
 课程链接 : [Communication Styles](https://www.bilibili.com/video/BV1hV2uBtEKU/?spm_id_from=333.788.videopod.episodes&vd_source=04dd8360819d8ba12c0b49a6f2a33153&p=6)
 
 - Synchronous  | Asynchronous
+
+former need response, latter let's use a highly available middleman where we can send messages and it handles how to drive them, to the right destination.
