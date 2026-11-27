@@ -33,7 +33,7 @@ The relationship of User/ TripService/DriverService/Driver:
 
 ## 12. Interfaces
 
-具体文章可以参考: [Go语言接口: 鸭子类型与隐式实现] (https://cellmeet.github.io/posts/golang/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%AE%9E%E7%8E%B0/)
+具体文章可以参考: [Go语言接口: 鸭子类型与隐式实现] (https://atindoc.github.io/posts/golang/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%AE%9E%E7%8E%B0/)
 
 解读:  **map[string]interface{ }**
 
@@ -146,3 +146,47 @@ Sum it up:
 
 **Alway Use Goroutines.**
 
+
+
+## 16. Context and Timeouts
+
+Context : has a box that carries contextual information about that request, and it's mostly used to carry information and to cancel a long running request, or just have ability to control the flow around the functions.
+
+
+
+
+
+## 17. Concurrency with Channels
+
+always hand to hand with groups and goroutines: 
+
+channal act as a pipeline for to send and receive data.
+
+### channel is not buffered  导致死锁
+
+! 提示: all goroutines are asleep - deadlock!
+
+```go
+for _, t := range trucks {
+    wg.Add(1)
+
+    go func(t Truck) {
+        if err := processTruck(ctx, t); err != nil {
+            log.Println(err)
+            errorsChan <- err  // 发生阻塞
+        }
+        wg.Done()  // 无法完成
+    }(t)
+}
+
+wg.Wait()  //  一直wati, 无法j
+select {
+case err := <-errorsChan:
+    return err
+default:
+    return nil
+
+}
+```
+
+原因: `errorsChan` 是无缓冲/ 缓冲不足的 channel
