@@ -7,7 +7,7 @@ categories: ["golang"]
 tags: ["golang"]
 summary: ""
 cover:
-  image: "go.png"
+  image: "cover.png"
   alt: ""
 ---
 
