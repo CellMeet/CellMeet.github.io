@@ -655,8 +655,7 @@
 <script>
 /* 本地编辑：只有本机编辑服务在运行时才显示按钮 */
 (function () {
-  var path = location.pathname;
-  var editable = /^\/posts\//.test(path) || /^\/star\/[^/]+\/[^/]+\//.test(path);
+  var editable = !!document.querySelector(".post-single, .star-header");
   if (!editable) return;
 
   var API = "http://127.0.0.1:8787";

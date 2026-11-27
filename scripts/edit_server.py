@@ -9,7 +9,7 @@ import re
 import subprocess
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, unquote
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, "content")
@@ -127,7 +127,7 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"ok": True, "root": ROOT})
             return
         if u.path == "/edit":
-            target = parse_qs(u.query).get("url", [""])[0]
+            target = unquote(parse_qs(u.query).get("url", [""])[0])
             if not target:
                 self._json(400, {"ok": False, "error": "缺少 url 参数"})
                 return
