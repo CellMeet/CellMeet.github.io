@@ -651,3 +651,51 @@
   window.addEventListener("load", init);
 })();
 </script>
+
+<script>
+/* 本地编辑：只有本机编辑服务在运行时才显示按钮 */
+(function () {
+  var path = location.pathname;
+  var editable = /^\/posts\//.test(path) || /^\/star\/[^/]+\/[^/]+\//.test(path);
+  if (!editable) return;
+
+  var API = "http://127.0.0.1:8787";
+  var ctrl = new AbortController();
+  var timer = setTimeout(function () { ctrl.abort(); }, 900);
+
+  fetch(API + "/status", { signal: ctrl.signal })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      clearTimeout(timer);
+      if (!d || !d.ok) return;
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "local-edit-btn";
+      btn.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
+        "<span>本地编辑</span>";
+      document.body.appendChild(btn);
+
+      btn.addEventListener("click", function () {
+        btn.disabled = true;
+        fetch(API + "/edit?url=" + encodeURIComponent(location.pathname))
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            btn.disabled = false;
+            if (res && res.ok) {
+              btn.classList.add("ok");
+              setTimeout(function () { btn.classList.remove("ok"); }, 1800);
+            } else {
+              alert((res && res.error) || "打开失败");
+            }
+          })
+          .catch(function () {
+            btn.disabled = false;
+            alert("本地编辑服务未启动，请先运行 blog-edit");
+          });
+      });
+    })
+    .catch(function () {});
+})();
+</script>

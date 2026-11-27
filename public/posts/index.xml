@@ -24,8 +24,9 @@
 &lt;p&gt;![Trip Assignment Event Flow-2026-11-26-055105](Trip Assignment Event Flow-2026-11-26-055105.png)&lt;/p&gt;
 &lt;h2 id="11-effective-error-handling"&gt;11. Effective Error Handling&lt;/h2&gt;
 &lt;h2 id="12-interfaces"&gt;12. Interfaces&lt;/h2&gt;
+&lt;p&gt;具体文章可以参考: [] ()&lt;/p&gt;
 &lt;p&gt;解读: &lt;strong&gt;map[string]interface{ }&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id="1-类型"&gt;1. 类型:&lt;/h3&gt;
+&lt;h3 id="1-type"&gt;1. type:&lt;/h3&gt;
 &lt;p&gt;这里是一个map 类型, 包含两个部分:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;键类型: &lt;code&gt;string&lt;/code&gt;&lt;/li&gt;

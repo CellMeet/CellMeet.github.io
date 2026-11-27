@@ -5,6 +5,7 @@ cd "$(dirname "$0")/.."
 
 PICKER="scripts/pick_inline.py"
 actions=(
+  "启动本地编辑服务"
   "写新文章"
   "编辑已有文章"
   "新建收藏"
@@ -19,6 +20,10 @@ choice="$(printf '%s\n' "${actions[@]}" | python3 "$PICKER" --prompt "博客: " 
 }
 
 case "$choice" in
+  "启动本地编辑服务")
+    echo "保持这个窗口打开，网页上的“本地编辑”按钮才可用。Ctrl+C 结束。"
+    exec ./sh/edit-server.sh
+    ;;
   "写新文章") exec ./sh/new.sh ;;
   "编辑已有文章") exec ./sh/edit.sh ;;
   "新建收藏") exec ./sh/star.sh ;;

@@ -33,11 +33,11 @@ The relationship of User/ TripService/DriverService/Driver:
 
 ## 12. Interfaces
 
-
+具体文章可以参考: [] ()
 
 解读:  **map[string]interface{ }**
 
-### 1. 类型:
+### 1. type:
 
 这里是一个map 类型, 包含两个部分:
 
@@ -67,7 +67,11 @@ person["hobbies"] = []string{"读书", "跑步"}	//值是切片
 
 
 
+这里的代码仅仅解释interface{} 的使用, 不会在最终的代码里.
 
+
+
+## Testing
 
 
 
