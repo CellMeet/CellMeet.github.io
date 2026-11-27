@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1314&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Inter | Tian Junkai&#39;s Blog Space</title>
+<meta name="keywords" content="">
+<meta name="description" content="记录音乐、书影、随笔与代码。Java · Golang · AI · Security。">
+<meta name="author" content="Tian Junkai">
+<link rel="canonical" href="http://localhost:1314/tags/inter/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.21c95a21e1f2f7fa7704fb18809a24b12f69bbae23795cff1eae9e60b5ed1aad.css" integrity="sha256-IclaIeHy9/p3BPsYgJoksS9pu64jeVz/Hq6eYLXtGq0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1314/favicon.svg">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1314/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1314/favicon.svg">
+<link rel="apple-touch-icon" href="http://localhost:1314/favicon.svg">
+<link rel="mask-icon" href="http://localhost:1314/favicon.svg">
+<meta name="theme-color" content="#fbfbfd">
+<meta name="msapplication-TileColor" content="#fbfbfd">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1314/tags/inter/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1314/tags/inter/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/uikai.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/gelasio-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/gelasio-600.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/gelasio-700.woff2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.3.0/latin-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.3.0/latin-700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
+<meta property="og:url" content="http://localhost:1314/tags/inter/">
+  <meta property="og:site_name" content="Tian Junkai&#39;s Blog Space">
+  <meta property="og:title" content="Inter">
+  <meta property="og:description" content="记录音乐、书影、随笔与代码。Java · Golang · AI · Security。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Inter">
+  <meta name="twitter:description" content="记录音乐、书影、随笔与代码。Java · Golang · AI · Security。">
+
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1314/" accesskey="h" title="Tian Junkai (Alt + H)">Tian Junkai</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1314/" title="首页">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1314/categories/" title="分类">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1314/tags/" title="标签">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1314/archives/" title="归档">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>归档</span>
+                </a>
+            </li>
+            <li class="has-children">
+                <a href="http://localhost:1314/star/" title="收藏夹">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>收藏夹</span>
+                    <svg class="menu-caret" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="http://localhost:1314/star/page/"><svg class="submenu-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>
+                            <span>页面</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:1314/star/course/"><svg class="submenu-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                            <span>课程</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:1314/star/tool/"><svg class="submenu-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            <span>工具</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="http://localhost:1314/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1314/links/" title="友链">
+                    <span><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<div class="term-heading">
+  <span class="tag-chip term-chip" style="background-color: #e84393;">Inter</span>
+</div>
+<article class="post-entry">
+  <header class="entry-header">
+    <h2><a href="/posts/golang/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%AE%9E%E7%8E%B0/">Go语言接口: 鸭子类型与隐式实现</a></h2>
+  </header>
+  <div class="entry-content">
+    <p>Go语言接口: 鸭子类型与隐式实现</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-11-26T16:27:01+08:00'>2026-11-26</span>&nbsp;·&nbsp;<span>1min</span>&nbsp;·&nbsp;<span>16 字</span>&nbsp;·&nbsp;<span>Tian Junkai</span>
+  </footer>
+</article>
+
+
+
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1314/">Tian Junkai&#39;s Blog Space</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+    <span class="site-runtime">本站已稳定运行 <span id="site-runtime-days">1</span> 天</span>
+    <script>
+        (function () {
+            var el = document.getElementById("site-runtime-days");
+            if (!el) return;
+            var start = new Date("2026-11-19T00:00:00+08:00");
+            var days = Math.floor((Date.now() - start.getTime()) / 86400000) + 1;
+            el.textContent = days > 0 ? days : 1;
+        })();
+    </script>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+<script>
+  (function () {
+    var el = document.getElementById("site-runtime");
+    if (!el) return;
+    var since = new Date(el.getAttribute("data-since") || "2025-01-01");
+    if (isNaN(since.getTime())) return;
+    var days = Math.max(0, Math.floor((Date.now() - since.getTime()) / 86400000));
+    el.textContent = days + " 天";
+  })();
+</script>
+<script>
+  (function () {
+    if (window.innerWidth <= 900) return;
+
+    var local = "/live2d/";
+    var cdn = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+
+    function add(src, type) {
+      return new Promise(function (resolve, reject) {
+        var el;
+        if (type === "css") {
+          el = document.createElement("link");
+          el.rel = "stylesheet";
+          el.href = src;
+        } else {
+          el = document.createElement("script");
+          el.src = src;
+          el.async = false;
+        }
+        var timer = setTimeout(function () {
+          reject(new Error("timeout"));
+        }, 12000);
+        el.onload = function () {
+          clearTimeout(timer);
+          resolve();
+        };
+        el.onerror = function () {
+          clearTimeout(timer);
+          reject(new Error("error"));
+        };
+        document.head.appendChild(el);
+      });
+    }
+
+    function loadSet(base) {
+      return Promise.all([
+        add(base + "waifu.css", "css"),
+        add(base + "live2d.min.js", "js"),
+        add(base + "waifu-tips.js", "js")
+      ]);
+    }
+
+    function start(base) {
+      if (typeof window.initWidget !== "function" || typeof window.loadlive2d !== "function") {
+        return false;
+      }
+       
+      var modelCount = 3;
+      var mid = parseInt(localStorage.getItem("modelId"), 10);
+      if (isNaN(mid) || mid < 0 || mid >= modelCount) {
+        localStorage.setItem("modelId", "0");
+      }
+      window.initWidget({
+        waifuPath: base + "waifu-tips.json",
+        cdnPath: base,
+        tools: ["hitokoto", "switch-model", "switch-texture", "photo", "info", "quit"]
+      });
+      return true;
+    }
+
+    loadSet(local)
+      .then(function () {
+        if (!start(local)) throw new Error("not ready");
+      })
+      .catch(function () {
+        loadSet(cdn)
+          .then(function () {
+            start(cdn);
+          })
+          .catch(function () {});
+      });
+  })();
+</script>
+<script>
+  (function () {
+    function stripTitles() {
+      document.querySelectorAll("[title]").forEach(function (el) {
+        el.removeAttribute("title");
+      });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", stripTitles);
+    } else {
+      stripTitles();
+    }
+    window.addEventListener("load", stripTitles);
+  })();
+</script>
+<div class="side-tools" aria-label="页面工具">
+  <button id="side-settings" class="side-tool" type="button" aria-label="页面设置" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+  </button>
+  <div id="side-panel" class="side-panel">
+    <button id="side-theme" class="side-panel-item" type="button" aria-label="切换日间/夜间模式">
+      <span class="side-panel-icon">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </span>
+    </button>
+    <button id="side-layout" class="side-panel-item" type="button" aria-label="切换单列/双列">
+      <span class="side-panel-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect></svg>
+      </span>
+    </button>
+  </div>
+  <a href="#top" class="side-tool" aria-label="回到顶部">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </a>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var tray = document.querySelector(".side-tools");
+    var gear = document.getElementById("side-settings");
+    if (gear && tray) {
+      gear.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var open = tray.classList.toggle("open");
+        gear.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("click", function (e) {
+        if (!tray.contains(e.target)) {
+          tray.classList.remove("open");
+          gear.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+    var themeBtn = document.getElementById("side-theme");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", function () {
+        var next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem("pref-theme", next);
+      });
+    }
+    var layoutBtn = document.getElementById("side-layout");
+    if (localStorage.getItem("home-layout") === "two") {
+      document.body.classList.add("two-col");
+    }
+    if (layoutBtn) {
+      layoutBtn.addEventListener("click", function () {
+        var isTwo = document.body.classList.toggle("two-col");
+        localStorage.setItem("home-layout", isTwo ? "two" : "one");
+      });
+    }
+    if (tray) {
+      var ticking = false;
+      function updateTools() {
+        var show = window.scrollY > 220;
+        tray.classList.toggle("visible", show);
+        if (!show) {
+          tray.classList.remove("open");
+          if (gear) gear.setAttribute("aria-expanded", "false");
+        }
+        ticking = false;
+      }
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateTools);
+        }
+      }, { passive: true });
+      updateTools();
+    }
+  })();
+</script>
+<script>
+  (function () {
+    var el = document.getElementById("home-subtitle");
+    if (!el) return;
+    var text = el.getAttribute("data-text") || el.textContent || "";
+    if (!text) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = text;
+      return;
+    }
+    function start() {
+      if (typeof Typed !== "function") {
+        el.textContent = text;
+        return;
+      }
+      new Typed("#home-subtitle", {
+        strings: [text],
+        startDelay: 500,
+        typeSpeed: 160,
+        backSpeed: 100,
+        backDelay: 2400,
+        loop: true
+      });
+    }
+    if (typeof Typed === "function") {
+      start();
+      return;
+    }
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/typed.js@3.0.0/dist/typed.umd.min.js";
+    s.onload = start;
+    s.onerror = function () { el.textContent = text; };
+    document.head.appendChild(s);
+  })();
+</script>
+<script>
+  (function () {
+    var langMap = {
+      cpp: "C++", c: "C", cs: "C#", go: "Go", golang: "Go",
+      js: "JavaScript", javascript: "JavaScript", ts: "TypeScript", typescript: "TypeScript",
+      py: "Python", python: "Python", java: "Java", kt: "Kotlin", kotlin: "Kotlin",
+      rs: "Rust", rust: "Rust", sh: "Shell", bash: "Bash", zsh: "Zsh",
+      powershell: "PowerShell", html: "HTML", xml: "XML", css: "CSS", scss: "SCSS",
+      json: "JSON", yaml: "YAML", yml: "YAML", md: "Markdown", markdown: "Markdown",
+      sql: "SQL", php: "PHP", rb: "Ruby", ruby: "Ruby", swift: "Swift"
+    };
+
+    function prettyLang(lang) {
+      var key = (lang || "").toLowerCase();
+      return langMap[key] || (lang ? lang.toUpperCase() : "Code");
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+
+    function initCodeWindows() {
+      document.querySelectorAll(".post-content .highlight").forEach(function (block) {
+        if (block.querySelector(".code-window-bar")) return;
+
+        var code = block.querySelector(".lntd:last-child code") ||
+                   block.querySelector("code[data-lang]") ||
+                   block.querySelector("code");
+        var lang = code ? (code.getAttribute("data-lang") || "") : "";
+
+        var bar = document.createElement("div");
+        bar.className = "code-window-bar";
+        bar.innerHTML =
+          '<span class="code-dots"><i></i><i></i><i></i></span>' +
+          '<span class="code-lang">' + prettyLang(lang) + '</span>' +
+          '<button type="button" class="code-copy" aria-label="复制代码">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+          '</button>';
+
+        block.insertBefore(bar, block.firstChild);
+
+        var btn = bar.querySelector(".code-copy");
+        btn.addEventListener("click", function () {
+          copyText(code ? code.innerText : block.innerText).then(function () {
+            btn.classList.add("copied");
+            setTimeout(function () { btn.classList.remove("copied"); }, 1500);
+          }).catch(function () {});
+        });
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCodeWindows);
+    } else {
+      initCodeWindows();
+    }
+    window.addEventListener("load", initCodeWindows);
+  })();
+</script>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function initSphere(el) {
+    if (el.dataset.sphereReady === "1") return;
+    var nodes = Array.prototype.slice.call(el.querySelectorAll("a"));
+    if (!nodes.length) return;
+    el.dataset.sphereReady = "1";
+
+    var n = nodes.length;
+    var items = nodes.map(function (a, i) {
+      var y = 1 - ((i + 0.5) / n) * 2;
+      var r = Math.sqrt(Math.max(0, 1 - y * y));
+      var theta = i * 2.399963229728653 + 0.6;
+      return { el: a, x: Math.cos(theta) * r, y: y, z: Math.sin(theta) * r };
+    });
+
+    var rotX = -0.22;
+    var rotY = 0.4;
+    var paused = false;
+    var hovering = false;
+    var dragging = false;
+    var lastX = 0, lastY = 0, moved = 0;
+    var lastT = performance.now();
+
+    el.classList.add("sphere-ready");
+
+    function size() {
+      return { w: el.clientWidth || 280, h: el.clientHeight || 250 };
+    }
+
+    function render() {
+      var s = size();
+      var R = Math.min(s.w * 0.46, s.h * 0.55);
+      var sy = Math.sin(rotY), cyy = Math.cos(rotY);
+      var sx = Math.sin(rotX), cxx = Math.cos(rotX);
+
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        var x1 = it.x * cyy - it.z * sy;
+        var z1 = it.x * sy + it.z * cyy;
+        var y1 = it.y * cxx - z1 * sx;
+        var z2 = it.y * sx + z1 * cxx;
+        var p = 1.9 / (2.6 - z2);
+        var px = x1 * R * p;
+        var py = y1 * R * p - 13;
+        var scale = p * 0.78;
+        it.el.style.transform = "translate(-50%, -50%) translate(" + px.toFixed(1) + "px, " + py.toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
+        it.el.style.opacity = (0.32 + ((z2 + 1) / 2) * 0.68).toFixed(3);
+        it.el.style.zIndex = String(Math.round((z2 + 1) * 100));
+      }
+    }
+
+    function frame(t) {
+      var dt = Math.min(60, t - lastT);
+      lastT = t;
+      if (!paused && !dragging && !reduceMotion) {
+        rotY += dt * 0.00012;
+      }
+      render();
+      requestAnimationFrame(frame);
+    }
+
+    el.addEventListener("pointerenter", function (e) {
+      hovering = true;
+      paused = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+    el.addEventListener("pointerleave", function () {
+      hovering = false;
+      paused = false;
+    });
+
+    el.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      moved = 0;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      el.classList.add("is-dragging");
+      if (el.setPointerCapture && e.pointerId != null) {
+        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    });
+
+    el.addEventListener("pointermove", function (e) {
+      if (!hovering && !dragging) return;
+      var dx = e.clientX - lastX;
+      var dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      if (e.pointerType === "mouse" || dragging) {
+        rotY -= dx * 0.009;
+        rotX += dy * 0.006;
+      }
+    });
+
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove("is-dragging");
+      if (el.releasePointerCapture && e.pointerId != null) {
+        try { el.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+    el.addEventListener("pointerup", endDrag);
+    el.addEventListener("pointercancel", endDrag);
+
+    el.addEventListener("click", function (e) {
+      if (moved > 8) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    el.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      rotY -= e.deltaY * 0.0022;
+    }, { passive: false });
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(render).observe(el);
+    }
+
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  function start() {
+    var list = document.querySelectorAll(".tag-sphere");
+    for (var i = 0; i < list.length; i++) initSphere(list[i]);
+  }
+
+  start();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  }
+  window.addEventListener("load", start);
+})();
+</script>
+
+<script>
+(function () {
+  function updateScrollIndent(scroll) {
+    var items = Array.prototype.slice.call(scroll.querySelectorAll("li"));
+    if (!items.length) return;
+    var box = scroll.getBoundingClientRect();
+    var visible = items.filter(function (li) {
+      var r = li.getBoundingClientRect();
+      return r.bottom > box.top && r.top < box.bottom;
+    });
+    var mid = Math.min(2, visible.length - 1);
+    visible.forEach(function (li, idx) {
+      var d = Math.abs(idx - mid);
+      var off = d >= 2 ? 18 : (d === 1 ? 6 : 0);
+      var a = li.querySelector("a");
+      if (a) {
+        a.style.paddingLeft = off + "px";
+        a.style.opacity = "1";
+         
+        a.style.color = d === 0 ? "var(--cat-strong)" : (d === 1 ? "var(--cat-mid)" : "var(--cat-soft)");
+      }
+    });
+  }
+
+  function init() {
+    document.querySelectorAll(".sidebar-terms-scroll").forEach(function (scroll) {
+      updateScrollIndent(scroll);
+      scroll.addEventListener("scroll", function () { updateScrollIndent(scroll); }, { passive: true });
+      window.addEventListener("resize", function () { updateScrollIndent(scroll); });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<script>
+(function () {
+  function getHighlightQuery() {
+    try {
+      return (new URLSearchParams(window.location.search).get("highlight") || "").trim();
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function highlightNode(node, query) {
+    var text = node.nodeValue;
+    if (!text) return null;
+    var lower = text.toLowerCase();
+    var q = query.toLowerCase();
+    var pos = lower.indexOf(q);
+    if (pos === -1) return null;
+    var frag = document.createDocumentFragment();
+    var last = 0;
+    while (pos !== -1) {
+      if (pos > last) frag.appendChild(document.createTextNode(text.slice(last, pos)));
+      var span = document.createElement("span");
+      span.className = "search-hit";
+      span.textContent = text.slice(pos, pos + query.length);
+      frag.appendChild(span);
+      last = pos + query.length;
+      pos = lower.indexOf(q, last);
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    return frag;
+  }
+
+  function run() {
+    var query = getHighlightQuery();
+    if (!query) return;
+    var root = document.querySelector(".post-content");
+    if (!root) return;
+
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentElement;
+        if (p && p.closest("script,style,noscript")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var frag = highlightNode(node, query);
+      if (frag) node.parentNode.replaceChild(frag, node);
+    });
+
+    var hit = root.querySelector(".search-hit");
+    if (hit) {
+      try { hit.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector(".post-toc-body");
+    if (!toc) return;
+    var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+    links.forEach(function (a) {
+      a.addEventListener("click", function () {
+        links.forEach(function (x) { x.classList.remove("toc-clicked"); });
+        a.classList.add("toc-clicked");
+      });
+    });
+    if (window.location.hash) {
+      links.forEach(function (a) {
+        if (a.hash === window.location.hash) a.classList.add("toc-clicked");
+      });
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+ 
+(function () {
+  function init() {
+    document.querySelectorAll(".post-card-title a, .post-card-cover").forEach(function (a) {
+      var startX = 0, startY = 0, dragging = false;
+      a.addEventListener("pointerdown", function (e) {
+        startX = e.clientX;
+        startY = e.clientY;
+        dragging = false;
+      });
+      a.addEventListener("pointermove", function (e) {
+        if (Math.abs(e.clientX - startX) > 6 || Math.abs(e.clientY - startY) > 6) dragging = true;
+      });
+      a.addEventListener("click", function (e) {
+        if (dragging) {
+          e.preventDefault();
+          dragging = false;
+        }
+      });
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+ 
+(function () {
+  function init() {
+    document.querySelectorAll("a[href], img").forEach(function (el) {
+      el.setAttribute("draggable", "false");
+    });
+    document.addEventListener(
+      "dragstart",
+      function (e) {
+        if (e.target.closest && e.target.closest("a, img")) e.preventDefault();
+      },
+      true
+    );
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+  window.addEventListener("load", init);
+})();
+</script>
+
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        
+        let menuScrollTimeout;
+        menu.addEventListener("scroll", function () {
+            clearTimeout(menuScrollTimeout);
+            menuScrollTimeout = setTimeout(function () {
+                localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+            }, 150);
+        }, { passive: true });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            const target = document.querySelector(`[id='${decodeURIComponent(id)}']`);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                target.scrollIntoView();
+            }
+            
+            
+            if (target.tabIndex < 0 && !target.hasAttribute("tabindex")) {
+                target.setAttribute("tabindex", "-1");
+            }
+            target.focus({ preventScroll: true });
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    var scrollTicking = false;
+    
+    window.addEventListener("scroll", function () {
+        if (scrollTicking) {
+            return;
+        }
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+            const scrollThreshold = window.innerHeight;
+            const shown = document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold;
+            toplink.classList.toggle("hidden", !shown);
+            scrollTicking = false;
+        });
+    }, { passive: true });
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
