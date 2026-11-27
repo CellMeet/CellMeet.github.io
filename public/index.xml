@@ -24,15 +24,10 @@
 &lt;p&gt;![Trip Assignment Event Flow-2026-11-26-055105](Trip Assignment Event Flow-2026-11-26-055105.png)&lt;/p&gt;
 &lt;h2 id="11-effective-error-handling"&gt;11. Effective Error Handling&lt;/h2&gt;
 &lt;h2 id="12-interfaces"&gt;12. Interfaces&lt;/h2&gt;
-&lt;p&gt;具体文章可以参考: [] ()&lt;/p&gt;
+&lt;p&gt;具体文章可以参考: [Go语言接口: 鸭子类型与隐式实现] (&lt;a href="https://cellmeet.github.io/posts/golang/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%AE%9E%E7%8E%B0/"&gt;https://cellmeet.github.io/posts/golang/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%AE%9E%E7%8E%B0/&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;解读: &lt;strong&gt;map[string]interface{ }&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id="1-type"&gt;1. type:&lt;/h3&gt;
-&lt;p&gt;这里是一个map 类型, 包含两个部分:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;键类型: &lt;code&gt;string&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;值类型: &lt;code&gt;interface{}&lt;/code&gt; , 即空接口&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;所以有什么好处呢? 一个map 可以这样存放数据:&lt;/p&gt;</description></item><item><title>LeetCode 3360 : Stone Removal Game (移除石头游戏)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-3360-Stone-Removal-Game-%28%E7%A7%BB%E9%99%A4%E7%9F%B3%E5%A4%B4%E6%B8%B8%E6%88%8F%29/</link><pubDate>Thu, 26 Nov 2026 10:55:52 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-3360-Stone-Removal-Game-%28%E7%A7%BB%E9%99%A4%E7%9F%B3%E5%A4%B4%E6%B8%B8%E6%88%8F%29/</guid><description>&lt;h1 id="leetcode-3360--stone-removal-game-移除石头游戏"&gt;LeetCode 3360 : Stone Removal Game (移除石头游戏)&lt;/h1&gt;
+&lt;p&gt;这里是一个map 类型, 包含两个部分:&lt;/p&gt;</description></item><item><title>LeetCode 3360 : Stone Removal Game (移除石头游戏)</title><link>https://CellMeet.github.io/posts/leetcode/LeetCode-3360-Stone-Removal-Game-%28%E7%A7%BB%E9%99%A4%E7%9F%B3%E5%A4%B4%E6%B8%B8%E6%88%8F%29/</link><pubDate>Thu, 26 Nov 2026 10:55:52 +0800</pubDate><guid>https://CellMeet.github.io/posts/leetcode/LeetCode-3360-Stone-Removal-Game-%28%E7%A7%BB%E9%99%A4%E7%9F%B3%E5%A4%B4%E6%B8%B8%E6%88%8F%29/</guid><description>&lt;h1 id="leetcode-3360--stone-removal-game-移除石头游戏"&gt;LeetCode 3360 : Stone Removal Game (移除石头游戏)&lt;/h1&gt;
 &lt;p&gt;题目链接 : &lt;a href="https://leetcode.cn/problems/stone-removal-game/description/?envType=daily-question&amp;amp;envId=2026-11-26"&gt;LeetCode 3360 : Stone Removal Game&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="解题思路"&gt;解题思路&lt;/h2&gt;
 &lt;p&gt;计算&lt;code&gt;nums = [0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]&lt;/code&gt; 数组的前缀和, 得到数组&lt;/p&gt;
