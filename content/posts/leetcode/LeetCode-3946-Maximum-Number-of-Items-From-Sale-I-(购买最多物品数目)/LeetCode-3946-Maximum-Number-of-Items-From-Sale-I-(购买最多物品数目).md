@@ -7,7 +7,7 @@ categories: ["leetcode"]
 tags: ["leetcode", "贪心", "0-1背包"]
 summary: ""
 cover:
-  image: "lc.png"
+  image: "cover.jpg"
   alt: ""
 ---
 

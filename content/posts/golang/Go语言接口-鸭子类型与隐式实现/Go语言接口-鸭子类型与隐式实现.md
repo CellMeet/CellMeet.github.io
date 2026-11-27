@@ -7,7 +7,7 @@ categories: ["golang"]
 tags: ["golang", "duke type", "interface"]
 summary: ""
 cover:
-  image: "go.png"
+  image: "cover.png"
   alt: ""
 ---
 
