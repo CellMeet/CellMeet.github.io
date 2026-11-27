@@ -1,4 +1,4 @@
-baseURL: "https://CellMeet.github.io/"
+baseURL: "https://atindoc.github.io/"
 title: "Tian Junkai's Blog Space"
 theme: ["PaperMod"]
 locale: "zh-CN"
@@ -116,7 +116,7 @@ params:
 
   socialIcons:
     - name: github
-      url: "https://github.com/CellMeet"
+      url: "https://github.com/atindoc"
     - name: rss
       url: "/index.xml"
 

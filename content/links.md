@@ -18,4 +18,8 @@ links:
     url: "https://martinfowler.com/"
     avatar: "/img/links/martinfowler.png"
     description: ""
+  - name: "Anx"
+    url: "https://anxforever.cn/"
+    avatar: "/img/links/anx.png"
+    description: ""
 ---
